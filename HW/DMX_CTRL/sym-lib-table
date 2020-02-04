@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name china_bluepill)(type Legacy)(uri /Users/michael/Documents/development/DMX_CTRL/DMX_CTRL/HW/kicad-library-master/library/china_bluepill.lib)(options "")(descr ""))
+  (lib (name DXM_CTRL_Library)(type Legacy)(uri /Users/michael/Documents/development/DMX_CTRL/DMX_CTRL/HW/DMX_CTRL/DXM_CTRL_Library.lib)(options "")(descr ""))
+)

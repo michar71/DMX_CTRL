@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name DMX_PART_LIB)(type KiCad)(uri ${KIPRJMOD}/DMX_PART_LIB.pretty)(options "")(descr ""))
+)

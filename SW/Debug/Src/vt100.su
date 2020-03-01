@@ -1,0 +1,2 @@
+vt100.c:53:13:vt100_process_byte	32	static
+vt100.c:90:19:vt100_get_keycode	12	static

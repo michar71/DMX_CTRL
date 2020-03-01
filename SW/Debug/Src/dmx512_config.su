@@ -1,0 +1,11 @@
+dmx512_config.c:65:6:set_addr	0	static
+dmx512_config.c:70:10:get_addr	0	static
+dmx512_config.c:75:11:get_mode	0	static
+dmx512_config.c:80:6:set_reg_length	0	static
+dmx512_config.c:85:10:get_reg_length	0	static
+dmx512_config.c:90:6:init_regs	8	static
+dmx512_config.c:48:6:dmx512_init	0	static
+dmx512_config.c:99:6:set_reg	0	static
+dmx512_config.c:107:9:get_reg	0	static
+dmx512_config.c:119:10:get_reg_addr	0	static
+dmx512_config.c:125:13:get_reg_name	0	static

@@ -1,0 +1,3 @@
+gpio_control.c:15:9:get_mode_from_pins	8	static
+gpio_control.c:25:9:get_addr_from_pins	8	static
+gpio_control.c:47:9:check_button	8	static

@@ -21,6 +21,18 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "usb_device.h"
+#include "dmx512_rec.h"
+#include "dmx512_config.h"
+#include "serial_tracer.h"
+#include "shell.h"
+#include "gpio_control.h"
+#include "pwm_control.h"
+#include "light_update.h"
+
+
+//#define ENABLE_WATCHDOG
+
+
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -78,7 +90,6 @@ static void MX_USART3_UART_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
   /* USER CODE END 1 */
   
 
@@ -100,17 +111,58 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  //Turn LED for Test
+  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
   MX_ADC1_Init();
   MX_ADC2_Init();
+#ifdef ENABLE_WATCHDOG
   MX_IWDG_Init();
+#endif
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
-  MX_USB_DEVICE_Init();
-  /* USER CODE BEGIN 2 */
+ // MX_USB_DEVICE_Init();
 
+
+  /* USER CODE BEGIN 2 */
+  //Dump Startup info
+  print("");
+  print("-------------");
+  print("DMX CTRL V1.0");
+  print("-------------");
+  print("");
+
+
+ if(__HAL_RCC_GET_FLAG(RCC_FLAG_IWDGRST) == SET)
+ {
+	 print("Restart due to IWDG Reset");
+  	  __HAL_RCC_CLEAR_RESET_FLAGS();
+ }
+
+  //Check for button to initiate Config mode via USB
+
+  //Load Config from FLASH
+
+  //Init/Setup PWM for Lights
+  init_timers();
+  print("Timer Init complete");
+
+  //Set Mode/Address from Address Pins
+  dmx512_init((dmxmode_t)get_mode_from_pins(),get_addr_from_pins());
+  print("DMX512 Config complete");
+
+  //Setup UART1 (RS485)/DMX512 Receiver
+  dmx512_rec_init();
+  print("DMX512 Init complete");
+
+  init_update_lights();
+  print("PWM Update Init complete");
+
+  print("Shell Active");
+  print_no_newline("DBG>");
+
+  //Turn LED off at completion of init
+  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
   /* USER CODE END 2 */
- 
- 
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -119,6 +171,22 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	//Handle Test Shell
+	shell_process();
+	//if Test Button
+	//	handle testmode
+	//else
+	//	Read ADC
+	//  Set PWM Lights
+	    update_pwm_lights(0);
+	//	if WS2812 Enabled
+	//		Calculate WS2812 Effects
+	//		Update WS2812 Data
+	//  Reset Watchdog
+#ifdef ENABLE_WATCHDOG
+	HAL_IWDG_Refresh(&hiwdg);
+#endif
+
   }
   /* USER CODE END 3 */
 }
@@ -287,6 +355,10 @@ static void MX_IWDG_Init(void)
 
 }
 
+//-----------------------------------
+//RS485 UART for DMX512 communication
+//-----------------------------------
+
 /**
   * @brief USART1 Initialization Function
   * @param None
@@ -303,9 +375,9 @@ static void MX_USART1_UART_Init(void)
 
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
+  huart1.Init.BaudRate = 250000;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
-  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.StopBits = UART_STOPBITS_2;
   huart1.Init.Parity = UART_PARITY_NONE;
   huart1.Init.Mode = UART_MODE_TX_RX;
   huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
@@ -317,8 +389,11 @@ static void MX_USART1_UART_Init(void)
   /* USER CODE BEGIN USART1_Init 2 */
 
   /* USER CODE END USART1_Init 2 */
-
 }
+
+//-------------------------------------------------
+//TTL 3.3V UART for Debugging or connect to ESP8266
+//-------------------------------------------------
 
 /**
   * @brief USART3 Initialization Function
@@ -348,7 +423,7 @@ static void MX_USART3_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART3_Init 2 */
-
+  NVIC_EnableIRQ(USART3_IRQn);
   /* USER CODE END USART3_Init 2 */
 
 }
@@ -372,9 +447,14 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(RS485_DIR_GPIO_Port, RS485_DIR_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : LED_Pin MODE_0_Pin MODE_1_Pin */
-  GPIO_InitStruct.Pin = LED_Pin|MODE_0_Pin|MODE_1_Pin;
+  GPIO_InitStruct.Pin = MODE_0_Pin|MODE_1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = LED_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : CH1_R_Pin CH1_G_Pin CH1_B_Pin CH2_R_Pin 
@@ -382,27 +462,27 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pin = CH1_R_Pin|CH1_G_Pin|CH1_B_Pin|CH2_R_Pin 
                           |CH2_G_Pin|CH3_R_Pin|CH3_G_Pin|CH3_B_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : BUTTON_Pin ADDR_0_Pin */
-  GPIO_InitStruct.Pin = BUTTON_Pin|ADDR_0_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : CH2_B_Pin CH2_W_Pin */
   GPIO_InitStruct.Pin = CH2_B_Pin|CH2_W_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : BUTTON_Pin ADDR_0_Pin */
+  GPIO_InitStruct.Pin = BUTTON_Pin|ADDR_0_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : ADDR_5_Pin ADDR_6_Pin ADDR_7_Pin ADDR_1_Pin 
                            ADDR_2_Pin ADDR_3_Pin ADDR_4_Pin */
   GPIO_InitStruct.Pin = ADDR_5_Pin|ADDR_6_Pin|ADDR_7_Pin|ADDR_1_Pin 
                           |ADDR_2_Pin|ADDR_3_Pin|ADDR_4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : WS8212_CH2_Pin WS8212_CH1_Pin */
@@ -412,7 +492,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pin : RS485_DIR_Pin */
-  GPIO_InitStruct.Pin = RS485_DIR_Pin;
+  GPIO_InitStruct.Pin = RS232_TX_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

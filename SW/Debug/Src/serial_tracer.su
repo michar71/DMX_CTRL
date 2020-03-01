@@ -1,0 +1,3 @@
+serial_tracer.c:10:6:tracer_putchar	16	static
+serial_tracer.c:15:6:tracer_puts	0	static
+serial_tracer.c:21:9:tracer_getchar	16	static

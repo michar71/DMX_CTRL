@@ -9,6 +9,7 @@
 #include "dmx512_config.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 const char* regnames[] ={
 	"MAX_BRIGHTN",
@@ -93,7 +94,8 @@ void init_regs(void)
 	if (reg_data != NULL)
 		free(reg_data);
 
-	reg_data = malloc(reg_len+1);
+	reg_data = malloc(reg_len);
+	memset(reg_data, 0, reg_len);
 }
 
 void set_reg(uint32_t reg, uint8_t val)

@@ -13,6 +13,7 @@ static int shell_cmd_getmode(int argc, char ** argv);
 static int shell_cmd_dumpregs(int argc, char ** argv);
 static int shell_cmd_dumpconfig(int argc, char ** argv);
 static int shell_cmd_setpwm(int argc, char ** argv);
+static int shell_cmd_setbrightness(int argc, char ** argv);
 
 /* to be consumed in shell.c only */
 const shell_cmd_t shell_cmd_list[] = {
@@ -22,7 +23,7 @@ const shell_cmd_t shell_cmd_list[] = {
 	{"dumpregs",   "dumpregs\n\r",shell_cmd_dumpregs},
 	{"dumpconfig",   "dumpconfig\n\r",shell_cmd_dumpconfig},
 	{"setpwm",   "setpwm [id (0..2)] [ch (0..3)] [duty (0..65535)]\n\r",shell_cmd_setpwm},
-
+	{"setbrightness",   "setbrightness [0..255]\n\r",shell_cmd_setbrightness},
 };
 
 const int SHELL_CMD_NUM = sizeof(shell_cmd_list)/sizeof(shell_cmd_t);
@@ -104,7 +105,19 @@ static int shell_cmd_setpwm(int argc, char ** argv)
 	return 1;
 }
 
-
+//setbrightness
+static int shell_cmd_setbrightness(int argc, char ** argv)
+{
+	if (argc == 1)
+	{
+		set_reg(MAX_BRIGHTNESS,(uint8_t) atoi(argv[1]));
+	}
+	else
+	{
+		return 0;
+	}
+	return 1;
+}
 
 
 //getaddr

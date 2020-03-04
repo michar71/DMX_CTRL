@@ -1,6 +1,7 @@
-shell_cmd.c:87:12:shell_cmd_dumpconfig	8	static
-shell_cmd.c:46:12:shell_cmd_getaddr	8	static
-shell_cmd.c:54:12:shell_cmd_getmode	8	static
-shell_cmd.c:73:12:shell_cmd_dumpregs	32	static
-shell_cmd.c:94:12:shell_cmd_setpwm	16	static
-shell_cmd.c:34:12:shell_cmd_test	8	static
+shell_cmd.c:88:12:shell_cmd_dumpconfig	8	static
+shell_cmd.c:47:12:shell_cmd_getaddr	8	static
+shell_cmd.c:55:12:shell_cmd_getmode	8	static
+shell_cmd.c:74:12:shell_cmd_dumpregs	32	static
+shell_cmd.c:109:12:shell_cmd_setbrightness	8	static
+shell_cmd.c:95:12:shell_cmd_setpwm	16	static
+shell_cmd.c:35:12:shell_cmd_test	8	static

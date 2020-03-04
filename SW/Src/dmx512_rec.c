@@ -21,8 +21,11 @@ extern UART_HandleTypeDef huart1;
 static volatile uint8_t dmx_error = 1;
 static volatile uint8_t start_flag = 0;
 static enum packet_type packet_type;
-uint8_t buf[4];
-
+static uint8_t buffer;
+static volatile uint16_t byte_count = 0;
+static volatile uint8_t led_status = GPIO_PIN_RESET;
+static volatile uint32_t start_addr = 0;
+static volatile uint8_t msg_cnt = 0;
 //#define USE _TIMER
 
 
@@ -79,80 +82,86 @@ void TIM1_CC_IRQHandler(void)
 //END TODO
 #endif
 
-//UART IRQ Triggered by incoming characters
+/* UART1 Interrupt Service Routine */
 void USART1_IRQHandler(void)
 {
-	static volatile uint8_t buffer;
-	static volatile uint16_t byte_count = 0;
-	static uint8_t led_status = GPIO_PIN_RESET;
-	static volatile uint32_t start_addr = 0;
-
-	uint8_t rx_byte;
-	int16_t fe_flag;
-
-
-	start_addr = get_addr();
-
-	//Handle Potential Errors
-	HAL_UART_IRQHandler(&huart1);
-
 	//Get the received byte and clear Frame Error IRQ flag
-	fe_flag = __HAL_UART_GET_FLAG(&huart1,UART_FLAG_FE);
-	rx_byte = buffer;
-	__HAL_UART_CLEAR_FEFLAG(&huart1);
-
 	//On Framing Error restart Timer to search for a start condition
-	if (fe_flag)
+	if (__HAL_UART_GET_FLAG(&huart1,UART_FLAG_FE))
 	{
+		__HAL_UART_CLEAR_FEFLAG(&huart1);
 #ifdef USE_TIMER
 		TIM_ITConfig(TIM1, TIM_IT_CC1, ENABLE);
 #else
-		start_flag = 0;
+		start_flag = 1;
 #endif
+		HAL_UART_IRQHandler(&huart1);
 		return;
 	}
+	HAL_UART_IRQHandler(&huart1);
+}
 
-	//Timer has signaled a start flag.
-	//We can start to capture data.
-	if (start_flag)
-	{
-		dmx_error = 0;
-		byte_count = 0;
-		start_flag = 0;
+//UART IRQ Triggered by incoming characters
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	volatile uint8_t rx_byte;
 
-		/* first byte determines packet type */
-		switch (rx_byte)
+	if (huart->Instance == USART1)
+    {
+		rx_byte = buffer;
+
+		//Timer has signaled a start flag.
+		//We can start to capture data.
+		if (start_flag)
 		{
-		case 0x0:
-			packet_type = DATA_PACKET;
-			break;
-		case 0x17:
-			packet_type = TEST_PACKET;
-			break;
-		default:
-			//Anything else we declare an error....
-			dmx_error = 1;
-			//Restart Timer to search for a start condition
-#ifdef USE_TIMER
-			TIM_ITConfig(TIM1, TIM_IT_CC1, ENABLE);
-#else
-			start_flag = 0;
-#endif
-			//On every incoming start packet we invert the LED to singal incoming data
-			led_status =!led_status;
-			HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, led_status);
-			return;
-		}
-	}
+			//On every incoming start packet we invert the LED to signal incoming data
+			msg_cnt++;
+			if (msg_cnt == 44)
+			{
+				msg_cnt = 0;
+				led_status =!led_status;
+				HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, led_status);
+			}
 
-	//Determine if the data is for us and we need to store it
-	if (packet_type == DATA_PACKET)
-	{
-		if (byte_count >= start_addr && byte_count < start_addr + get_reg_length())
-			set_reg(byte_count - start_addr, rx_byte);
-	}
-	//Increase Counter
-	byte_count++;
+			//Reset Variables
+			dmx_error = 0;
+			byte_count = 0;
+			start_flag = 0;
+
+			/* first byte determines packet type */
+			switch (rx_byte)
+			{
+			case 0x0:
+				packet_type = DATA_PACKET;
+				break;
+			case 0x17:
+				packet_type = TEST_PACKET;
+				break;
+			default:
+				//Anything else we declare an error....
+				dmx_error = 1;
+				//Restart Timer to search for a start condition
+	#ifdef USE_TIMER
+				TIM_ITConfig(TIM1, TIM_IT_CC1, ENABLE);
+	#endif
+				//Get more data
+				HAL_UART_Receive_IT(&huart1, &buffer, 1);
+				return;
+			}
+		}
+
+		//Determine if the data is for us and we need to store it
+		if (packet_type == DATA_PACKET)
+		{
+			if (byte_count >= start_addr && byte_count < start_addr + get_reg_length())
+				set_reg(byte_count - start_addr-1, rx_byte);
+		}
+		//Increase Counter
+		byte_count++;
+
+		//Get more data
+		HAL_UART_Receive_IT(&huart1, &buffer, 1);
+    }
 }
 
 
@@ -192,6 +201,7 @@ void dmx512_rec_init()
 	//Start Timer
 	HAL_TIM_Base_Start(&htim1);
 #endif
+	dmx512_rec_enable(1);
 }
 
 
@@ -212,10 +222,13 @@ void dmx512_rec_enable(uint8_t on)
 {
 	if (on)
 	{
+		//Determine Start Addr
+		start_addr = get_addr();
+
 		//Set Receiver to input
 		dmx512_setRx();
 		//Enable UART IRQ
-    	HAL_UART_Receive_IT(&huart1, buf, (uint16_t)1);
+    	HAL_UART_Receive_IT(&huart1, &buffer, 1);
 		//Enable Timer
 #ifdef USE_TIMER
 		TIM_ITConfig(dmx512_config.tim, TIM_IT_CC1, ENABLE);

@@ -67,7 +67,16 @@ typedef struct{
 	//- A1 in Digital Mode from High to Low sets Parameter X to Value Y
 	//- A2 in Digital Mode from Low to High sets Parameter X to Value Y
 	//- A2 in Digital Mode from High to Low sets Parameter X to Value Y
-
+    
+    //Calibration
+    //- Color Calib mode (None, LUT, Params)
+    //- LUT 8bit to 16bit RED
+    //- LUT 8bit to 16bit GREEN
+    //- LUT 8bit to 16bit BLUE
+    //- Offset/Gain/Gamma RED
+    //- Offset/Gain/Gamma GREEN
+    //- Offset/Gain/Gamma BLUE
+    
 	//Master Mode
 	//- TBD
 

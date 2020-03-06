@@ -69,5 +69,7 @@ const char* get_reg_name(uint32_t reg);
 #define STRIP2_V2			24
 #define STRIP2_V3			25
 
+#define REGISTER_NONE		255
+
 
 #endif /* DMX512_CONFIG_H_ */

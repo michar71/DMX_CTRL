@@ -1,0 +1,3 @@
+triggers.c:29:6:HAL_ADC_ConvCpltCallback	24	static
+triggers.c:64:6:init_trigger	16	static
+triggers.c:79:6:process_trigger	16	static

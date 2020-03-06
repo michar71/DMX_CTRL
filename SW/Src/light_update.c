@@ -7,6 +7,7 @@
 #include "light_update.h"
 #include "pwm_control.h"
 #include "dmx512_config.h"
+#include "settings.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,12 +27,27 @@ void init_update_lights(void)
 	update_pwm_lights(1);
 }
 
-uint16_t scale_value( uint8_t val)
+uint16_t scale_value( uint8_t val,int16_t offset, int16_t gain, int16_t gamma)
 {
-	uint32_t res = 0;
+	int32_t res = 0;
 	//1) Scale input between 0 and max
 	res = ((uint32_t)val * (uint32_t) MAX_PWM)/(uint32_t)255;
 	res = (res * (uint32_t)brightness_scale) / (uint32_t) MAX_PWM;
+
+	//Subtract offset
+	res = res - offset;
+
+	//Apply Gain
+	res = (int16_t) ((float)res * ((float)gain)/100);
+	//Gamma Curve
+	//TBD
+
+
+	//Limit output to valid range
+	if (res<0)
+		res = 0;
+	if (res > MAX_PWM)
+		res = MAX_PWM;
 	return res;
 }
 
@@ -51,61 +67,61 @@ void update_pwm_lights(uint8_t force)
 	//Update PWM Values if needed
 	if ((reg_shadow[CH1_RED])!= get_reg(CH1_RED) || force)
 	{
-		configPWM(PWM_CH1,CH_RED,scale_value(get_reg(CH1_RED)));
+		configPWM(PWM_CH1,CH_RED,scale_value(get_reg(CH1_RED),settings.offset_red,settings.gain_red,settings.gamma_red));
 		reg_shadow[CH1_RED] = get_reg(CH1_RED);
 	}
 
 	if ((reg_shadow[CH1_GREEN])!= get_reg(CH1_GREEN) || force)
 	{
-		configPWM(PWM_CH1,CH_GREEN,scale_value(get_reg(CH1_GREEN)));
+		configPWM(PWM_CH1,CH_GREEN,scale_value(get_reg(CH1_GREEN),settings.offset_green,settings.gain_green,settings.gamma_green));
 		reg_shadow[CH1_GREEN] = get_reg(CH1_GREEN);
 	}
 
 	if ((reg_shadow[CH1_BLUE])!= get_reg(CH1_BLUE) || force)
 	{
-		configPWM(PWM_CH1,CH_BLUE,scale_value(get_reg(CH1_BLUE)));
+		configPWM(PWM_CH1,CH_BLUE,scale_value(get_reg(CH1_BLUE),settings.offset_blue,settings.gain_blue,settings.gamma_blue));
 		reg_shadow[CH1_BLUE] = get_reg(CH1_BLUE);
 	}
 
 	if ((reg_shadow[CH2_RED])!= get_reg(CH2_RED) || force)
 	{
-		configPWM(PWM_CH2,CH_RED,scale_value(get_reg(CH2_RED)));
+		configPWM(PWM_CH2,CH_RED,scale_value(get_reg(CH2_RED),settings.offset_red,settings.gain_red,settings.gamma_red));
 		reg_shadow[CH2_RED] = get_reg(CH2_RED);
 	}
 
 	if ((reg_shadow[CH2_GREEN])!= get_reg(CH2_GREEN) || force)
 	{
-		configPWM(PWM_CH2,CH_GREEN,scale_value(get_reg(CH2_GREEN)));
+		configPWM(PWM_CH2,CH_GREEN,scale_value(get_reg(CH2_GREEN),settings.offset_green,settings.gain_green,settings.gamma_green));
 		reg_shadow[CH2_GREEN] = get_reg(CH2_GREEN);
 	}
 
 	if ((reg_shadow[CH2_BLUE])!= get_reg(CH2_BLUE) || force)
 	{
-		configPWM(PWM_CH2,CH_BLUE,scale_value(get_reg(CH2_BLUE)));
+		configPWM(PWM_CH2,CH_BLUE,scale_value(get_reg(CH2_BLUE),settings.offset_blue,settings.gain_blue,settings.gamma_blue));
 		reg_shadow[CH2_BLUE] = get_reg(CH2_BLUE);
 	}
 
 	if ((reg_shadow[CH3_RED])!= get_reg(CH3_RED) || force)
 	{
-		configPWM(PWM_CH3,CH_RED,scale_value(get_reg(CH3_RED)));
+		configPWM(PWM_CH3,CH_RED,scale_value(get_reg(CH3_RED),settings.offset_red,settings.gain_red,settings.gamma_red));
 		reg_shadow[CH3_RED] = get_reg(CH3_RED);
 	}
 
 	if ((reg_shadow[CH3_GREEN])!= get_reg(CH3_GREEN) || force)
 	{
-		configPWM(PWM_CH3,CH_GREEN,scale_value(get_reg(CH3_GREEN)));
+		configPWM(PWM_CH3,CH_GREEN,scale_value(get_reg(CH3_GREEN),settings.offset_green,settings.gain_green,settings.gamma_green));
 		reg_shadow[CH3_GREEN] = get_reg(CH3_GREEN);
 	}
 
 	if ((reg_shadow[CH3_BLUE])!= get_reg(CH3_BLUE) || force)
 	{
-		configPWM(PWM_CH3,CH_BLUE,scale_value(get_reg(CH3_BLUE)));
+		configPWM(PWM_CH3,CH_BLUE,scale_value(get_reg(CH3_BLUE),settings.offset_blue,settings.gain_blue,settings.gamma_blue));
 		reg_shadow[CH3_BLUE] = get_reg(CH3_BLUE);
 	}
 
 	if ((reg_shadow[CH3_WHITE])!= get_reg(CH3_WHITE) || force)
 	{
-		configPWM(PWM_CH3,CH_WHITE,scale_value(get_reg(CH3_WHITE)));
+		configPWM(PWM_CH3,CH_WHITE,scale_value(get_reg(CH3_WHITE),0,100,220));  //TBD, no settings?
 		reg_shadow[CH3_WHITE] = get_reg(CH3_WHITE);
 	}
 	//Deal with LED Strip Registers

@@ -6,6 +6,7 @@
 #include "shell_cmd.h"
 #include "dmx512_config.h"
 #include "pwm_control.h"
+#include "settings.h"
 
 static int shell_cmd_test(int argc, char ** argv);
 static int shell_cmd_getaddr(int argc, char ** argv);
@@ -14,6 +15,10 @@ static int shell_cmd_dumpregs(int argc, char ** argv);
 static int shell_cmd_dumpconfig(int argc, char ** argv);
 static int shell_cmd_setpwm(int argc, char ** argv);
 static int shell_cmd_setbrightness(int argc, char ** argv);
+static int shell_cmd_savesettings(int argc, char ** argv);
+static int shell_cmd_setgain(int argc, char ** argv);
+static int shell_cmd_setoffset(int argc, char ** argv);
+static int shell_cmd_setgamma(int argc, char ** argv);
 
 /* to be consumed in shell.c only */
 const shell_cmd_t shell_cmd_list[] = {
@@ -24,6 +29,10 @@ const shell_cmd_t shell_cmd_list[] = {
 	{"dumpconfig",   "dumpconfig\n\r",shell_cmd_dumpconfig},
 	{"setpwm",   "setpwm [id (0..2)] [ch (0..3)] [duty (0..65535)]\n\r",shell_cmd_setpwm},
 	{"setbrightness",   "setbrightness [0..255]\n\r",shell_cmd_setbrightness},
+	{"savesettings",   "savesettings\n\r",shell_cmd_savesettings},
+	{"setgain",   "setgain [ch (0..2)] [gain (-32766...32766)]\n\r",shell_cmd_setgain},
+	{"setoffset",   "setoffset [ch (0..2)] [offset (-32766...32766)]\n\r",shell_cmd_setoffset},
+	{"setgamma",   "setgamma [ch (0..2)] [gamma (-32766...32766)]\n\r",shell_cmd_setgamma},
 };
 
 const int SHELL_CMD_NUM = sizeof(shell_cmd_list)/sizeof(shell_cmd_t);
@@ -87,7 +96,7 @@ static int shell_cmd_dumpregs(int argc, char ** argv)
 //dumpconfig
 static int shell_cmd_dumpconfig(int argc, char ** argv)
 {
-		print("TBD");
+		print_settings();
 		return 1;
 }
 
@@ -119,6 +128,93 @@ static int shell_cmd_setbrightness(int argc, char ** argv)
 	return 1;
 }
 
+//savesettings
+static int shell_cmd_savesettings(int argc, char ** argv)
+{
+		//TBD Yes/No Confirmation Check
+		save_settings();
+		return 1;
+}
+
+
+//setgain
+static int shell_cmd_setgain(int argc, char ** argv)
+{
+	if (argc == 2)
+	{
+		switch (atoi(argv[1]))
+		{
+		case 0:
+			settings.gain_red = atoi(argv[2]);
+			break;
+		default:
+		case 1:
+			settings.gain_green = atoi(argv[2]);
+			break;
+		case 2:
+			settings.gain_blue = atoi(argv[2]);
+			break;
+		}
+	}
+	else
+	{
+		return 0;
+	}
+	return 1;
+}
+
+
+//setoffset
+static int shell_cmd_setoffset(int argc, char ** argv)
+{
+	if (argc == 2)
+	{
+		switch (atoi(argv[1]))
+		{
+		case 0:
+			settings.offset_red = atoi(argv[2]);
+			break;
+		default:
+		case 1:
+			settings.offset_green = atoi(argv[2]);
+			break;
+		case 2:
+			settings.offset_blue = atoi(argv[2]);
+			break;
+		}
+	}
+	else
+	{
+		return 0;
+	}
+	return 1;
+}
+
+//setgamma
+static int shell_cmd_setgamma(int argc, char ** argv)
+{
+	if (argc == 2)
+	{
+		switch (atoi(argv[1]))
+		{
+		case 0:
+			settings.gamma_red = atoi(argv[2]);
+			break;
+		default:
+		case 1:
+			settings.gamma_green = atoi(argv[2]);
+			break;
+		case 2:
+			settings.gamma_blue = atoi(argv[2]);
+			break;
+		}
+	}
+	else
+	{
+		return 0;
+	}
+	return 1;
+}
 
 //getaddr
 //getmode
@@ -126,7 +222,10 @@ static int shell_cmd_setbrightness(int argc, char ** argv)
 //setmode
 //dumpregs
 //dumpconfig
-//Saveconfig
+//saveconfig
+//menuconfig
+//setgain [ch] [val]
+//setoffset [ch] [val]
 //setstriplen [id] [length]
 //setstripfx [id] [mode]
 //setstripspeed [id] [speed]
@@ -136,7 +235,6 @@ static int shell_cmd_setbrightness(int argc, char ** argv)
 //setstripv2 [id] [v2]
 //setstripv3 [id] [v3]
 //setstrip on|off
-//setpwm [id] [red] [green] [blue] [white]
 //setbrightness [max]
 //settestmode on|off
 //setpwmfreq [val]

@@ -1,6 +1,8 @@
-eeprom.c:328:10:EE_VerifyPageFullyErased	0	static
-eeprom.c:593:17:EE_VerifyPageFullWriteVariable	16	static
-eeprom.c:470:26:EE_Format	32	static
-eeprom.c:387:10:EE_ReadVariable	8	static
-eeprom.c:73:10:EE_Init	56	static
-eeprom.c:446:10:EE_WriteVariable	56	static
+eeprom.c:51:9:EE_LL_Format	40	static
+eeprom.c:72:9:EE_LL_Read	8	static
+eeprom.c:147:9:EE_LL_Write	56	static
+eeprom.c:193:6:EE_Format	0	static
+eeprom.c:199:6:EE_Read	0	static
+eeprom.c:205:6:EE_Write	16	static
+eeprom.c:211:6:EE_Reads	0	static
+eeprom.c:224:7:EE_Writes	24	static

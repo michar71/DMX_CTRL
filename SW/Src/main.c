@@ -28,7 +28,8 @@
 #include "gpio_control.h"
 #include "pwm_control.h"
 #include "light_update.h"
-
+#include "settings.h"
+#include "triggers.h"
 
 //#define ENABLE_WATCHDOG
 
@@ -138,9 +139,6 @@ int main(void)
   	  __HAL_RCC_CLEAR_RESET_FLAGS();
  }
 
-  //Check for button to initiate Config mode via USB
-
-  //Load Config from FLASH
 
   //Init/Setup PWM for Lights
   init_timers();
@@ -157,7 +155,23 @@ int main(void)
   init_update_lights();
   print("PWM Update Init complete");
 
+  //init_trigger();
+  //print("Trigger Init complete");
+
+  //Init Defaults
+  init_settings();
+  // If Button is not pressed Load Defaults
+  if (0 == check_button())
+  {
+	  load_settings();
+  }
+  //Set Defaults
+  apply_settings();
+  print("Settings complete");
+
   print("Shell Active");
+
+  //Shell is ready....
   print_no_newline("DBG>");
 
   //Turn LED off at completion of init
@@ -173,10 +187,13 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	//Handle Test Shell
 	shell_process();
-	//if Test Button
+
+
+	//if Test Button (We end up here on foring defaults too but that's OK...)
 	//	handle testmode
 	//else
-	//	Read ADC
+	//	Read ADC andHandle Controls/Triggers
+		process_trigger();
 	//  Set PWM Lights
 	    update_pwm_lights(0);
 	//	if WS2812 Enabled

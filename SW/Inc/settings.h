@@ -102,6 +102,7 @@ typedef struct{
 	int16_t gain_blue;    //Gain * 100
 	int16_t gamma_blue;   //Gamma * 100
 
+
 	//Master Mode
 	//- TBD
 

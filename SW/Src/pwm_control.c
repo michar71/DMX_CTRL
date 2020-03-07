@@ -15,7 +15,7 @@
 TIM_HandleTypeDef timerinfo[3]; //(CH1 = 0 = htim2,CH2 = 1 = htim3,CH3 = 2 = htim1)
 
 //Channels CH1,CH2,CH3 for RGBW...
-const uint32_t channelinfo[3][4] = {{TIM_CHANNEL_2,TIM_CHANNEL_4,TIM_CHANNEL_3,255},
+const uint32_t channelinfo[3][4] = {{TIM_CHANNEL_2,TIM_CHANNEL_3,TIM_CHANNEL_4,255},
 		                            {TIM_CHANNEL_1,TIM_CHANNEL_2,TIM_CHANNEL_3,TIM_CHANNEL_4},
 									{TIM_CHANNEL_1,TIM_CHANNEL_2,TIM_CHANNEL_3,255}};
 
@@ -27,7 +27,7 @@ void init_timers(void)
 	//Start Clocks to timer BLock
 	__HAL_RCC_TIM1_CLK_ENABLE();
 	__HAL_RCC_TIM2_CLK_ENABLE();
-	__HAL_RCC_TIM2_CLK_ENABLE();
+	__HAL_RCC_TIM3_CLK_ENABLE();
 
 	//Init Timers as PWM
 	PWM_Timer_Init(PWM_CH1);

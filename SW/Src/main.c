@@ -165,6 +165,10 @@ int main(void)
   {
 	  load_settings();
   }
+  else
+  {
+	  save_settings();
+  }
   //Set Defaults
   apply_settings();
   print("Settings complete");

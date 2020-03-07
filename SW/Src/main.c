@@ -30,13 +30,12 @@
 #include "light_update.h"
 #include "settings.h"
 #include "triggers.h"
-
-//#define ENABLE_WATCHDOG
-
+#include "testmode.h"
 
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdint.h>
 
 /* USER CODE END Includes */
 
@@ -47,6 +46,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+//#define ENABLE_WATCHDOG
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -64,7 +64,7 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
-
+uint8_t testmode = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -155,8 +155,8 @@ int main(void)
   init_update_lights();
   print("PWM Update Init complete");
 
-  //init_trigger();
-  //print("Trigger Init complete");
+ // init_trigger();
+ // print("Trigger Init complete");
 
   //Init Defaults
   init_settings();
@@ -189,16 +189,31 @@ int main(void)
 	shell_process();
 
 
-	//if Test Button (We end up here on foring defaults too but that's OK...)
-	//	handle testmode
-	//else
-	//	Read ADC andHandle Controls/Triggers
-		process_trigger();
-	//  Set PWM Lights
-	    update_pwm_lights(0);
-	//	if WS2812 Enabled
-	//		Calculate WS2812 Effects
-	//		Update WS2812 Data
+
+	if (testmode)
+	{
+		testmode = process_testmode();
+		//Restore settings
+		if (testmode == 0)
+			update_pwm_lights(1);
+	}
+	else
+	{
+		//Button pushed
+		if (1 == check_button())
+		{
+			testmode = 1;
+		}
+
+		//	Read ADC andHandle Controls/Triggers
+			process_trigger();
+		//  Set PWM Lights
+		    update_pwm_lights(0);
+		//	if WS2812 Enabled
+		//		Calculate WS2812 Effects
+		//		Update WS2812 Data
+	}
+
 	//  Reset Watchdog
 #ifdef ENABLE_WATCHDOG
 	HAL_IWDG_Refresh(&hiwdg);

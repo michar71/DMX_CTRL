@@ -26,6 +26,12 @@ typedef struct{
 adcdata_s adcdata[2];
 
 
+void ADC1_2_IRQHandler()
+{
+	//need to figure out where IRQ comes from here....
+    HAL_ADC_IRQHandler(&hadc1);
+}
+
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
 	uint8_t adc = 0;

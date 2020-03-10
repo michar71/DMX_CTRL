@@ -19,3 +19,4 @@ Layout:
 - Move Labels for Power Supply to other side of connector or back
 - Make holes for TO220 Larger so thery fit flush
 - RS485 Module is Rotated 180 Deg
+- Create more room for Programming connector by moving 5V Regulator

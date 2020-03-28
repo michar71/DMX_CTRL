@@ -36,6 +36,7 @@ These are all usage cases that are not "Simple" DMX RGB-Light cases but also do 
 
 ## Current Status
 - DMX512 Control of PWM Channels -> Working
+- DMX Address setting via Jumpers -> Working
 - Serial Shell to control/Save settings -> Working
 - Load defaults on startup -> Working
 - Clear settings (Hold button on power-up) -> Working
@@ -59,6 +60,10 @@ So somewhere between $7 to $15.
 
 ## Notes
 
+### DMX Control Registers
+For reference refer to the DMX_CTRL.xlsx spreadsheet.
+The numbers of registers depends on the Mode (With/Without WS2812 Control)
+
 ### DMX Control Wires (A/B)
 With my controller the follwing pinout works (Looking at a male connector):
 Pin 1 = GND
@@ -77,6 +82,27 @@ If only 12V is supplied make sure to add J5 so the microcontroller is powered.
 Serial shell is enabled at 115 kBaud on the serial port. (Note that Rx and Tx are swapped at the moment....).
 There is a "Help" command to see all the supported commands.
 For parameters just type in the command.
+
+### Triggers
+(Currently Not working)
+The two trigger inputs  can be set up in different ways:
+
+#### Direct Control
+The analog value (0...3.3V) is directly mapped onto one of the control registers.
+(For example an external inpout can be linked to the brightness of a channel or set the input parameter for an effect)
+
+#### Threshold
+A Specific value can be written to a specific control register wen crossing a threshold from low to high or from high to low.
+(For example a specific effect can be tiurned on/off via a switch)
+
+### Plugin Development
+TBD
+
+### Wifi/USB/Serial DMX Control
+TBD
+
+### Master Control
+TBD
 
 ## References
 - DMX Pinout

@@ -58,6 +58,16 @@ The BOM cost for the simplest implementation is
 - $0.80 per Mosfet for controllable Channels
 So somewhere between $7 to $15.
 
+## Development Enironment
+The software is developed with Atollic TrueStudio for STM32 (Freely awaylable at: https://atollic.com/truestudio/)
+Software framework was generated with STM's ST Cube Solution (Config file included in DOC folder) and uses ST's HAL framework.
+(Not my favorite but that's what they want you to use...)
+I use a ST-Link V2.0 Clone to upload/Debug software. (Eventually there might be a USB DFU Firmware Upload Client....)
+
+WARNING:
+There are currently a lot of bluepill STM32F103 board clones with fake STM32F103 circulating on Amazon.
+These can be used with a special driver for the ST-Link (Because they show up with a different device ID and the original ST driver blocks those clones) but won't work with Attolic True-studio out of the box... 
+
 ## Notes
 
 ### DMX Control Registers

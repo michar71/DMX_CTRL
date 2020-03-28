@@ -104,6 +104,10 @@ TBD
 ### Master Control
 TBD
 
+### What's that strange connector footprint for the WS2812 connection?
+The idea is to solder on wires and then use a zip-tie through the holes and hot-glue to secure the wires.
+Past projects had big problems with wires breaking off or shortening out... Maybe this will work.....
+
 ## References
 - DMX Pinout
 - Fadecandy Webpage

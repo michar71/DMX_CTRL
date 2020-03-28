@@ -38,6 +38,8 @@ These are all usage cases that are not "Simple" DMX RGB-Light cases but also do 
 - DMX512 Control of PWM Channels -> Working
 - Serial Shell to control/Save settings -> Working
 - Load defaults on startup -> Working
+- Clear settings (Hold button on power-up) -> Working
+- Test Mode (Press button after power up, cycles through all LED channels) -> Working
 - Triggers -> Partially working
 
 ## Next Steps
@@ -54,6 +56,27 @@ The BOM cost for the simplest implementation is
 - $4.00 for Misc (Resistors, pin headers, switch)
 - $0.80 per Mosfet for controllable Channels
 So somewhere between $7 to $15.
+
+## Notes
+
+### DMX Control Wires (A/B)
+With my controller the follwing pinout works (Looking at a male connector):
+Pin 1 = GND
+Pin 2 = A
+Pin 3 = B
+Soem controllers allow to swap A/B with a switch so your milage might vary....
+
+### DMX Termination
+DMX needs to be terminated at the end of the chain with a 160 Ohm Resistor.
+
+### Power Supply
+Board has been tested with 9 PWM channels with 216 RGB LED's with a total power consumption of 3.8A @ 12V.
+If only 12V is supplied make sure to add J5 so the microcontroller is powered.
+
+### Serial Shell
+Serial shell is enabled at 115 kBaud on the serial port. (Note that Rx and Tx are swapped at the moment....).
+There is a "Help" command to see all the supported commands.
+For parameters just type in the command.
 
 ## References
 - DMX Pinout

@@ -19,7 +19,7 @@ typedef struct{
 
 uint16_t cnt = 0;
 uint8_t last_button_state = 1;
-uint8_t exit = 0;
+uint8_t done = 0;
 uint8_t state = 0;
 state_s states[STATE_CNT] = {{PWM_CH1,CH_RED},{PWM_CH1,CH_GREEN},{PWM_CH1,CH_BLUE},
 		                     {PWM_CH2,CH_RED},{PWM_CH2,CH_GREEN},{PWM_CH2,CH_BLUE},
@@ -37,11 +37,11 @@ uint8_t process_testmode(void)
 {
 	uint8_t button_state = 1;
 
-	if (exit)
+	if (done)
 	{
 		if (cnt == 0)
 		{
-			exit = 0;
+			done = 0;
 			return 0;
 		}
 		cnt--;
@@ -68,7 +68,7 @@ uint8_t process_testmode(void)
 			lights_off();
 			cnt = STEP_CNT;
 			state = 0;
-			exit = 1;
+			done = 1;
 		}
 		last_button_state = button_state;
 	}

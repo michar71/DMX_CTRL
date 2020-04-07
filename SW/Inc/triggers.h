@@ -12,5 +12,6 @@
 
 void init_trigger(void);
 void process_trigger(void);
+void print_adc_data(void);
 
 #endif /* TRIGGERS_H_ */

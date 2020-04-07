@@ -10,6 +10,7 @@
 #include "dmx512_config.h"
 #include <string.h>
 #include "stm32f1xx_hal.h"
+#include "shell.h"
 
 extern ADC_HandleTypeDef hadc1;
 extern ADC_HandleTypeDef hadc2;
@@ -24,46 +25,53 @@ typedef struct{
 }adcdata_s;
 
 adcdata_s adcdata[2];
-
+ADC_HandleTypeDef* currentADCHandler = &hadc1;
 
 void ADC1_2_IRQHandler()
 {
 	//need to figure out where IRQ comes from here....
-    HAL_ADC_IRQHandler(&hadc1);
+	HAL_ADC_IRQHandler(currentADCHandler);
+
+    //Alternativly we could call the handler for both sources and let the handler routine sort it out....
+    //HAL_ADC_IRQHandler(&hadc1);
+    //HAL_ADC_IRQHandler(&hadc2);
 }
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
 	uint8_t adc = 0;
 	uint32_t sum = 0;
-	uint16_t adcval = 0;
+	uint32_t adcval = 0;
+
 	if (hadc->Instance == ADC2)
 	{
 		adc = 1;
 	}
 
-	if (__HAL_ADC_GET_FLAG(hadc, ADC_FLAG_EOC))
-	{
-		adcval = HAL_ADC_GetValue(hadc);
-		adcval = adcval >> 4; //Convert to 8-bit...
-		adcdata[adc].buf[adcdata[adc].bufcnt] = adcval;
-		adcdata[adc].bufcnt++;
+	adcval = HAL_ADC_GetValue(hadc);
+	adcval = adcval / 16; //Convert to 8-bit...
+	adcdata[adc].buf[adcdata[adc].bufcnt] = (uint16_t)adcval;
+	adcdata[adc].bufcnt++;
 
-		//Calculate average over x samples to reduce noise
-		if (ADC_BUF_SIZE == adcdata[adc].bufcnt)
+	//Calculate average over x samples to reduce noise
+	if (ADC_BUF_SIZE == adcdata[adc].bufcnt)
+	{
+		do
 		{
-			do
-			{
-				adcdata[adc].bufcnt--;
-				sum = sum + adcdata[adc].buf[adcdata[adc].bufcnt];
-			}
-			while(adcdata[adc].bufcnt > 0);
-			adcdata[adc].adc_val = (uint16_t)(sum / ADC_BUF_SIZE);
+			adcdata[adc].bufcnt--;
+			sum = sum + adcdata[adc].buf[adcdata[adc].bufcnt];
 		}
+		while(adcdata[adc].bufcnt > 0);
+		adcdata[adc].adc_val = (uint16_t)(sum / ADC_BUF_SIZE);
 	}
 
+	//swap ADC
+	if (hadc->Instance == ADC1)
+		currentADCHandler = &hadc2;
+	else
+		currentADCHandler = &hadc1;
 	//Start ADC Again
-    HAL_ADC_Start_IT(hadc);
+    HAL_ADC_Start_IT(currentADCHandler);
 }
 
 
@@ -78,8 +86,7 @@ void init_trigger(void)
     HAL_NVIC_EnableIRQ(ADC1_2_IRQn);
 
 	//Setup IRQ's
-	HAL_ADC_Start_IT(&hadc1);
-	HAL_ADC_Start_IT(&hadc2);
+	HAL_ADC_Start_IT(currentADCHandler);
 }
 
 void process_trigger(void)
@@ -139,4 +146,16 @@ void process_trigger(void)
 	}
 }
 
+void print_adc_data(void)
+{
+	for (int ii=0;ii<2;ii++)
+	{
+		print("ADC %d",ii+1);
+		print("-------");
+		print("ADC VAL: %d",adcdata[ii].adc_val);
+		print("ADC LAST VAL: %d",adcdata[ii].last_adc_val);
+		print("ADC BUFCNT: %d",adcdata[ii].bufcnt);
+		print("");
+	}
 
+}

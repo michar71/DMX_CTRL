@@ -155,8 +155,8 @@ int main(void)
   init_update_lights();
   print("PWM Update Init complete");
 
- // init_trigger();
- // print("Trigger Init complete");
+  init_trigger();
+  print("Trigger Init complete");
 
   //Init Defaults
   init_settings();

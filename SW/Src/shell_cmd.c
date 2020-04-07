@@ -7,6 +7,7 @@
 #include "dmx512_config.h"
 #include "pwm_control.h"
 #include "settings.h"
+#include "triggers.h"
 
 static int shell_cmd_test(int argc, char ** argv);
 static int shell_cmd_getaddr(int argc, char ** argv);
@@ -19,6 +20,7 @@ static int shell_cmd_savesettings(int argc, char ** argv);
 static int shell_cmd_setgain(int argc, char ** argv);
 static int shell_cmd_setoffset(int argc, char ** argv);
 static int shell_cmd_setgamma(int argc, char ** argv);
+static int shell_cmd_dumpadc(int argc, char ** argv);
 
 /* to be consumed in shell.c only */
 const shell_cmd_t shell_cmd_list[] = {
@@ -33,6 +35,7 @@ const shell_cmd_t shell_cmd_list[] = {
 	{"setgain",   "setgain [ch (0..2)] [gain (-32766...32766)]\n\r",shell_cmd_setgain},
 	{"setoffset",   "setoffset [ch (0..2)] [offset (-32766...32766)]\n\r",shell_cmd_setoffset},
 	{"setgamma",   "setgamma [ch (0..2)] [gamma (-32766...32766)]\n\r",shell_cmd_setgamma},
+	{"dumpadc",   "dumpadc\n\r",shell_cmd_dumpadc},
 };
 
 const int SHELL_CMD_NUM = sizeof(shell_cmd_list)/sizeof(shell_cmd_t);
@@ -213,6 +216,14 @@ static int shell_cmd_setgamma(int argc, char ** argv)
 	{
 		return 0;
 	}
+	return 1;
+}
+
+
+//dumpconfig
+static int shell_cmd_dumpadc(int argc, char ** argv)
+{
+	print_adc_data();
 	return 1;
 }
 

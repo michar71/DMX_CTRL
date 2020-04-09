@@ -37,7 +37,7 @@ typedef struct{
 	uint16_t pwm_ch3_w;
 
 	//Defaults
-	uint8_t strip_bits;
+	uint8_t fx_select;
 	uint8_t strip1_pattern;
 	uint8_t strip1_speed;
 	uint8_t strip1_size;

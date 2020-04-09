@@ -8,6 +8,7 @@
 #include "pwm_control.h"
 #include "dmx512_config.h"
 #include "settings.h"
+#include "fx_manager.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -124,9 +125,18 @@ void update_pwm_lights(uint8_t force)
 		configPWM(PWM_CH3,CH_WHITE,scale_value(get_reg(CH3_WHITE),0,100,220));  //TBD, no settings?
 		reg_shadow[CH3_WHITE] = get_reg(CH3_WHITE);
 	}
-	//Deal with LED Strip Registers
+	//Deal with LED Strip Registers/Effects
 	if (DMX_MODE2 == get_mode())
 	{
+		//Activate FX if valid FX is selected or restore settings...
+		if ((reg_shadow[FX_SELECT])!= get_reg(FX_SELECT) || force)
+		{
+			set_reg(FX_SELECT,start_fx(get_reg(FX_SELECT)));
+			reg_shadow[FX_SELECT] = get_reg(FX_SELECT);
+		}
+
+
+
 
 	}
 }

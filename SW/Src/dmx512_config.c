@@ -23,7 +23,7 @@ const char* regnames[] ={
 	"CH3_GREEN",
 	"CH3_BLUE",
 	"CH3_WHITE",
-	"STRIP_BITS",
+	"FX_SELECT",
 	"STRIP1_PATTERN",
 	"STRIP1_SPEED",
 	"STRIP1_SIZE",

@@ -31,6 +31,7 @@
 #include "settings.h"
 #include "triggers.h"
 #include "testmode.h"
+#include "fx_manager.h"
 
 
 /* Private includes ----------------------------------------------------------*/
@@ -173,6 +174,9 @@ int main(void)
   apply_settings();
   print("Settings complete");
 
+  install_fx();
+  print("FX complete");
+
   print("Shell Active");
 
   //Shell is ready....
@@ -209,13 +213,17 @@ int main(void)
 			testmode = 1;
 		}
 
-		//	Read ADC andHandle Controls/Triggers
-			process_trigger();
+		//	Read ADC and Handle Controls/Triggers
+		process_trigger();
+		//  Run Effect Programs if DMX Mode 2 is enabled
+		if (DMX_MODE2 == get_mode())
+		{
+			run_fx();
+			//Update WS2812 Data
+		}
+
 		//  Set PWM Lights
-		    update_pwm_lights(0);
-		//	if WS2812 Enabled
-		//		Calculate WS2812 Effects
-		//		Update WS2812 Data
+		update_pwm_lights(0);
 	}
 
 	//  Reset Watchdog

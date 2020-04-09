@@ -26,7 +26,7 @@ void init_settings(void)
 	//Set deviations from 0...
 	settings.max_brightness = 255;
 	settings.strip1_speed = 10;
-	settings.strip1_size = 10;;
+	settings.strip1_size = 10;
 	settings.strip1_complexity = 10;
 	settings.strip2_speed = 10;
 	settings.strip2_size = 10;
@@ -65,7 +65,7 @@ void apply_settings(void)
 	//Deal with LED Strip Registers
 	if (DMX_MODE2 == get_mode())
 	{
-		set_reg(STRIP_BITS,settings.strip_bits);
+		set_reg(FX_SELECT,settings.fx_select);
 
 		set_reg(STRIP1_PATTERN,settings.strip1_pattern);
 		set_reg(STRIP1_SPEED,settings.strip1_speed);

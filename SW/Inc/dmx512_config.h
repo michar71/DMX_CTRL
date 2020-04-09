@@ -53,7 +53,7 @@ const char* get_reg_name(uint32_t reg);
 #define CH3_BLUE			9
 #define CH3_WHITE			10
 
-#define STRIP_BITS			11
+#define FX_SELECT			11
 #define	STRIP1_PATTERN		12
 #define STRIP1_SPEED		13
 #define STRIP1_SIZE			14

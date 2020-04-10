@@ -21,6 +21,11 @@ static int shell_cmd_setgain(int argc, char ** argv);
 static int shell_cmd_setoffset(int argc, char ** argv);
 static int shell_cmd_setgamma(int argc, char ** argv);
 static int shell_cmd_dumpadc(int argc, char ** argv);
+static int shell_cmd_setreg(int argc, char ** argv);
+static int shell_cmd_setfxmultiplier(int argc, char ** argv);
+static int shell_cmd_storedefaultregs(int argc, char ** argv);
+static int shell_cmd_settriggerconfig(int argc, char ** argv);
+static int shell_cmd_settriggerctrl(int argc, char ** argv);
 
 /* to be consumed in shell.c only */
 const shell_cmd_t shell_cmd_list[] = {
@@ -35,6 +40,11 @@ const shell_cmd_t shell_cmd_list[] = {
 	{"setgain",   "setgain [ch (0..2)] [gain (-32766...32766)]\n\r",shell_cmd_setgain},
 	{"setoffset",   "setoffset [ch (0..2)] [offset (-32766...32766)]\n\r",shell_cmd_setoffset},
 	{"setgamma",   "setgamma [ch (0..2)] [gamma (-32766...32766)]\n\r",shell_cmd_setgamma},
+	{"setreg",   "setreg [reg] [val]\n\r",shell_cmd_setreg},
+	{"setfxmultiplier",   "setfxmultiplier  [val (1,2,4)]\n\r",shell_cmd_setfxmultiplier},
+	{"settriggerconfig",   "settriggerconfig  [trigger 0|1] [mode(0=None, 1=mapping, 2=switch)] [register (0..25] [level (0..255)]\n\r",shell_cmd_settriggerconfig},
+	{"settriggerconfig",   "settriggerctrl  [trigger 0|1] [Reg HiLo (0..25)] [Val HiLo (0..255)] [Reg LoHi (0..25)] [Val LoHi (0..255)]\n\r",shell_cmd_settriggerctrl},
+	{"storedefaultregs",   "storedefaultregs\n\r",shell_cmd_storedefaultregs},
 	{"dumpadc",   "dumpadc\n\r",shell_cmd_dumpadc},
 };
 
@@ -219,11 +229,131 @@ static int shell_cmd_setgamma(int argc, char ** argv)
 	return 1;
 }
 
+//setfxmultiplier
+static int shell_cmd_setfxmultiplier(int argc, char ** argv)
+{
+	uint8_t val = atoi(argv[1]);
+	if ((val == 4) || (val == 2) || (val == 1))
+		settings.fx_multiplier = val;
+	else
+		print("Invalid Multiplier");
+
+	return 1;
+}
+
 
 //dumpconfig
 static int shell_cmd_dumpadc(int argc, char ** argv)
 {
 	print_adc_data();
+	return 1;
+}
+
+//setreg
+static int shell_cmd_setreg(int argc, char ** argv)
+{
+	if (argc == 2)
+	{
+		set_reg(atoi(argv[1]),atoi(argv[2]));
+	}
+	else
+	{
+		return 0;
+	}
+	return 1;
+}
+
+
+static int shell_cmd_storedefaultregs(int argc, char ** argv)
+{
+	//Store the current register values to default settings
+	settings.max_brightness = get_reg(MAX_BRIGHTNESS);
+	settings.pwm_ch1_r = get_reg(CH1_RED);
+	settings.pwm_ch1_g = get_reg(CH1_GREEN);
+	settings.pwm_ch1_b = get_reg(CH1_BLUE);
+	settings.pwm_ch2_r = get_reg(CH2_RED);
+	settings.pwm_ch2_g = get_reg(CH2_GREEN);
+	settings.pwm_ch2_b = get_reg(CH2_BLUE);
+	settings.pwm_ch3_r = get_reg(CH3_RED);
+	settings.pwm_ch3_g = get_reg(CH3_GREEN);
+	settings.pwm_ch3_b = get_reg(CH3_BLUE);
+	settings.pwm_ch3_w = get_reg(CH3_WHITE);
+
+	//Deal with LED Strip Registers
+	if (DMX_MODE2 == get_mode())
+	{
+		settings.fx_select = get_reg(FX_SELECT);
+		settings.strip1_pattern = get_reg(STRIP1_PATTERN);
+		settings.strip1_speed = get_reg(STRIP1_SPEED);
+		settings.strip1_size = get_reg(STRIP1_SIZE);
+		settings.strip1_complexity = get_reg(STRIP1_COMPLEXITY);
+		settings.strip1_v1 = get_reg(STRIP1_V1);
+		settings.strip1_v2 = get_reg(STRIP1_V2);
+		settings.strip1_v3 = get_reg(STRIP1_V3);
+		settings.strip2_pattern = get_reg(STRIP2_PATTERN);
+		settings.strip2_speed = get_reg(STRIP2_SPEED);
+		settings.strip2_size = get_reg(STRIP2_SIZE);
+		settings.strip2_complexity = get_reg(STRIP2_COMPLEXITY);
+		settings.strip2_v1 = get_reg(STRIP2_V1);
+		settings.strip2_v2 = get_reg(STRIP2_V2);
+		settings.strip2_v3 = get_reg(STRIP2_V3);
+	}
+	return 1;
+}
+
+//settriggerconfig
+static int shell_cmd_settriggerconfig(int argc, char ** argv)
+{
+	if (argc == 4)
+	{
+		switch (atoi(argv[1]))
+		{
+		case 0:
+			settings.trigger_mode_A0 = atoi(argv[2]);
+			settings.trigger_reg_A0 = atoi(argv[3]);
+			settings.trigger_level_A0 = atoi(argv[4]);
+			break;
+		case 1:
+			settings.trigger_mode_A1 = atoi(argv[2]);
+			settings.trigger_reg_A1 = atoi(argv[3]);
+			settings.trigger_level_A1 = atoi(argv[4]);
+			break;
+		}
+	}
+	else
+	{
+		return 0;
+	}
+	return 1;
+}
+
+
+
+//settriggerctrl
+static int shell_cmd_settriggerctrl(int argc, char ** argv)
+{
+	if (argc == 5)
+	{
+		switch (atoi(argv[1]))
+		{
+		case 0:
+			settings.trigger_reg_hilo_A0 = atoi(argv[2]);
+			settings.trigger_val_hilo_A0 = atoi(argv[3]);
+			settings.trigger_reg_lohi_A0 = atoi(argv[4]);
+			settings.trigger_val_lohi_A0 = atoi(argv[5]);
+			break;
+		case 1:
+			settings.trigger_reg_hilo_A1 = atoi(argv[2]);
+			settings.trigger_val_hilo_A1 = atoi(argv[3]);
+			settings.trigger_reg_lohi_A1 = atoi(argv[4]);
+			settings.trigger_val_lohi_A1 = atoi(argv[5]);
+			break;
+		}
+	}
+	else
+	{
+		return 0;
+	}
 	return 1;
 }
 

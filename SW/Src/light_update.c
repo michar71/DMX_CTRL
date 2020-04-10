@@ -129,13 +129,11 @@ void update_pwm_lights(uint8_t force)
 	if (DMX_MODE2 == get_mode())
 	{
 		//Activate FX if valid FX is selected or restore settings...
-		if ((reg_shadow[FX_SELECT])!= get_reg(FX_SELECT) || force)
+		if ((reg_shadow[FX_SELECT])!= (get_reg(FX_SELECT)/settings.fx_multiplier) || force)
 		{
-			set_reg(FX_SELECT,start_fx(get_reg(FX_SELECT)));
-			reg_shadow[FX_SELECT] = get_reg(FX_SELECT);
+			set_reg(FX_SELECT,start_fx(get_reg(FX_SELECT)/settings.fx_multiplier));
+			reg_shadow[FX_SELECT] = get_reg(FX_SELECT)/settings.fx_multiplier;
 		}
-
-
 
 
 	}

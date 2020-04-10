@@ -1,33 +1,33 @@
 # DMX_CTRL
-A DMX512-Combatible Light Control Platfrom for medium-complex projects.
+A DMX512-combatible light control platfrom for medium-complex projects.
 
 There are currently standard solutions for light control that fill specific needs:
-- DMX512 Compatible stage lighting ($13 - $ 300) usually with Full RGB control and maybe XYZ Control
-- "Specialty" Solutions for more elaborate light installations using WS1812 Strips (Fadecandy and others)
-- Progammable Light Controllers that can play back preprogrammed patterns that can get triggered by DMX512
+- DMX512 compatible stage lighting ($13 - $ 300) usually with Full RGB control and maybe XYZ Control
+- Custom solutions for complex installations using WS1812 Strips (Fadecandy and others). This for Example: http://www.deniznicoleart.com/
+- Progammable light controllers that can play back preprogrammed patterns that can get triggered by DMX512 (Chinese closed source products)
 
 What is missing is a controller that combines the simple, low cost wiring and control of DMX512 with the flexibility of a customizable firmware and control options.
 
 ## Usage Case
-The follwing is an outline of the current usage case for an Art Car and why a specific controller is needed. The art car has multiple light-elements thzat need central coordination/sequencing but also reacts to other stimulus:
+The follwing is an outline of the current usage case for an art car and why a specific controller is needed. The art car has multiple light-elements that need central coordination/sequencing but also reacts to other stimulus:
 - "Hoover Field" -> WS2812 Light Strips around the base that display a moving pattern syncronized with the speed of the car.
-- "Engines" -> Simpole RGB Strips that are playting a preprpogrammed startup/shutdown seuqence and a animation while moving
+- "Engines" -> Simple RGB Strips that are playing a preprpogrammed startup/shutdown seuqence and a animation while moving
 - "Internal Lights" -> Lantern with red LED's that are supposed to flicker and occasionally fail
 - Mood Lighting" -> White LED Strips that can be controlled in brightness
 
-These are all usage cases that are not "Simple" DMX RGB-Light cases but also do not warrant complex solutions like FadeCandy that need a lot of programming, USB wiring and complex Control Computers.
+These are all usage cases that are not "Simple" DMX RGB-Light cases but also do not warrant complex solutions like FadeCandy that need a lot of programming, USB wiring and complex control computers.
 
 ## Feature List
 -	Can act as DMX Master or Slave
--	Up to 2 WS8212 LED strips with up to 1024 Pixel 
+-	Up to 2 WS8212 LED strips with up to 512 Pixel 
 -	2x RGB LED/Strip and 1xRGBW LED/Strip support with up to 3A/12V per LED (Or optionally drive PWM controlled servos)
 -	Configurable via USB/Serial Terminal
 -	Up to 2 Analog Inputs (Can be used to control effects or act as Triggers)
 -	8 Address Lines (Optional LCD via i2C and Encoder via GPIOs instead)
--	2 Mode Jumpers to hard-select options (Master/Slave and WS8212 Support on/off)
--	Test Button to go into Setup or Test Mode
+-	2 Mode Jumpers to hard-select options (Simple/Extended Mode and Master/Slave Select)
+-	Button to go into Setup or Test Mode
 -	External UART or option to connect ESP8266 WiFi Board
--	USB to use as a Computer-> Master Bridge
+-	USB to use as a Computer -> Master Bridge
 -	Total Cost per Board ~$16 (Most of that (8$) are MOSFETs so it depends on how many LED channels are needed)
 -	Board size 10x5 cm
 
@@ -41,7 +41,11 @@ These are all usage cases that are not "Simple" DMX RGB-Light cases but also do 
 - Load defaults on startup -> Working
 - Clear settings (Hold button on power-up) -> Working
 - Test Mode (Press button after power up, cycles through all LED channels) -> Working
-- Triggers -> Partially working
+- Triggers -> Working
+- Plugin Manager -> Working
+
+- WS2812 Support -> Pending
+- Serial Control (Wifi/Serial/USB) -> Pending
 
 ## Next Steps
 - Plugin Mananger to simplify FX Plugin Development
@@ -59,14 +63,14 @@ The BOM cost for the simplest implementation is
 So somewhere between $7 to $15.
 
 ## Development Enironment
-The software is developed with Atollic TrueStudio for STM32 (Freely awaylable at: https://atollic.com/truestudio/)
-Software framework was generated with STM's ST Cube Solution (Config file included in DOC folder) and uses ST's HAL framework.
+The software is developed with ST Microelectronics STM32CubeIDE 1.3.0
+The software framework was generated with STM's ST Cube Solution (Config file included in DOC folder) and uses ST's HAL framework.
 (Not my favorite but that's what they want you to use...)
 I use a ST-Link V2.0 Clone to upload/Debug software. (Eventually there might be a USB DFU Firmware Upload Client....)
 
 WARNING:
 There are currently a lot of bluepill STM32F103 board clones with fake STM32F103 circulating on Amazon.
-These can be used with a special driver for the ST-Link (Because they show up with a different device ID and the original ST driver blocks those clones) but won't work with Attolic True-studio out of the box... 
+These can be used with a special driver for the ST-Link (Because they show up with a different device ID and the original ST driver blocks those clones) but won't work with STM32CubeIDE out of the box... 
 
 ## Notes
 
@@ -93,8 +97,13 @@ Serial shell is enabled at 115 kBaud on the serial port. (Note that Rx and Tx ar
 There is a "Help" command to see all the supported commands.
 For parameters just type in the command.
 
+### Restoring Defaults
+Pressing the button while powering up will erease all settings and restore the defaults.
+
+### Test Mode
+Pressing the button after powering up will turn on test mode where the module cycles through all lights to test wiring
+
 ### Triggers
-(Currently Not working)
 The two trigger inputs  can be set up in different ways:
 
 #### Direct Control
@@ -106,10 +115,15 @@ A Specific value can be written to a specific control register wen crossing a th
 (For example a specific effect can be tiurned on/off via a switch)
 
 ### Plugin Development
-TBD
+#### Plugin Framework
+#### General Concepts
+#### Plugin Classes
+#### Plugin API
+#### Plugin Example
 
 ### Wifi/USB/Serial DMX Control
-TBD
+#### Protocol (DMX512S)
+#### Switching between Serial Shell and DMX512S Protocol
 
 ### Master Control
 TBD

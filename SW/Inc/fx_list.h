@@ -10,10 +10,11 @@
 
 #include <stdint.h>
 
-#define MAX_FX 128 //Limit list to 128 Entries for the moment to save RAM...
+#define MAX_FX 64 //Limit list to 64 Entries for the moment to save RAM...
 
 //Type of Return Values
 typedef enum{
+	FX_OK,
 	FX_COMPLETED,
 	FX_RUNNING,
 	FX_ERROR
@@ -22,10 +23,10 @@ typedef enum{
 //State for the current function call. It is guaranteed that
 //INIT will be executed once on start and end once effect ends.
 typedef enum{
-	INIT,
-	RUN,
-	END,
-	DONE
+	FX_INIT,
+	FX_RUN,
+	FX_END,
+	FX_DONE
 }t_fx_state;
 
 //Types of Effects

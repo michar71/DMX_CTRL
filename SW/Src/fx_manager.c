@@ -9,10 +9,14 @@
 #include "fx_list.h"
 #include <stddef.h>
 
+//FX Includes
+#include "fx_pwm_running_light.h"
+#include "fx_pwm_pulsing_light.h"
+
 uint8_t current_fx = 0;
 uint8_t last_fx = 0;
 uint32_t fx_frame_count = 0;
-t_fx_state current_fx_state = INIT;
+t_fx_state current_fx_state = FX_INIT;
 
 extern s_fx_param fx_list[MAX_FX];
 extern uint8_t fxcnt;
@@ -20,7 +24,10 @@ extern uint8_t fxcnt;
 void install_fx(void)
 {
 	//REGISTER FX HERE !!!
-
+    fx_pwm_running_light();
+    fx_pwm_running_pulse_light();
+    fx_pwm_pulsing_light();
+    fx_pwm_pulsing_pulse_light();
 }
 
 
@@ -31,12 +38,12 @@ uint8_t start_fx(uint8_t id)
 	if (id <= fxcnt)
 	{
 		//Call the last FX once with the END State
-		if (current_fx_state != DONE)
+		if (current_fx_state != FX_DONE)
 		{
 			if (NULL != fx_list[current_fx].fx_run_pointer)
 			{
-				fx_list[current_fx].fx_run_pointer(END,fx_list[current_fx].duration,0);
-				current_fx_state = DONE;
+				fx_list[current_fx].fx_run_pointer(FX_END,fx_list[current_fx].duration,0);
+				current_fx_state = FX_DONE;
 			}
 		}
 		//ID is valid, setup parameters
@@ -49,8 +56,8 @@ uint8_t start_fx(uint8_t id)
 		//Call run routine once with INIT state
 		if (NULL != fx_list[current_fx].fx_run_pointer)
 		{
-			fx_list[current_fx].fx_run_pointer(INIT,0,fx_list[current_fx].duration);
-			current_fx_state = INIT;
+			fx_list[current_fx].fx_run_pointer(FX_INIT,0,fx_list[current_fx].duration);
+			current_fx_state = FX_INIT;
 		}
 	}
 	//return new ID
@@ -69,9 +76,18 @@ void run_fx(void)
 	{
 		if (fx_list[current_fx].duration == fx_frame_count)
 		{
-			fx_list[current_fx].fx_run_pointer(END,fx_list[current_fx].duration,0);
-			current_fx_state = DONE;
-			current_fx = last_fx;
+			fx_list[current_fx].fx_run_pointer(FX_END,fx_list[current_fx].duration,0);
+			current_fx_state = FX_DONE;
+			if (fx_list[current_fx].next_fx != 0)
+			{
+				//Start Next FX
+				start_fx(fx_list[current_fx].next_fx);
+			}
+			else
+			{
+				//Go back to last FX
+				start_fx(last_fx);
+			}
 			return;
 		}
 	}
@@ -81,13 +97,13 @@ void run_fx(void)
 		if (fx_list[current_fx].duration == fx_frame_count)
 		{
 			fx_frame_count = 0;
-			fx_list[current_fx].fx_run_pointer(INIT,fx_list[current_fx].duration,0);
-			current_fx_state = INIT;
+			fx_list[current_fx].fx_run_pointer(FX_INIT,fx_list[current_fx].duration,0);
+			current_fx_state = FX_INIT;
 		}
 	}
 	//Call FX
-	fx_list[current_fx].fx_run_pointer(RUN,fx_frame_count,fx_list[current_fx].duration);
-	current_fx_state = RUN;
+	fx_list[current_fx].fx_run_pointer(FX_RUN,fx_frame_count,fx_list[current_fx].duration);
+	current_fx_state = FX_RUN;
 	fx_frame_count++;
 }
 

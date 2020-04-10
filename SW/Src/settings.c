@@ -45,6 +45,8 @@ void init_settings(void)
 	settings.offset_blue = -80;
 	settings.gain_blue = 100;    //Gain * 100
 	settings.gamma_blue = 220;   //Gamma * 100
+
+	settings.fx_multiplier = 4;
 }
 
 void apply_settings(void)
@@ -97,8 +99,16 @@ void save_settings(void)
 
 void print_settings(void)
 {
+	print("Defaults");
+	print("-------");
+
+
+
+
 	print("Settings");
 	print("-------");
+	//FX Multiplier
+	print("FX Multiplier: %d",settings.fx_multiplier);
 	//Strips
 	print("Strip 1 Length: %d",settings.strip1_length);
 	print("Strip 2 Length: %d",settings.strip2_length);

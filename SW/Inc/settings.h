@@ -58,6 +58,11 @@ typedef struct{
 	//Settings
 	//----------------
 
+	uint8_t fx_multiplier;  //Multiplier applied to fx_select register
+							//Some controllers make it really hard to select
+							//a Specific value with a slider so this will
+							//multiply the FX_Select register spreading it out
+	                        //so that one FX occupies multiple codes (0,1,2,3|4,5,6,7...)
 	//Strips
 	uint16_t strip1_length;
 	uint16_t strip2_length;

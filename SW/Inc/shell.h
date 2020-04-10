@@ -5,8 +5,8 @@
 #include <string.h>
 #include <stdarg.h>
 	
-#define SHELL_CMD_BUF_LEN	128
-#define MAX_ARGUMENT_NUM	16
+#define SHELL_CMD_BUF_LEN	64
+#define MAX_ARGUMENT_NUM	8
 
 typedef struct
 {

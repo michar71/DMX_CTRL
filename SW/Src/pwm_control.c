@@ -122,38 +122,6 @@ void PWM_Timer_Init(pwmtimerid_t ID)
 
 
 
-
-
-//Init GPIO
-/*
-void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef* htim_pwm)
-{
-
-  GPIO_InitTypeDef GPIO_InitStruct;
-  if(htim_pwm->Instance==TIM3)
-  {
-    // Peripheral clock enable
-    __TIM3_CLK_ENABLE();
-
-    //TIM3 GPIO Configuration
-    //PC9     ------> TIM3_CH4
-    //PC8     ------> TIM3_CH3
-    //PC7     ------> TIM3_CH2
-    //PC6     ------> TIM3_CH1
-
-    GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_8|GPIO_PIN_7|GPIO_PIN_6;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF2_TIM3;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-  }
-
-}
-*/
-
-
 //Setup PWM
 void configPWM(pwmtimerid_t ID,pwmchid_t channel, uint16_t duty)
 {
@@ -163,7 +131,3 @@ void configPWM(pwmtimerid_t ID,pwmchid_t channel, uint16_t duty)
 	  }
 }
 
-void configRGB(uint8_t ch,uint8_t r, uint8_t g, uint8_t b)
-{
-
-}

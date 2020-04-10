@@ -1,4 +1,3 @@
 pwm_control.c:38:6:PWM_Timer_Init	80	static
 pwm_control.c:25:6:init_timers	24	static
-pwm_control.c:158:6:configPWM	0	static
-pwm_control.c:166:6:configRGB	0	static
+pwm_control.c:126:6:configPWM	0	static

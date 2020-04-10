@@ -101,9 +101,34 @@ void print_settings(void)
 {
 	print("Defaults");
 	print("-------");
+	print("MAX_BRIGHTN: %d",settings.max_brightness);
+	print("CH1_RED: %d",settings.pwm_ch1_r);
+	print("CH1_GREEN: %d",settings.pwm_ch1_g);
+	print("CH1_BLUE: %d",settings.pwm_ch1_b);
+	print("CH2_RED: %d",settings.pwm_ch2_r);
+	print("CH2_GREEN: %d",settings.pwm_ch2_g);
+	print("CH2_BLUE: %d",settings.pwm_ch2_b);
+	print("CH3_RED: %d",settings.pwm_ch3_r);
+	print("CH3_GREEN: %d",settings.pwm_ch3_g);
+	print("CH3_BLUE: %d",settings.pwm_ch3_b);
+	print("CH3_WHITE: %d",settings.pwm_ch3_w);
+	print("FX_SELECT: %d",settings.fx_select);
 
+	print("STRIP1_PATTERN: %d",settings.strip1_pattern);
+	print("STRIP1_SPEED: %d",settings.strip1_speed);
+	print("STRIP1_SIZE: %d",settings.strip1_size);
+	print("STRIP1_COMPLEX: %d",settings.strip1_complexity);
+	print("STRIP1_V1: %d",settings.strip1_v1);
+	print("STRIP1_V2: %d",settings.strip1_v2);
+	print("STRIP1_V3: %d",settings.strip1_v3);
 
-
+	print("STRIP2_PATTERN: %d",settings.strip2_pattern);
+	print("STRIP2_SPEED: %d",settings.strip2_speed);
+	print("STRIP2_SIZE: %d",settings.strip2_size);
+	print("STRIP2_COMPLEX: %d",settings.strip2_complexity);
+	print("STRIP2_V1: %d",settings.strip2_v1);
+	print("STRIP2_V2: %d",settings.strip2_v2);
+	print("STRIP2_V3: %d",settings.strip2_v3);
 
 	print("Settings");
 	print("-------");

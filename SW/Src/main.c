@@ -32,6 +32,7 @@
 #include "triggers.h"
 #include "testmode.h"
 #include "fx_manager.h"
+#include "WS2812B.h"
 
 
 /* Private includes ----------------------------------------------------------*/
@@ -64,6 +65,9 @@ IWDG_HandleTypeDef hiwdg;
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
 
+SPI_HandleTypeDef hspi1;
+DMA_HandleTypeDef hdma_spi1_tx;
+
 /* USER CODE BEGIN PV */
 uint8_t testmode = 0;
 /* USER CODE END PV */
@@ -76,6 +80,9 @@ static void MX_ADC2_Init(void);
 static void MX_IWDG_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART3_UART_Init(void);
+static void MX_SPI1_Init(void);
+static void MX_DMA_Init(void);
+
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -122,6 +129,8 @@ int main(void)
 #endif
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
+  MX_SPI1_Init();
+  MX_DMA_Init();
  // MX_USB_DEVICE_Init();
 
 
@@ -149,6 +158,23 @@ int main(void)
   dmx512_init((dmxmode_t)get_mode_from_pins(),get_addr_from_pins());
   print("DMX512 Config complete");
 
+  //Init Defaults
+  init_settings();
+  // If Button is not pressed Load Defaults
+  if (0 == check_button())
+  {
+	  load_settings();
+	  print("Setting loaded");
+  }
+  else
+  {
+	  save_settings();
+	  print("Defaults restored");
+  }
+  //Set Defaults
+  apply_settings();
+  print("Settings complete");
+
   //Setup UART1 (RS485)/DMX512 Receiver
   dmx512_rec_init();
   print("DMX512 Init complete");
@@ -159,23 +185,26 @@ int main(void)
   init_trigger();
   print("Trigger Init complete");
 
-  //Init Defaults
-  init_settings();
-  // If Button is not pressed Load Defaults
-  if (0 == check_button())
+
+  if (DMX_MODE2 == get_mode())
   {
-	  load_settings();
+	  install_fx();
+	  print("FX complete");
+
+     if (WS2812B_init(settings.strip1_length))
+     {
+	   print("WS2812B CH1 Init complete");
+	   WS2812B_clear();
+	   print("DMX Mode 2 Active");
+     }
+	 else
+	   print("WS2812B CH1 Init FAILED");
   }
   else
   {
-	  save_settings();
+	  print("DMX Mode 1 Active");
   }
-  //Set Defaults
-  apply_settings();
-  print("Settings complete");
 
-  install_fx();
-  print("FX complete");
 
   print("Shell Active");
 
@@ -220,6 +249,11 @@ int main(void)
 		{
 			run_fx();
 			//Update WS2812 Data
+			//TBD Should this be done from Here by calling Show every Frame
+			//Or from inside the FX only when it is needed?
+			//Going with option 1 for the moment...
+			WS2812B_test();
+			WS2812B_show();
 		}
 
 		//  Set PWM Lights
@@ -280,6 +314,47 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 }
+
+/**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Channel2_3_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel3_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel3_IRQn);
+
+}
+
+/* SPI1 init function */
+static void MX_SPI1_Init(void)
+{
+  /* Peripheral clock enable */
+  __HAL_RCC_SPI1_CLK_ENABLE();
+
+  /* SPI1 parameter configuration*/
+  hspi1.Instance = SPI1;
+  hspi1.Init.Mode = SPI_MODE_MASTER;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
+  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi1.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi1) != HAL_OK)
+  {
+	  Error_Handler();
+  }
+}
+
 
 /**
   * @brief ADC1 Initialization Function

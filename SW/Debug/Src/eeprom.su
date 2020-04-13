@@ -1,6 +1,6 @@
 eeprom.c:51:9:EE_LL_Format	40	static
 eeprom.c:72:9:EE_LL_Read	8	static
-eeprom.c:147:9:EE_LL_Write	56	static
+eeprom.c:147:9:EE_LL_Write	40	static
 eeprom.c:193:6:EE_Format	0	static
 eeprom.c:199:6:EE_Read	0	static
 eeprom.c:205:6:EE_Write	16	static

@@ -23,6 +23,7 @@ Src/main.o: ../Src/main.c ../Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_iwdg.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
+ ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
@@ -35,7 +36,7 @@ Src/main.o: ../Src/main.c ../Inc/main.h \
  ../Inc/dmx512_config.h ../Inc/serial_tracer.h ../Inc/shell.h \
  ../Inc/gpio_control.h ../Inc/pwm_control.h ../Inc/light_update.h \
  ../Inc/settings.h ../Inc/triggers.h ../Inc/testmode.h \
- ../Inc/fx_manager.h
+ ../Inc/fx_manager.h ../Inc/WS2812B.h
 
 ../Inc/main.h:
 
@@ -87,6 +88,8 @@ Src/main.o: ../Src/main.c ../Inc/main.h \
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h:
 
+../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h:
+
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
@@ -128,3 +131,5 @@ Src/main.o: ../Src/main.c ../Inc/main.h \
 ../Inc/testmode.h:
 
 ../Inc/fx_manager.h:
+
+../Inc/WS2812B.h:

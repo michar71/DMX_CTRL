@@ -236,8 +236,10 @@ static int shell_cmd_setfxmultiplier(int argc, char ** argv)
 	if ((val == 4) || (val == 2) || (val == 1))
 		settings.fx_multiplier = val;
 	else
+	{
 		print("Invalid Multiplier");
-
+		settings.fx_multiplier = 4;
+	}
 	return 1;
 }
 

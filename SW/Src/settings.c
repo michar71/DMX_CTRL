@@ -33,8 +33,8 @@ void init_settings(void)
 	settings.strip2_complexity = 10;
 
 
-	settings.strip1_length = 300;
-	settings.strip2_length = 300;
+	settings.strip1_length = 100;
+	settings.strip2_length = 100;
 
 	settings.offset_red = -100;
 	settings.gain_red = 100;    //Gain * 100

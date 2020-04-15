@@ -20,6 +20,10 @@ void WS2812B_clear(void);
 uint8_t WS2812B_getBrightness(void);
 uint16_t WS2812B_numPixels(void);
 uint32_t WS2812B_Color(uint8_t r, uint8_t g, uint8_t b);
+void WS2812B_setStripColor(uint8_t r, uint8_t g, uint8_t b);
+uint32_t WS2812B_colorWheel(uint8_t WheelPos);
+void WS2812B_rainbow(uint8_t start, uint8_t count, uint8_t startval,  uint8_t stepsize);
+
 void WS2812B_test(void);
 
 uint16_t numLEDs;       // Number of RGB LEDs in strip
@@ -31,10 +35,5 @@ uint8_t *doubleBuffer;	// Holds the start of the double buffer (1 buffer for asy
 uint8_t rOffset;       // Index of red byte within each 3- or 4-byte pixel
 uint8_t gOffset;       // Index of green byte
 uint8_t bOffset;       // Index of blue byte
-uint8_t wOffset;       // Index of white byte (same as rOffset if no white)
-uint32_t endTime;       // Latch timing reference
-
-
-
 
 #endif // WS2812B_H

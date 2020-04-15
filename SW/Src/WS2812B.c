@@ -17,6 +17,7 @@ uint8_t WS2812B_init(uint16_t number_of_leds)
 
   numBytes = (number_of_leds<<3) + number_of_leds + 2; // 9 encoded bytes per pixel. 1 byte empty peamble to fix issue with SPI MOSI and on byte at the end to clear down MOSI
 							// Note. (n<<3) +n is a fast way of doing n*9
+
   if((doubleBuffer = (uint8_t *)malloc(numBytes*2)))
   {
     numLEDs = number_of_leds;
@@ -68,13 +69,30 @@ uint8_t WS2812B_init(uint16_t number_of_leds)
 // Sends the current buffer to the leds
 void WS2812B_show(void)
 {
+  uint32_t loopcnt = 0;
+  static uint32_t time = 0;
+
   //SPI.dmaSendAsync(pixels,numBytes);// Start the DMA transfer of the current pixel buffer to the LEDs and return immediately.
 
-  //Wait  for last transfer to finish
-  while(__HAL_SPI_GET_FLAG(&hspi1, SPI_FLAG_BSY ));
+  //Wait for last transfer to finish
+  while(__HAL_SPI_GET_FLAG(&hspi1, SPI_FLAG_BSY ))
+  {
+	  loopcnt++;
+  }
+
+  while (HAL_GetTick()<time)
+  {
+	  loopcnt++;
+  }
+
+
+  //we know how long the transfer takes..
+  //(440ns per bit) * 8 bits * 3 colors * number of pixels...
+
   //Send Data via DMA
   HAL_SPI_Transmit_DMA( &hspi1, pixels, numBytes );
-
+  time = HAL_GetTick() + 6;  //we need to wait at least XXX systicks for the colors to latch in after the last transfer.
+  	  	  	  	  	  	  	 //The added 6 ms here are purely experimental...
 
   // Need to copy the last / current buffer to the other half of the double buffer as most API code does not rebuild the entire contents
   // from scratch. Often just a few pixels are changed e.g in a chaser effect
@@ -230,16 +248,79 @@ void WS2812B_clear(void)
 	}
 }
 
+//Set the whole strip to the same color
+void WS2812B_setStripColor(uint8_t r, uint8_t g, uint8_t b)
+{
+  for(uint16_t i=0; i<WS2812B_numPixels(); i++)
+  {
+	  WS2812B_setPixelColor(i, r,g,b);
+  }
+}
+
+// Input a value 0 to 255 to get a color value.
+// The colours are a transition r - g - b - back to r.
+uint32_t WS2812B_colorWheel(uint8_t WheelPos)
+{
+  if(WheelPos < 85)
+  {
+    return WS2812B_Color(WheelPos * 3, 255 - WheelPos * 3, 0);
+  }
+  else
+  {
+    if(WheelPos < 170)
+    {
+     WheelPos -= 85;
+     return WS2812B_Color(255 - WheelPos * 3, 0, WheelPos * 3);
+    }
+    else
+    {
+     WheelPos -= 170;
+     return WS2812B_Color(0, WheelPos * 3, 255 - WheelPos * 3);
+    }
+  }
+}
+
+
+//show rainbow colorsa starting at pixel start for count pixels with a given startvalue with a defined stepsize
+void WS2812B_rainbow(uint8_t start, uint8_t count, uint8_t startval,  uint8_t stepsize)
+{
+  uint16_t i, j;
+
+	j =startval;
+	for(i=start; i<=(start+count); i++)
+	{
+		WS2812B_setPixelColorDirect(i, WS2812B_colorWheel((j) & 255));
+		j = j + stepsize;
+		if (j>255)
+			j = j - 255;
+	}
+}
+
 //Running light pattern
 void WS2812B_test(void)
 {
 	static uint16_t cnt = 0;
+	static uint16_t delay = 0;
+
+	if (delay != 100)
+	{
+		delay ++;
+		return;
+	}
+	delay = 0;
 
 	//Clear All
 	WS2812B_clear();
 
+	//WS2812B_setPixelColor(0, 255, 0, 0);
+	//WS2812B_setPixelColor(1, 0, 255, 0);
+	//WS2812B_setPixelColor(2, 0, 0, 255);
+	//WS2812B_setPixelColor(3, 255, 0, 255);
+	//WS2812B_setPixelColor(4, 0, 255, 255);
+	//WS2812B_setPixelColor(5, 255, 255, 0);
+	//WS2812B_setPixelColor(6, 255, 255, 255);
 	//Set Pixel
-	WS2812B_setPixelColor(cnt, 255, 128, 64);
+	WS2812B_setPixelColor(cnt, 255, 0, 0);
 
 	//Increase Counter
 	cnt++;

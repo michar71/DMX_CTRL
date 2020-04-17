@@ -2,4 +2,5 @@ triggers.c:30:6:ADC1_2_IRQHandler	0	static
 triggers.c:40:6:HAL_ADC_ConvCpltCallback	24	static
 triggers.c:78:6:init_trigger	8	static
 triggers.c:92:6:process_trigger	16	static
-triggers.c:149:6:print_adc_data	24	static
+triggers.c:150:9:get_trigger	0	static
+triggers.c:158:6:print_adc_data	24	static

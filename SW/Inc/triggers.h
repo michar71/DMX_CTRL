@@ -12,6 +12,7 @@
 
 void init_trigger(void);
 void process_trigger(void);
+uint8_t get_trigger(uint8_t ch);
 void print_adc_data(void);
 
 #endif /* TRIGGERS_H_ */

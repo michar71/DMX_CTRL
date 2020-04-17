@@ -146,6 +146,15 @@ void process_trigger(void)
 	}
 }
 
+
+uint8_t get_trigger(uint8_t ch)
+{
+	if ((ch == 0) || (ch == 1))
+		return adcdata[ch].adc_val;
+	else
+		return 0;
+}
+
 void print_adc_data(void)
 {
 	for (int ii=0;ii<2;ii++)

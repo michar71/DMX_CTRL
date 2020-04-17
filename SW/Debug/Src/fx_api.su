@@ -1,6 +1,8 @@
-fx_api.c:13:6:reset_frame_delay	0	static
-fx_api.c:19:9:check_frame_delay	0	static
-fx_api.c:32:6:set_pwm_light	0	static
-fx_api.c:38:6:set_pwm_timer_channel	16	static
-fx_api.c:46:6:set_pwm_brightness	0	static
-fx_api.c:52:9:get_DMX_variable	0	static
+fx_api.c:15:6:reset_frame_delay	0	static
+fx_api.c:21:9:check_frame_delay	0	static
+fx_api.c:34:6:set_pwm_light	0	static
+fx_api.c:40:6:set_pwm_timer_channel	16	static
+fx_api.c:48:6:set_pwm_brightness	0	static
+fx_api.c:54:9:get_DMX_variable	0	static
+fx_api.c:60:9:get_tigger_val	0	static
+fx_api.c:65:10:millisec	0	static

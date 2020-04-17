@@ -312,15 +312,15 @@ void WS2812B_test(void)
 	//Clear All
 	WS2812B_clear();
 
-	//WS2812B_setPixelColor(0, 255, 0, 0);
-	//WS2812B_setPixelColor(1, 0, 255, 0);
-	//WS2812B_setPixelColor(2, 0, 0, 255);
-	//WS2812B_setPixelColor(3, 255, 0, 255);
-	//WS2812B_setPixelColor(4, 0, 255, 255);
-	//WS2812B_setPixelColor(5, 255, 255, 0);
-	//WS2812B_setPixelColor(6, 255, 255, 255);
+	WS2812B_setPixelColor(0, 255, 0, 0);
+	WS2812B_setPixelColor(1, 0, 255, 0);
+	WS2812B_setPixelColor(2, 0, 0, 255);
+	WS2812B_setPixelColor(3, 255, 0, 255);
+	WS2812B_setPixelColor(4, 0, 255, 255);
+	WS2812B_setPixelColor(5, 255, 255, 0);
+	WS2812B_setPixelColor(6, 255, 255, 255);
 	//Set Pixel
-	WS2812B_setPixelColor(cnt, 255, 0, 0);
+	//WS2812B_setPixelColor(cnt, 255, 0, 0);
 
 	//Increase Counter
 	cnt++;

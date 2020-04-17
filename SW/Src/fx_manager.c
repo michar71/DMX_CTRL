@@ -7,11 +7,10 @@
 
 #include "fx_manager.h"
 #include "fx_list.h"
+#include "fx_install.h"
 #include <stddef.h>
 
-//FX Includes
-#include "fx_pwm_running_light.h"
-#include "fx_pwm_pulsing_light.h"
+
 
 uint8_t current_fx = 0;
 uint8_t last_fx = 0;
@@ -23,11 +22,7 @@ extern uint8_t fxcnt;
 
 void install_fx(void)
 {
-	//REGISTER FX HERE !!!
-    fx_pwm_running_light();
-    fx_pwm_running_pulse_light();
-    fx_pwm_pulsing_light();
-    fx_pwm_pulsing_pulse_light();
+	fx_install();
 }
 
 
@@ -64,6 +59,27 @@ uint8_t start_fx(uint8_t id)
 	return current_fx;
 }
 
+
+void fx_done(void)
+{
+	if (NULL != fx_list[current_fx].fx_run_pointer)
+	{
+		fx_list[current_fx].fx_run_pointer(FX_END,fx_list[current_fx].duration,0);
+	}
+	current_fx_state = FX_DONE;
+	if (fx_list[current_fx].next_fx != 0)
+	{
+		//Start Next FX
+		start_fx(fx_list[current_fx].next_fx);
+	}
+	else
+	{
+		//Go back to last FX
+		start_fx(last_fx);
+	}
+	return;
+}
+
 //Called every frame
 void run_fx(void)
 {
@@ -76,18 +92,7 @@ void run_fx(void)
 	{
 		if (fx_list[current_fx].duration == fx_frame_count)
 		{
-			fx_list[current_fx].fx_run_pointer(FX_END,fx_list[current_fx].duration,0);
-			current_fx_state = FX_DONE;
-			if (fx_list[current_fx].next_fx != 0)
-			{
-				//Start Next FX
-				start_fx(fx_list[current_fx].next_fx);
-			}
-			else
-			{
-				//Go back to last FX
-				start_fx(last_fx);
-			}
+			fx_done();
 			return;
 		}
 	}
@@ -97,12 +102,24 @@ void run_fx(void)
 		if (fx_list[current_fx].duration == fx_frame_count)
 		{
 			fx_frame_count = 0;
-			fx_list[current_fx].fx_run_pointer(FX_INIT,fx_list[current_fx].duration,0);
+			if (NULL != fx_list[current_fx].fx_run_pointer)
+			{
+				fx_list[current_fx].fx_run_pointer(FX_INIT,fx_list[current_fx].duration,0);
+			}
 			current_fx_state = FX_INIT;
 		}
 	}
 	//Call FX
-	fx_list[current_fx].fx_run_pointer(FX_RUN,fx_frame_count,fx_list[current_fx].duration);
+	if (NULL != fx_list[current_fx].fx_run_pointer)
+	{
+		if (FX_COMPLETED == fx_list[current_fx].fx_run_pointer(FX_RUN,fx_frame_count,fx_list[current_fx].duration))
+		{
+			//FX Self-ended...
+			fx_done();
+			return;
+		}
+	}
+
 	current_fx_state = FX_RUN;
 	fx_frame_count++;
 }

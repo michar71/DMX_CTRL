@@ -1,3 +1,5 @@
-fx_manager.c:24:6:install_fx	8	static
-fx_manager.c:35:9:start_fx	24	static
-fx_manager.c:68:6:run_fx	32	static
+fx_install.h:15:6:fx_install	8	static
+fx_manager.c:23:6:install_fx	0	static
+fx_manager.c:30:9:start_fx	24	static
+fx_manager.c:63:6:fx_done	16	static
+fx_manager.c:84:6:run_fx	16	static

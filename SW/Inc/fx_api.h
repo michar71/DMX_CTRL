@@ -69,5 +69,11 @@ void set_pwm_brightness(uint8_t val);
 //Get a DMX Variable
 uint8_t get_DMX_variable(t_dmx_var var);
 
+//System Specific Functions
+//--------------------------
+
+uint8_t get_tigger_val(uint8_t ch);
+uint32_t millisec(void);
+
 
 #endif /* FX_API_H_ */

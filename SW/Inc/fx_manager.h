@@ -16,6 +16,9 @@ void install_fx(void);
 //Called to start a new effect. Return the effect that was actually enabled
 uint8_t start_fx(uint8_t id);
 
+//End FX
+void fx_done(void);
+
 //Called every frame
 void run_fx(void);
 

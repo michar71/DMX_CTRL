@@ -6,6 +6,8 @@
  */
 #include "fx_api.h"
 #include "pwm_control.h"
+#include <stm32f1xx.h>
+#include "triggers.h"
 
 uint32_t delay_count = 0;
 
@@ -52,4 +54,15 @@ void set_pwm_brightness(uint8_t val)
 uint8_t get_DMX_variable(t_dmx_var var)
 {
 	return get_reg((uint32_t)var);
+}
+
+
+uint8_t get_tigger_val(uint8_t ch)
+{
+	return get_trigger(ch);
+}
+
+uint32_t millisec(void)
+{
+	return HAL_GetTick();
 }

@@ -1,4 +1,4 @@
-fx_install.h:15:6:fx_install	8	static
+fx_install.h:16:6:fx_install	8	static
 fx_manager.c:23:6:install_fx	0	static
 fx_manager.c:30:9:start_fx	24	static
 fx_manager.c:63:6:fx_done	16	static

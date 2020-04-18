@@ -1,5 +1,6 @@
-Src/fx_api.o: ../Src/fx_api.c ../Inc/fx_api.h ../Inc/fx_list.h \
- ../Inc/dmx512_config.h ../Inc/pwm_control.h \
+Src/fx/fx_pwm_running_light.o: ../Src/fx/fx_pwm_running_light.c \
+ ../Inc/fx_api/fx_api.h ../Inc/fx_list.h ../Inc/dmx512_config.h \
+ ../Inc/WS2812B/WS2812B.h \
  ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h \
  ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h \
  ../Drivers/CMSIS/Include/core_cm3.h \
@@ -31,15 +32,15 @@ Src/fx_api.o: ../Src/fx_api.c ../Inc/fx_api.h ../Inc/fx_list.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h \
- ../Inc/triggers.h
+ ../Inc/fx/fx_pwm_running_light.h
 
-../Inc/fx_api.h:
+../Inc/fx_api/fx_api.h:
 
 ../Inc/fx_list.h:
 
 ../Inc/dmx512_config.h:
 
-../Inc/pwm_control.h:
+../Inc/WS2812B/WS2812B.h:
 
 ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h:
 
@@ -103,4 +104,4 @@ Src/fx_api.o: ../Src/fx_api.c ../Inc/fx_api.h ../Inc/fx_list.h \
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h:
 
-../Inc/triggers.h:
+../Inc/fx/fx_pwm_running_light.h:

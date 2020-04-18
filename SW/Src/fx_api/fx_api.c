@@ -4,7 +4,7 @@
  *  Created on: Apr 7, 2020
  *      Author: Michael
  */
-#include "fx_api.h"
+#include "fx_api/fx_api.h"
 #include "pwm_control.h"
 #include <stm32f1xx.h>
 #include "triggers.h"

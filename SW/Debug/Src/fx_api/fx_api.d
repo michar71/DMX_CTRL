@@ -1,4 +1,5 @@
-Src/WS2812B.o: ../Src/WS2812B.c ../Inc/WS2812B.h \
+Src/fx_api/fx_api.o: ../Src/fx_api/fx_api.c ../Inc/fx_api/fx_api.h \
+ ../Inc/fx_list.h ../Inc/dmx512_config.h ../Inc/WS2812B/WS2812B.h \
  ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h \
  ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h \
  ../Drivers/CMSIS/Include/core_cm3.h \
@@ -29,9 +30,16 @@ Src/WS2812B.o: ../Src/WS2812B.c ../Inc/WS2812B.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h \
- ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h
+ ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h \
+ ../Inc/pwm_control.h ../Inc/triggers.h
 
-../Inc/WS2812B.h:
+../Inc/fx_api/fx_api.h:
+
+../Inc/fx_list.h:
+
+../Inc/dmx512_config.h:
+
+../Inc/WS2812B/WS2812B.h:
 
 ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h:
 
@@ -94,3 +102,7 @@ Src/WS2812B.o: ../Src/WS2812B.c ../Inc/WS2812B.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h:
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h:
+
+../Inc/pwm_control.h:
+
+../Inc/triggers.h:

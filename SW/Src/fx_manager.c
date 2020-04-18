@@ -7,7 +7,7 @@
 
 #include "fx_manager.h"
 #include "fx_list.h"
-#include "fx_install.h"
+#include "fx/fx_install.h"
 #include <stddef.h>
 
 

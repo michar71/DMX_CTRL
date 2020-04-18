@@ -1,5 +1,5 @@
-#include "fx_api.h"
-#include "fx_pwm_pulsing_light.h"
+#include "fx_api/fx_api.h"
+#include "fx/fx_pwm_pulsing_light.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

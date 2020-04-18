@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include "fx_list.h"
 #include "dmx512_config.h"
+#include "WS2812B/WS2812B.h"
 
 
 typedef enum{
@@ -41,6 +42,12 @@ typedef enum{
 	DMX_STRIP2_V2,
 	DMX_STRIP2_V3
 }t_dmx_var;
+
+//Use these to Grab access to a whole strip register block
+typedef enum{
+	DMX_STRIP1_REG_START = DMX_STRIP1_PATTERN,
+	DMX_STRIP2_REG_START = DMX_STRIP2_PATTERN
+}t_dmx_strip_var;
 
 //Delay Function
 //--------------

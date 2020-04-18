@@ -32,7 +32,7 @@
 #include "triggers.h"
 #include "testmode.h"
 #include "fx_manager.h"
-#include "WS2812B.h"
+#include "WS2812B/WS2812B.h"
 
 
 /* Private includes ----------------------------------------------------------*/
@@ -66,7 +66,9 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
 
 SPI_HandleTypeDef hspi1;
+SPI_HandleTypeDef hspi2;
 DMA_HandleTypeDef hdma_spi1_tx;
+DMA_HandleTypeDef hdma_spi2_tx;
 
 /* USER CODE BEGIN PV */
 uint8_t testmode = 0;
@@ -81,6 +83,7 @@ static void MX_IWDG_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_SPI1_Init(void);
+static void MX_SPI2_Init(void);
 static void MX_DMA_Init(void);
 
 /* USER CODE BEGIN PFP */
@@ -130,6 +133,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
   MX_SPI1_Init();
+  MX_SPI2_Init();
   MX_DMA_Init();
  // MX_USB_DEVICE_Init();
 
@@ -191,14 +195,23 @@ int main(void)
 	  install_fx();
 	  print("FX complete");
 
-     if (WS2812B_init(settings.strip1_length))
+     if (WS2812B_init(CH1,settings.strip1_length))
      {
 	   print("WS2812B CH1 Init complete");
-	   WS2812B_clear();
+	   WS2812B_clear(CH1);
 	   print("DMX Mode 2 Active");
      }
 	 else
 	   print("WS2812B CH1 Init FAILED");
+
+     if (WS2812B_init(CH2,settings.strip1_length))
+     {
+	   print("WS2812B CH2 Init complete");
+	   WS2812B_clear(CH2);
+	   print("DMX Mode 2 Active");
+     }
+	 else
+	   print("WS2812B CH2 Init FAILED");
   }
   else
   {
@@ -249,11 +262,16 @@ int main(void)
 		{
 			run_fx();
 			//Update WS2812 Data
-			//TBD Should this be done from Here by calling Show every Frame
-			//Or from inside the FX only when it is needed?
-			//Going with option 1 for the moment...
-			WS2812B_test();
-			WS2812B_show();
+			//TBD Should this be done from Here by
+			//1) calling Show every Frame
+			//Or
+			//2) from inside the FX only when it is needed?
+			//Going with option 1 for the moment. as the timing is more predictable...
+
+			WS2812B_test(CH1);
+			WS2812B_test(CH2);
+			WS2812B_show(CH1);
+			WS2812B_show(CH2);
 		}
 
 		//  Set PWM Lights
@@ -324,9 +342,13 @@ static void MX_DMA_Init(void)
   __HAL_RCC_DMA1_CLK_ENABLE();
 
   /* DMA interrupt init */
-  /* DMA1_Channel2_3_IRQn interrupt configuration */
+  /* DMA1_Channel3_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel3_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel3_IRQn);
+
+  /* DMA1_Channel3_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel4_IRQn);
 
 }
 
@@ -355,6 +377,30 @@ static void MX_SPI1_Init(void)
   }
 }
 
+/* SPI1 init function */
+static void MX_SPI2_Init(void)
+{
+  /* Peripheral clock enable */
+  __HAL_RCC_SPI2_CLK_ENABLE();
+
+  /* SPI1 parameter configuration*/
+  hspi2.Instance = SPI2;
+  hspi2.Init.Mode = SPI_MODE_MASTER;
+  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi2.Init.NSS = SPI_NSS_SOFT;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
+  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi2.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi2) != HAL_OK)
+  {
+	  Error_Handler();
+  }
+}
 
 /**
   * @brief ADC1 Initialization Function
@@ -624,7 +670,8 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(RS485_DIR_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure peripheral I/O remapping */
-  __HAL_AFIO_REMAP_SPI1_ENABLE();
+  //__HAL_AFIO_REMAP_SPI1_ENABLE();
+  //__HAL_AFIO_REMAP_SPI2_ENABLE();
 
 }
 

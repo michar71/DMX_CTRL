@@ -10,6 +10,9 @@
 #include "triggers.h"
 
 uint32_t delay_count = 0;
+const t_dmx_var DMX_CH_REG[CH_MAX][DMX_STRIP_MAX] = {{DMX_STRIP1_PATTERN,DMX_STRIP1_SPEED,DMX_STRIP1_SIZE,DMX_STRIP1_COMPLEXITY,DMX_STRIP1_V1,DMX_STRIP1_V2,DMX_STRIP1_V3},
+													 {DMX_STRIP2_PATTERN,DMX_STRIP2_SPEED,DMX_STRIP2_SIZE,DMX_STRIP2_COMPLEXITY,DMX_STRIP2_V1,DMX_STRIP2_V2,DMX_STRIP2_V3}};
+
 
 //Reset the Frame Delay Counter
 void reset_frame_delay(void)
@@ -26,6 +29,19 @@ uint8_t check_frame_delay(uint32_t delay)
 		return 1;
 	}
 	delay_count++;
+	return 0;
+}
+
+
+//Custom Delay with on Variable
+uint8_t check_custom_frame_delay(uint32_t* count, uint32_t delay)
+{
+	if (delay == *count)
+	{
+		*count = 0;
+		return 1;
+	}
+	*count = *count + 1;
 	return 0;
 }
 

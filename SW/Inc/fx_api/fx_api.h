@@ -43,20 +43,39 @@ typedef enum{
 	DMX_STRIP2_V3
 }t_dmx_var;
 
+
+typedef enum{
+	DMX_STRIP_PATTERN,
+	DMX_STRIP_SPEED,
+	DMX_STRIP_SIZE,
+	DMX_STRIP_COMPLEXITY,
+	DMX_STRIP_V1,
+	DMX_STRIP_V2,
+	DMX_STRIP_V3,
+	DMX_STRIP_MAX
+}t_dmx_ch_var;
+
 //Use these to Grab access to a whole strip register block
 typedef enum{
 	DMX_STRIP1_REG_START = DMX_STRIP1_PATTERN,
 	DMX_STRIP2_REG_START = DMX_STRIP2_PATTERN
 }t_dmx_strip_var;
 
+extern const t_dmx_var DMX_CH_REG[CH_MAX][DMX_STRIP_MAX];
+
+
 //Delay Function
 //--------------
+
 
 //Reset the Frame Delay Counter
 void reset_frame_delay(void);
 
 //Returns true if "delay" frames have passed, else false
 uint8_t check_frame_delay(uint32_t delay);
+
+//Custom Delay with own variable
+uint8_t check_custom_frame_delay(uint32_t* count, uint32_t delay);
 
 //PWM Control Functions
 //---------------------

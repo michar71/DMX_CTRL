@@ -26,6 +26,7 @@ static int shell_cmd_setfxmultiplier(int argc, char ** argv);
 static int shell_cmd_storedefaultregs(int argc, char ** argv);
 static int shell_cmd_settriggerconfig(int argc, char ** argv);
 static int shell_cmd_settriggerctrl(int argc, char ** argv);
+static int shell_cmd_setstriplength(int argc, char ** argv);
 
 /* to be consumed in shell.c only */
 const shell_cmd_t shell_cmd_list[] = {
@@ -46,6 +47,7 @@ const shell_cmd_t shell_cmd_list[] = {
 	{"settriggerconfig",   "settriggerctrl  [trigger 0|1] [Reg HiLo (0..25)] [Val HiLo (0..255)] [Reg LoHi (0..25)] [Val LoHi (0..255)]\n\r",shell_cmd_settriggerctrl},
 	{"storedefaultregs",   "storedefaultregs\n\r",shell_cmd_storedefaultregs},
 	{"dumpadc",   "dumpadc\n\r",shell_cmd_dumpadc},
+	{"setstriplength",   "setstriplength [ch (0..2)] [length (0..1024)]\n\r",shell_cmd_setstriplength},
 };
 
 const int SHELL_CMD_NUM = sizeof(shell_cmd_list)/sizeof(shell_cmd_t);
@@ -349,6 +351,30 @@ static int shell_cmd_settriggerctrl(int argc, char ** argv)
 			settings.trigger_val_hilo_A1 = atoi(argv[3]);
 			settings.trigger_reg_lohi_A1 = atoi(argv[4]);
 			settings.trigger_val_lohi_A1 = atoi(argv[5]);
+			break;
+		}
+	}
+	else
+	{
+		return 0;
+	}
+	return 1;
+}
+
+//setstriplength
+static int shell_cmd_setstriplength(int argc, char ** argv)
+{
+	if (argc == 2)
+	{
+		switch (atoi(argv[1]))
+		{
+		case 0:
+			settings.strip1_length = atoi(argv[2]);
+			break;
+		case 1:
+			settings.strip2_length = atoi(argv[2]);
+			break;
+		default:
 			break;
 		}
 	}

@@ -18,6 +18,11 @@ typedef enum{
 
 }triggermode_e;
 
+typedef enum{
+	UART_MODE_SHELL,
+	UART_MODE_DMX
+}uartmode_t;
+
 typedef struct{
 	//----------------
 	//Defaults
@@ -67,8 +72,11 @@ typedef struct{
 	uint16_t strip1_length;
 	uint16_t strip2_length;
 
+	//UARTS
+	uint8_t UART_Mode_UART;
+	uint8_t UART_Mode_USB;
+
 	//Features
-	//- Start UART in Shell Mode
 	//- Dump Debug Info to UART
 	//- Support Virtual UART on USB
 

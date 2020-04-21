@@ -16,7 +16,8 @@ extern const int SHELL_CMD_NUM;
 static char cmd_buf[SHELL_CMD_BUF_LEN];
 static int cmd_buf_idx = 0;
 static char cmd_hist[SHELL_CMD_HISTORY_LEN][SHELL_CMD_BUF_LEN];
-static int cmd_hist_put_idx = 0, cmd_hist_get_idx = 0;
+static int cmd_hist_put_idx = 0;
+static int cmd_hist_get_idx = 0;
 
 /* macros */
 #define DEBUG_MAX_MSG_LEN 128

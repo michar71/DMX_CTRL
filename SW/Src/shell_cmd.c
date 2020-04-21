@@ -9,6 +9,10 @@
 #include "settings.h"
 #include "triggers.h"
 
+
+extern int UART_mode_SERIAL;
+extern int UART_mode_USB;
+
 static int shell_cmd_test(int argc, char ** argv);
 static int shell_cmd_getaddr(int argc, char ** argv);
 static int shell_cmd_getmode(int argc, char ** argv);
@@ -27,6 +31,8 @@ static int shell_cmd_storedefaultregs(int argc, char ** argv);
 static int shell_cmd_settriggerconfig(int argc, char ** argv);
 static int shell_cmd_settriggerctrl(int argc, char ** argv);
 static int shell_cmd_setstriplength(int argc, char ** argv);
+static int shell_cmd_setuartmode(int argc, char ** argv);
+static int shell_cmd_switchuartmode(int argc, char ** argv);
 
 /* to be consumed in shell.c only */
 const shell_cmd_t shell_cmd_list[] = {
@@ -48,6 +54,8 @@ const shell_cmd_t shell_cmd_list[] = {
 	{"storedefaultregs",   "storedefaultregs\n\r",shell_cmd_storedefaultregs},
 	{"dumpadc",   "dumpadc\n\r",shell_cmd_dumpadc},
 	{"setstriplength",   "setstriplength [ch (0..2)] [length (0..1024)]\n\r",shell_cmd_setstriplength},
+	{"setuartmode",   "setuartmode [0 = Serial, 1 = USB] [0 = Shell, 1 = Serial DMX]\n\r",shell_cmd_setuartmode},
+	{"switchuartmode",   "switchuartmode [0 = Serial, 1 = USB]\n\r",shell_cmd_switchuartmode},
 };
 
 const int SHELL_CMD_NUM = sizeof(shell_cmd_list)/sizeof(shell_cmd_t);
@@ -385,6 +393,55 @@ static int shell_cmd_setstriplength(int argc, char ** argv)
 	return 1;
 }
 
+//Set UART Mode
+static int shell_cmd_setuartmode(int argc, char ** argv)
+{
+	if (argc == 2)
+	{
+		switch (atoi(argv[1]))
+		{
+		case 0:
+			settings.UART_Mode_UART = atoi(argv[2]);
+			break;
+		case 1:
+			settings.UART_Mode_USB = atoi(argv[2]);
+			break;
+		default:
+			break;
+		}
+	}
+	else
+	{
+		return 0;
+	}
+	return 1;
+}
+
+
+//Set UART Mode
+static int shell_cmd_switchuartmode(int argc, char ** argv)
+{
+	if (argc == 2)
+	{
+		switch (atoi(argv[1]))
+		{
+		case 0:
+			UART_mode_SERIAL = (uint8_t)UART_MODE_DMX;
+			break;
+		case 1:
+			UART_mode_USB = (uint8_t)UART_MODE_DMX;
+			break;
+		default:
+			break;
+		}
+	}
+	else
+	{
+		return 0;
+	}
+	return 1;
+}
+
 //getaddr
 //getmode
 //setaddr
@@ -410,112 +467,3 @@ static int shell_cmd_setstriplength(int argc, char ** argv)
 //setpwm [id] [ch] [duty]
 //setpwmrgb [id] [r] [g] [b]
 //startmode (off|default|reset)
-
-/*
-
-static int shell_cmd_test(int argc, char ** argv)
-{
-	  if(0 == strncmp(argv[1], "status", SHELL_CMD_BUF_LEN))
-    {
-     //   aux_power_print_info();
-    }
-    else if(0 == strncmp(argv[1], "set", SHELL_CMD_BUF_LEN))
-    {
-	//			aux_power_enable((aux_power_conn_t)atoi(argv[2]),(bool)atoi(argv[3]));
-		}
-    else if(0 == strncmp(argv[1], "gpo", SHELL_CMD_BUF_LEN))
-		{
-	//	    aux_gpo_enable((bool)atoi(argv[2]));
-	  }
-		else
-		{
-			return 0;
-		}
-    return 1;
-}
-
-static int shell_i2c_test(int argc, char ** argv)
-{
-	if(0 == strncmp(argv[1], "read", SHELL_CMD_BUF_LEN))
-    {
-      if (argc == 3)
-      {
-        uint8_t addr = atoi(argv[2]);
-        uint8_t reg = atoi(argv[3]);
-        uint8_t reg_val = 0;
-
-        I2C_MasterSendStart(addr, I2C_WRITE_XFER_MODE);
-        I2C_MasterWriteByte(reg);
-       // I2C_MasterSendStop();
-        I2C_MasterSendRestart(addr, I2C_READ_XFER_MODE);
-        reg_val = I2C_MasterReadByte(I2C_NAK_DATA);
-        I2C_MasterSendStop();
-        print("%d read from %d->%d\n",reg_val,addr,reg);
-      }
-	  else
-	  {
-		 return 0;
-	  }
-    }
-    else if(0 == strncmp(argv[1], "write", SHELL_CMD_BUF_LEN))
-    {
-      if (argc == 4)
-      {
-        uint8_t addr = atoi(argv[2]);
-        uint8_t reg = atoi(argv[3]);
-        uint8_t data = atoi(argv[4]);
-        I2C_MasterSendStart(addr, I2C_WRITE_XFER_MODE);
-        I2C_MasterWriteByte(reg);
-        I2C_MasterWriteByte(data);
-        I2C_MasterSendStop();
-        print("%d written to %d->%d\n",data,addr,reg);
-      }
-	  else
-	  {
-		 return 0;
-	  }
-	}
-	else
-	{
-		return 0;
-	}
-    return 1;
-}
-
-static int shell_cmd_freq(int argc, char ** argv)
-{
-    if (argc == 1)
-    {
-	    uint32_t freq = atoi(argv[1]);
-	    uint32_t res;
-	    radio_set_freq((double)freq, &res);
-	    return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-static int shell_cmd_mode(int argc, char ** argv)
-{
-	if(0 == strncmp(argv[1], "lsb", SHELL_CMD_BUF_LEN))
-    {
-     	radio_set_mode(RADIO_MODE_LSB);
-    }
-    else if(0 == strncmp(argv[1], "usb", SHELL_CMD_BUF_LEN))
-    {
-     	radio_set_mode(RADIO_MODE_USB);
-		}
-    else if(0 == strncmp(argv[1], "am", SHELL_CMD_BUF_LEN))
-		{
-     	radio_set_mode(RADIO_MODE_AM);
-	  }
-	else
-	{
-		return 0;
-	}
-    return 1;
-}
-
-*/

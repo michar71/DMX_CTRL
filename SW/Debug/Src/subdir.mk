@@ -13,6 +13,7 @@ C_SRCS += \
 ../Src/light_update.c \
 ../Src/main.c \
 ../Src/pwm_control.c \
+../Src/serial_dmx_parser.c \
 ../Src/serial_tracer.c \
 ../Src/settings.c \
 ../Src/shell.c \
@@ -39,6 +40,7 @@ OBJS += \
 ./Src/light_update.o \
 ./Src/main.o \
 ./Src/pwm_control.o \
+./Src/serial_dmx_parser.o \
 ./Src/serial_tracer.o \
 ./Src/settings.o \
 ./Src/shell.o \
@@ -65,6 +67,7 @@ C_DEPS += \
 ./Src/light_update.d \
 ./Src/main.d \
 ./Src/pwm_control.d \
+./Src/serial_dmx_parser.d \
 ./Src/serial_tracer.d \
 ./Src/settings.d \
 ./Src/shell.d \
@@ -101,6 +104,8 @@ Src/main.o: ../Src/main.c
 	arm-none-eabi-gcc -c "$<" -mcpu=cortex-m3 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
 Src/pwm_control.o: ../Src/pwm_control.c
 	arm-none-eabi-gcc -c "$<" -mcpu=cortex-m3 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/pwm_control.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
+Src/serial_dmx_parser.o: ../Src/serial_dmx_parser.c
+	arm-none-eabi-gcc -c "$<" -mcpu=cortex-m3 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/serial_dmx_parser.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
 Src/serial_tracer.o: ../Src/serial_tracer.c
 	arm-none-eabi-gcc -c "$<" -mcpu=cortex-m3 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/serial_tracer.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
 Src/settings.o: ../Src/settings.c

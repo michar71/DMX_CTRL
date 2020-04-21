@@ -47,6 +47,8 @@ void init_settings(void)
 	settings.gamma_blue = 220;   //Gamma * 100
 
 	settings.fx_multiplier = 4;
+	settings.UART_Mode_UART = (uint8_t)UART_MODE_SHELL;
+	settings.UART_Mode_USB = (uint8_t)UART_MODE_SHELL;
 }
 
 void apply_settings(void)

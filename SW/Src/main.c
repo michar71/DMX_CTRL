@@ -33,7 +33,7 @@
 #include "testmode.h"
 #include "fx_manager.h"
 #include "WS2812B/WS2812B.h"
-
+#include "serial_dmx_parser.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -72,6 +72,9 @@ DMA_HandleTypeDef hdma_spi2_tx;
 
 /* USER CODE BEGIN PV */
 uint8_t testmode = 0;
+
+int UART_mode_SERIAL = 0;
+int UART_mode_USB = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -168,6 +171,8 @@ int main(void)
   if (0 == check_button())
   {
 	  load_settings();
+	  UART_mode_SERIAL = settings.UART_Mode_UART;
+	  UART_mode_USB = settings.UART_Mode_USB;
 	  print("Setting loaded");
   }
   else
@@ -235,9 +240,17 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	//Handle Test Shell
-	shell_process();
 
+	//Handle Test Shell or DMX Serial PRocess
+	//TODO Abstract shell so it can work on USB UART...
+	if (UART_mode_SERIAL == (uint8_t)UART_MODE_SHELL)
+	{
+		shell_process();
+	}
+	else
+	{
+		dmx_serial_process();
+	}
 
 
 	if (testmode)

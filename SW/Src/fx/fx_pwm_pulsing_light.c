@@ -6,28 +6,20 @@
 
 uint8_t data;
 uint8_t state; //0= off, 1 = ramp up, 2 = on, 3 = ramp down
-void fx_pwm_pulsing_light(void)
+
+static const s_fx_param param1 = {PWM_FX,MODE_CONTINOUS,0,"PPULSE",0,fx_pwm_pulsing_light_run};
+static const s_fx_param param2 = {PWM_FX,MODE_SINGLE_SHOT,0,"PPULSES",0,fx_pwm_pulsing_light_run};
+
+void fx_pwm_pulsing_light(uint8_t fx_num)
 {
 	//Register effect
-	s_fx_param param;
-	param.duration = 0;
-	param.next_fx = 0;
-	param.mode = MODE_CONTINOUS;
-	param.type = PWM_FX;
-	param.fx_run_pointer = fx_pwm_pulsing_light_run;
-	register_fx(param);
+	register_fx(&param1,fx_num);
 }
 
-void fx_pwm_pulsing_pulse_light(void)
+void fx_pwm_pulsing_pulse_light(uint8_t fx_num)
 {
 	//Register effect
-	s_fx_param param;
-	param.duration = 10;
-	param.next_fx = 0;
-	param.mode = MODE_SINGLE_SHOT;
-	param.type = PWM_FX;
-	param.fx_run_pointer = fx_pwm_pulsing_light_run;
-	register_fx(param);
+	register_fx(&param2,fx_num);
 }
 
 t_fx_result fx_pwm_pulsing_light_run(t_fx_state state,uint32_t framecount,const uint32_t duration)
@@ -97,6 +89,9 @@ t_fx_result fx_pwm_pulsing_light_run(t_fx_state state,uint32_t framecount,const 
 				set_pwm_light(ii, data);
 			return FX_RUNNING;
 		case FX_END:
+			//Turn off lights
+			for (ii=0;ii<10;ii++)
+				set_pwm_light(ii, 0);
 			return FX_COMPLETED;
 		case FX_DONE:
 			break;

@@ -134,7 +134,5 @@ void update_pwm_lights(uint8_t force)
 			set_reg(FX_SELECT,start_fx(get_reg(FX_SELECT)/settings.fx_multiplier));
 			reg_shadow[FX_SELECT] = get_reg(FX_SELECT)/settings.fx_multiplier;
 		}
-
-
 	}
 }

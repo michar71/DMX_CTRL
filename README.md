@@ -64,13 +64,19 @@ So somewhere between $7 to $15.
 
 ## Development Enironment
 The software is developed with ST Microelectronics STM32CubeIDE 1.3.0
-The software framework was generated with STM's ST Cube Solution (Config file included in DOC folder) and uses ST's HAL framework.
+The software framework was generated with STM's ST CubeMX Solution (Config file included in DOC folder) and uses ST's HAL framework.
 (Not my favorite but that's what they want you to use...)
 I use a ST-Link V2.0 Clone to upload/Debug software. (Eventually there might be a USB DFU Firmware Upload Client....)
 
 WARNING:
 There are currently a lot of bluepill STM32F103 board clones with fake STM32F103 circulating on Amazon.
 These can be used with a special driver for the ST-Link (Because they show up with a different device ID and the original ST driver blocks those clones) but won't work with STM32CubeIDE out of the box... 
+
+## Serial Shell
+[List of Serial Shell Commands](SHELL_COMMANDS.md)
+
+## FX Plugin API
+[FX Plugin Manual](FX_API.md)
 
 ## Notes
 
@@ -92,11 +98,6 @@ DMX needs to be terminated at the end of the chain with a 160 Ohm Resistor.
 Board has been tested with 9 PWM channels with 216 RGB LED's with a total power consumption of 3.8A @ 12V.
 If only 12V is supplied make sure to add J5 so the microcontroller is powered.
 
-### Serial Shell
-Serial shell is enabled at 115 kBaud on the serial port. (Note that Rx and Tx are swapped at the moment....).
-There is a "Help" command to see all the supported commands.
-For parameters just type in the command.
-
 ### Restoring Defaults
 Pressing the button while powering up will erease all settings and restore the defaults.
 
@@ -113,13 +114,6 @@ The analog value (0...3.3V) is directly mapped onto one of the control registers
 #### Threshold
 A Specific value can be written to a specific control register wen crossing a threshold from low to high or from high to low.
 (For example a specific effect can be tiurned on/off via a switch)
-
-### Plugin Development
-#### Plugin Framework
-#### General Concepts
-#### Plugin Classes
-#### Plugin API
-#### Plugin Example
 
 ### Wifi/USB/Serial DMX Control
 #### Protocol (DMX512S)

@@ -16,11 +16,11 @@
 void fx_install(void)
 {
 	//REGISTER FX HERE !!!
-    fx_pwm_running_light();
-    fx_pwm_running_pulse_light();
-    fx_pwm_pulsing_light();
-    fx_pwm_pulsing_pulse_light();
-    fx_strip_running_light();
+    fx_pwm_running_light(0);
+    fx_pwm_running_pulse_light(0);
+    fx_pwm_pulsing_light(0);
+    fx_pwm_pulsing_pulse_light(0);
+    fx_strip_running_light(0);
 }
 
 #endif /* FX_INSTALL_H_ */

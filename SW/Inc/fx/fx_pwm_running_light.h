@@ -26,8 +26,8 @@
 //STRIP1_PATTERN    0 = Forward, 1 = Reverse
 
 
-void fx_pwm_running_light(void);
-void fx_pwm_running_pulse_light(void);
+void fx_pwm_running_light(uint8_t fx_num);
+void fx_pwm_running_pulse_light(uint8_t fx_num);
 t_fx_result fx_pwm_running_light_run(t_fx_state state,uint32_t framecount,const uint32_t duration);
 
 #endif /* FX_PWM_RUNNING_LIGHT_H_ */

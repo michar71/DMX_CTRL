@@ -56,8 +56,8 @@ typedef t_fx_result (*fx_run_t)(t_fx_state,uint32_t,const uint32_t);
 typedef struct{
 	t_fx_type type;
 	t_fx_mode mode;
-	uint8_t reserved; //Can be used later, at the moment used to pad structure to 12 bytes
 	uint8_t	  next_fx;	//Next effect if duration != 0. If set to 0 turns off effects
+	char      fxname[9];
 	uint32_t  duration;   //Duration in Frames. If 0 runs continuously otherwise advances to next effect after x frames
 	fx_run_t fx_run_pointer;
 }s_fx_param;
@@ -65,7 +65,7 @@ typedef struct{
 
 
 //Register an effect. Returns effect number
-uint8_t register_fx(s_fx_param fx_param);
+uint8_t register_fx(const s_fx_param* pfx_param, uint8_t fx_num);
 
 
 

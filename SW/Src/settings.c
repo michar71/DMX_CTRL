@@ -140,6 +140,9 @@ void print_settings(void)
 	print("Strip 1 Length: %d",settings.strip1_length);
 	print("Strip 2 Length: %d",settings.strip2_length);
 
+	print("UART Mode Serial: %d",settings.UART_Mode_UART);
+	print("UART Mode USB: %d",settings.UART_Mode_USB);
+
 	//Triggers
 	print("Triggers");
 	print("--------");

@@ -5,13 +5,34 @@
  *      Author: Michael
  */
 #include "fx_list.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
+#include "shell.h"
 
-s_fx_param fx_list[MAX_FX];
-uint8_t fxcnt = 0;
+const s_fx_param* pfx_list[MAX_FX];
 
-uint8_t register_fx(s_fx_param fx_param)
+uint8_t register_fx(const s_fx_param* pfx_param, uint8_t fx_num)
 {
-	fxcnt++;
-	fx_list[fxcnt] = fx_param;
-	return fxcnt;
+	uint8_t fx_cnt = 1;
+	//If FX = 0 we find the first empty slot and install it there
+	if (fx_num == 0)
+	{
+		while ((pfx_list[fx_cnt] != NULL) && (fx_cnt < MAX_FX-1))
+		{
+			fx_cnt++;
+		}
+
+		//No slots available
+		if (fx_cnt == MAX_FX-1)
+		{
+			print("FX Space full");
+			return 0;
+		}
+		fx_num = fx_cnt;
+	}
+
+	pfx_list[fx_num] = pfx_param;
+	print("ID:%d\t FX: %s",fx_num,pfx_param->fxname);
+	return fx_num;
 }

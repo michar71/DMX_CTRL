@@ -21,8 +21,8 @@
 //STRIP1_SIZE 		Number of Channels Used
 //STRIP1_PATTERN    Ramp-Out Speed
 
-void fx_pwm_pulsing_light(void);
-void fx_pwm_pulsing_pulse_light(void);
+void fx_pwm_pulsing_light(uint8_t fx_num);
+void fx_pwm_pulsing_pulse_light(uint8_t fx_num);
 t_fx_result fx_pwm_pulsing_light_run(t_fx_state state,uint32_t framecount,const uint32_t duration);
 
 #endif /* FX_PWM_PULSING_LIGHT_H_ */

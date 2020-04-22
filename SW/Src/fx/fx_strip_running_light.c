@@ -4,18 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+static const s_fx_param param = {STRIP_FX,MODE_CONTINOUS,0,"SRUN",0,fx_strip_running_light_run};
 
-
-void fx_strip_running_light(void)
+void fx_strip_running_light(uint8_t fx_num)
 {
 	//Register effect
-	s_fx_param param;
-	param.duration = 0;
-	param.next_fx = 0;
-	param.mode = MODE_CONTINOUS;
-	param.type = STRIP_FX;
-	param.fx_run_pointer = fx_strip_running_light_run;
-	register_fx(param);
+	register_fx(&param,fx_num);
 }
 
 
@@ -64,7 +58,7 @@ t_fx_result fx_strip_running_light_run(t_fx_state state,uint32_t framecount,cons
 					//Set Pixel
 					WS2812B_setPixelColor((t_stripchannel)ii,pos[ii],get_DMX_variable(DMX_CH_REG[ii][DMX_STRIP_V1]), get_DMX_variable(DMX_CH_REG[ii][DMX_STRIP_V2]), get_DMX_variable(DMX_CH_REG[ii][DMX_STRIP_V3]));
 
-					//
+					//Determine next pixel
 					pos[ii] = pos[ii] + step[ii];
 					if (pos[ii] > WS2812B_numPixels((t_stripchannel)ii))
 					{
@@ -81,6 +75,9 @@ t_fx_result fx_strip_running_light_run(t_fx_state state,uint32_t framecount,cons
 
 			return FX_RUNNING;
 		case FX_END:
+			//Clear all Pixel
+			WS2812B_clear(CH1);
+			WS2812B_clear(CH2);
 			return FX_COMPLETED;
 		case FX_DONE:
 			break;

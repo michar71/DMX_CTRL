@@ -5,29 +5,19 @@
 #include <string.h>
 
 uint8_t* data;
+static const s_fx_param param1 = {PWM_FX,MODE_CONTINOUS,0,"PRUN",0,fx_pwm_running_light_run};
+static const s_fx_param param2 = {PWM_FX,MODE_SINGLE_SHOT,0,"PRUNS",10,fx_pwm_running_light_run};
 
-void fx_pwm_running_light(void)
+void fx_pwm_running_light(uint8_t fx_num)
 {
 	//Register effect
-	s_fx_param param;
-	param.duration = 0;
-	param.next_fx = 0;
-	param.mode = MODE_CONTINOUS;
-	param.type = PWM_FX;
-	param.fx_run_pointer = fx_pwm_running_light_run;
-	register_fx(param);
+	register_fx(&param1, fx_num);
 }
 
-void fx_pwm_running_pulse_light(void)
+void fx_pwm_running_pulse_light(uint8_t fx_num)
 {
 	//Register effect
-	s_fx_param param;
-	param.duration = 10;
-	param.next_fx = 0;
-	param.mode = MODE_SINGLE_SHOT;
-	param.type = PWM_FX;
-	param.fx_run_pointer = fx_pwm_running_light_run;
-	register_fx(param);
+	register_fx(&param2, fx_num);
 }
 
 t_fx_result fx_pwm_running_light_run(t_fx_state state,uint32_t framecount,const uint32_t duration)
@@ -85,6 +75,7 @@ t_fx_result fx_pwm_running_light_run(t_fx_state state,uint32_t framecount,const 
 				set_pwm_light(ii, data[ii]);
 			return FX_RUNNING;
 		case FX_END:
+			//Free Data
 			free(data);
 			return FX_COMPLETED;
 		case FX_DONE:

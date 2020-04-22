@@ -197,8 +197,9 @@ int main(void)
 
   if (DMX_MODE2 == get_mode())
   {
+	  print("FX Installation Start");
 	  install_fx();
-	  print("FX complete");
+	  print("FX Installation Finished");
 
      if (WS2812B_init(CH1,settings.strip1_length))
      {
@@ -280,9 +281,6 @@ int main(void)
 			//Or
 			//2) from inside the FX only when it is needed?
 			//Going with option 1 for the moment. as the timing is more predictable...
-
-			WS2812B_test(CH1);
-			WS2812B_test(CH2);
 			WS2812B_show(CH1);
 			WS2812B_show(CH2);
 		}

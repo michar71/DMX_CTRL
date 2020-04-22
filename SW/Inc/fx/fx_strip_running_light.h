@@ -35,7 +35,7 @@
 //STRIP2_V2         G Color
 //STRIP2_V3         B Color
 
-void fx_strip_running_light(void);
+void fx_strip_running_light(uint8_t fx_num);
 t_fx_result fx_strip_running_light_run(t_fx_state state,uint32_t framecount,const uint32_t duration);
 
 #endif /* FX_STRIP_RUNNING_LIGHT_H_ */

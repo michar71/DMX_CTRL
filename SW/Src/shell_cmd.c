@@ -17,7 +17,7 @@ static int shell_cmd_test(int argc, char ** argv);
 static int shell_cmd_getaddr(int argc, char ** argv);
 static int shell_cmd_getmode(int argc, char ** argv);
 static int shell_cmd_dumpregs(int argc, char ** argv);
-static int shell_cmd_dumpconfig(int argc, char ** argv);
+static int shell_cmd_dumpsettings(int argc, char ** argv);
 static int shell_cmd_setpwm(int argc, char ** argv);
 static int shell_cmd_setbrightness(int argc, char ** argv);
 static int shell_cmd_savesettings(int argc, char ** argv);
@@ -40,7 +40,7 @@ const shell_cmd_t shell_cmd_list[] = {
 	{"getaddr",   "getaddr\n\r",shell_cmd_getaddr},
 	{"getmode",   "getmode\n\r",shell_cmd_getmode},
 	{"dumpregs",   "dumpregs\n\r",shell_cmd_dumpregs},
-	{"dumpconfig",   "dumpconfig\n\r",shell_cmd_dumpconfig},
+	{"dumpsettings",   "dumpsettings\n\r",shell_cmd_dumpsettings},
 	{"setpwm",   "setpwm [id (0..2)] [ch (0..3)] [duty (0..65535)]\n\r",shell_cmd_setpwm},
 	{"setbrightness",   "setbrightness [0..255]\n\r",shell_cmd_setbrightness},
 	{"savesettings",   "savesettings\n\r",shell_cmd_savesettings},
@@ -50,7 +50,7 @@ const shell_cmd_t shell_cmd_list[] = {
 	{"setreg",   "setreg [reg] [val]\n\r",shell_cmd_setreg},
 	{"setfxmultiplier",   "setfxmultiplier  [val (1,2,4)]\n\r",shell_cmd_setfxmultiplier},
 	{"settriggerconfig",   "settriggerconfig  [trigger 0|1] [mode(0=None, 1=mapping, 2=switch)] [register (0..25] [level (0..255)]\n\r",shell_cmd_settriggerconfig},
-	{"settriggerconfig",   "settriggerctrl  [trigger 0|1] [Reg HiLo (0..25)] [Val HiLo (0..255)] [Reg LoHi (0..25)] [Val LoHi (0..255)]\n\r",shell_cmd_settriggerctrl},
+	{"settriggerctrl",   "settriggerctrl  [trigger 0|1] [Reg HiLo (0..25)] [Val HiLo (0..255)] [Reg LoHi (0..25)] [Val LoHi (0..255)]\n\r",shell_cmd_settriggerctrl},
 	{"storedefaultregs",   "storedefaultregs\n\r",shell_cmd_storedefaultregs},
 	{"dumpadc",   "dumpadc\n\r",shell_cmd_dumpadc},
 	{"setstriplength",   "setstriplength [ch (0..2)] [length (0..1024)]\n\r",shell_cmd_setstriplength},
@@ -116,8 +116,8 @@ static int shell_cmd_dumpregs(int argc, char ** argv)
 		return 1;
 }
 
-//dumpconfig
-static int shell_cmd_dumpconfig(int argc, char ** argv)
+//dumpsettings
+static int shell_cmd_dumpsettings(int argc, char ** argv)
 {
 		print_settings();
 		return 1;

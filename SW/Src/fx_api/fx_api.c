@@ -60,10 +60,17 @@ void set_pwm_timer_channel(uint8_t ch, uint8_t r, uint8_t g, uint8_t b)
 	set_reg((ch*3)+3, b);
 }
 
-//Set Overall Brightness
+//Set Overall PWM Brightness
 void set_pwm_brightness(uint8_t val)
 {
 	set_reg(MAX_BRIGHTNESS, val);
+}
+
+//Set Overall STRIP Brightness
+void set_strip_brightness(uint8_t val)
+{
+	WS2812B_setBrightness(CH1,val);
+	WS2812B_setBrightness(CH2,val);
 }
 
 //Get a DMX Variable
@@ -71,6 +78,13 @@ uint8_t get_DMX_variable(t_dmx_var var)
 {
 	return get_reg((uint32_t)var);
 }
+
+//Set a DMX Variable
+void set_DMX_variable(t_dmx_var var, uint8_t val)
+{
+	set_reg((uint32_t)var,val);
+}
+
 
 
 uint8_t get_tigger_val(uint8_t ch)

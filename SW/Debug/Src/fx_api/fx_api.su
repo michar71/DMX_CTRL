@@ -4,6 +4,8 @@ fx_api.c:37:9:check_custom_frame_delay	0	static
 fx_api.c:50:6:set_pwm_light	0	static
 fx_api.c:56:6:set_pwm_timer_channel	16	static
 fx_api.c:64:6:set_pwm_brightness	0	static
-fx_api.c:70:9:get_DMX_variable	0	static
-fx_api.c:76:9:get_tigger_val	0	static
-fx_api.c:81:10:millisec	0	static
+fx_api.c:70:6:set_strip_brightness	8	static
+fx_api.c:77:9:get_DMX_variable	0	static
+fx_api.c:83:6:set_DMX_variable	0	static
+fx_api.c:90:9:get_tigger_val	0	static
+fx_api.c:95:10:millisec	0	static

@@ -88,12 +88,16 @@ void set_pwm_timer_channel(uint8_t ch, uint8_t r, uint8_t g, uint8_t b);
 
 //Set Overall Brightness
 void set_pwm_brightness(uint8_t val);
+void set_strip_brightness(uint8_t val);
 
 //DMX Specific Functions
 //----------------------
 
 //Get a DMX Variable
 uint8_t get_DMX_variable(t_dmx_var var);
+
+//Set a DMX Variable
+void set_DMX_variable(t_dmx_var var, uint8_t val);
 
 //System Specific Functions
 //--------------------------

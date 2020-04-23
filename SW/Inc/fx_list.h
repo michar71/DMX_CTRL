@@ -21,7 +21,7 @@ typedef enum{
 }t_fx_result;
 
 //State for the current function call. It is guaranteed that
-//INIT will be executed once on start and end once effect ends.
+//FX_INIT will be executed once on start and FX_END once effect ends.
 typedef enum{
 	FX_INIT,
 	FX_RUN,

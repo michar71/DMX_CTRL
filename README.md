@@ -80,6 +80,51 @@ These can be used with a special driver for the ST-Link (Because they show up wi
 
 ## Notes
 
+### Jumper Options
+
+#### ADDRESS
+The 8 Address Jumpers set the DMX Start address for the Registers.
+As there are 512 possible DMX Addresses the Address set via jumpers will be multiplied by 2.
+
+#### MODE
+Jumper 1
+Disabled = DMX Register Mode 1 (Only PWM Control, not FX)
+Enabled  = DMX Register Mode 2 (PWM + WS2812B Strips, FX enabled
+
+In DMX Mode 1 only the following Registers will be available:
+#define MAX_BRIGHTNESS		0
+#define CH1_RED				1
+#define CH1_GREEN			2
+#define CH1_BLUE			3
+#define CH2_RED				4
+#define CH2_GREEN			5
+#define CH2_BLUE			6
+#define CH3_RED				7
+#define CH3_GREEN			8
+#define CH3_BLUE			9
+#define CH3_WHITE			10
+
+In DMX Mode 2 additionally the following Registers will be available:
+#define FX_SELECT			11
+#define	STRIP1_PATTERN		12
+#define STRIP1_SPEED		13
+#define STRIP1_SIZE			14
+#define STRIP1_COMPLEXITY	15
+#define STRIP1_V1			16
+#define STRIP1_V2			17
+#define STRIP1_V3			18
+#define	STRIP2_PATTERN		19
+#define STRIP2_SPEED		20
+#define STRIP2_SIZE			21
+#define STRIP2_COMPLEXITY	22
+#define STRIP2_V1			23
+#define STRIP2_V2			24
+#define STRIP2_V3			25
+
+Jumper 2
+Disabled = No USB Support (Saves a lot of memory)
+Enabled  = Eanbles Serial Port via USB
+
 ### DMX Control Registers
 For reference refer to the DMX_CTRL.xlsx spreadsheet.
 The numbers of registers depends on the Mode (With/Without WS2812 Control)
@@ -116,8 +161,6 @@ A Specific value can be written to a specific control register wen crossing a th
 (For example a specific effect can be tiurned on/off via a switch)
 
 ### Wifi/USB/Serial DMX Control
-#### Protocol (DMX512S)
-#### Switching between Serial Shell and DMX512S Protocol
 
 ### Master Control
 TBD

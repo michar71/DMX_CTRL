@@ -162,7 +162,7 @@ int main(void)
 
 
  //Set Mode/Address from Address Pins
- dmx512_init(get_mode_from_pins(),get_addr_from_pins());
+ dmx512_init(get_mode_from_pins(),get_addr_from_pins()*2);  //Address x2 so we can spread out the 8 Jumpers over 512 Addresses
  print("DMX512 Config complete");
 
  if (get_mode_from_pins() & 0x02)

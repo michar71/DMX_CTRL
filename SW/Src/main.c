@@ -259,7 +259,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	//Handle Test Shell or DMX Serial PRocess
+	//Handle Test Shell or DMX Serial Process
 	//TODO Abstract shell so it can work on USB UART if USB is enabled
 	if (UART_mode_SERIAL == (uint8_t)UART_MODE_SHELL)
 	{

@@ -30,7 +30,14 @@ Src/serial_tracer.o: ../Src/serial_tracer.c ../Inc/serial_tracer.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h \
- ../Inc/ring_buffer.h
+ ../Inc/ring_buffer.h ../Inc/usbd_cdc_if.h \
+ ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h \
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
+ ../Inc/usbd_conf.h ../Inc/main.h \
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h \
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
 
 ../Inc/serial_tracer.h:
 
@@ -97,3 +104,21 @@ Src/serial_tracer.o: ../Src/serial_tracer.c ../Inc/serial_tracer.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h:
 
 ../Inc/ring_buffer.h:
+
+../Inc/usbd_cdc_if.h:
+
+../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h:
+
+../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
+
+../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
+
+../Inc/usbd_conf.h:
+
+../Inc/main.h:
+
+../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h:
+
+../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
+
+../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h:

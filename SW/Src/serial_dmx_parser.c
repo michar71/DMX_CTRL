@@ -9,7 +9,9 @@
 #include "stm32f1xx_hal.h"
 #include "dmx512_config.h"
 #include "settings.h"
+#include "ring_buffer.h"
 
+extern rb_att_t rx_buff;
 extern int UART_mode_SERIAL;
 extern int UART_mode_USB;
 
@@ -48,7 +50,7 @@ void dmx_serial_process(void)
 	uint8_t data;
 	uint32_t regsize =  get_reg_length();
 
-	while ((HAL_OK == HAL_UART_Receive(&huart3, &data, 1, 0)) && (reg_count<regsize) && (syncstart == 1))
+	while ((RB_OK == ring_buffer_get(&rx_buff, &data, 1)) && (reg_count<regsize) && (syncstart == 1))
 	{
 		if ((data == ESC_CHAR) && (escaped == 0))
 		{
@@ -95,32 +97,38 @@ void dmx_serial_process(void)
 	//If we have exceeded the number of registers or haven't synced yet just pull a byte
 	if ((reg_count>=regsize) || (syncstart == 0))
 	{
-		HAL_UART_Receive(&huart3, &data, 1, 0);
-		//If it happens to be the escape byte we go into escape mode
-		if ((data == ESC_CHAR) && (escaped == 0))
+		if (RB_OK == ring_buffer_get(&rx_buff, &data, 1))
 		{
-			escaped = 1;
-			return;
-		}
-
-		//If we are in escaped mode look for either sync start or retru nto menu
-		if (escaped)
-		{
-			switch (data)
+			//If it happens to be the escape byte we go into escape mode
+			if ((data == ESC_CHAR) && (escaped == 0))
 			{
-				case 0x00:
-					reg_count = 0;
-					syncstart = 1;
-					break;
-				case 'm':
-					UART_mode_SERIAL = (int)UART_MODE_SHELL;
-					syncstart = 0;
-					reg_count = 0;
-					return;
-				default:
-					break;
+				escaped = 1;
+				return;
 			}
-			escaped = 0;
+
+			//If we are in escaped mode look for either sync start or retru nto menu
+			if (escaped)
+			{
+				switch (data)
+				{
+					case 0x00:
+						reg_count = 0;
+						syncstart = 1;
+						break;
+					case 'm':
+						UART_mode_SERIAL = (int)UART_MODE_SHELL;
+						syncstart = 0;
+						reg_count = 0;
+						return;
+					default:
+						break;
+				}
+				escaped = 0;
+			}
+		}
+		else
+		{
+			return;
 		}
 	}
 }

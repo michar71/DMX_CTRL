@@ -31,7 +31,7 @@ Src/serial_dmx_parser.o: ../Src/serial_dmx_parser.c \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h \
- ../Inc/dmx512_config.h ../Inc/settings.h
+ ../Inc/dmx512_config.h ../Inc/settings.h ../Inc/ring_buffer.h
 
 ../Inc/serial_dmx_parser.h:
 
@@ -100,3 +100,5 @@ Src/serial_dmx_parser.o: ../Src/serial_dmx_parser.c \
 ../Inc/dmx512_config.h:
 
 ../Inc/settings.h:
+
+../Inc/ring_buffer.h:

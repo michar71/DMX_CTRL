@@ -36,7 +36,8 @@ Src/usbd_cdc_if.o: ../Src/usbd_cdc_if.c ../Inc/usbd_cdc_if.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h \
+ ../Inc/ring_buffer.h
 
 ../Inc/usbd_cdc_if.h:
 
@@ -117,3 +118,5 @@ Src/usbd_cdc_if.o: ../Src/usbd_cdc_if.c ../Inc/usbd_cdc_if.h \
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
 
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h:
+
+../Inc/ring_buffer.h:

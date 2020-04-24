@@ -21,6 +21,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_cdc_if.h"
+#include "ring_buffer.h"
+
+extern rb_att_t rx_buff;
 
 /* USER CODE BEGIN INCLUDE */
 
@@ -65,8 +68,8 @@
 /* USER CODE BEGIN PRIVATE_DEFINES */
 /* Define size for the receive and transmit buffer over CDC */
 /* It's up to user to redefine and/or remove those define */
-#define APP_RX_DATA_SIZE  1000
-#define APP_TX_DATA_SIZE  1000
+#define APP_RX_DATA_SIZE  500  //Was 1000
+#define APP_TX_DATA_SIZE  500  //Was 1000
 /* USER CODE END PRIVATE_DEFINES */
 
 /**
@@ -263,7 +266,11 @@ static int8_t CDC_Control_FS(uint8_t cmd, uint8_t* pbuf, uint16_t length)
 static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
 {
   /* USER CODE BEGIN 6 */
-  CDC_Transmit_FS(Buf, *Len); // ADD THIS LINE to echo back all incoming data
+  //Loopback Test
+  //CDC_Transmit_FS(Buf, *Len); // ADD THIS LINE to echo back all incoming data
+  //Send Data to ring buffer
+  ring_buffer_put(&rx_buff, Buf, *Len);
+
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
   return (USBD_OK);

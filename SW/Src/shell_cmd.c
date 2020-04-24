@@ -88,9 +88,6 @@ static int shell_cmd_getmode(int argc, char ** argv)
 {
 	switch (get_mode())
 	{
-	case DMX_MODE_NONE:
-		print("Mode None (Uninitialized)");
-		break;
 	case DMX_MODE1:
 		print("Mode 1 (PWM)");
 		break;

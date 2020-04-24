@@ -34,6 +34,7 @@
 #include "fx_manager.h"
 #include "WS2812B/WS2812B.h"
 #include "serial_dmx_parser.h"
+#include "ring_buffer.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -73,8 +74,13 @@ DMA_HandleTypeDef hdma_spi2_tx;
 /* USER CODE BEGIN PV */
 uint8_t testmode = 0;
 
-int UART_mode_SERIAL = 0;
-int UART_mode_USB = 0;
+uint8_t UART_mode_SERIAL = 0;
+uint8_t UART_mode_USB = 0;
+uint8_t USB_Active = 0;
+
+//UART Ringbuffer
+#define RX_BUFF_SIZE 128
+rb_att_t rx_buff;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -138,7 +144,6 @@ int main(void)
   MX_SPI1_Init();
   MX_SPI2_Init();
   MX_DMA_Init();
-  MX_USB_DEVICE_Init();
 
 
   /* USER CODE BEGIN 2 */
@@ -149,7 +154,6 @@ int main(void)
   print("-------------");
   print("");
 
-
  if(__HAL_RCC_GET_FLAG(RCC_FLAG_IWDGRST) == SET)
  {
 	 print("Restart due to IWDG Reset");
@@ -157,16 +161,29 @@ int main(void)
  }
 
 
+ //Set Mode/Address from Address Pins
+ dmx512_init(get_mode_from_pins(),get_addr_from_pins());
+ print("DMX512 Config complete");
+
+ if (get_mode_from_pins() & 0x02)
+ {
+	 USB_Active = 1;
+	 MX_USB_DEVICE_Init();
+	 print("USB Enabled");
+ }
+
+ if(ring_buffer_init(&rx_buff, RX_BUFF_SIZE) != RB_OK)
+	 print("Ring Buffer Init FAILED");
+ else
+	 print("Ring Buffer Init Complete");
+
   //Init/Setup PWM for Lights
   init_timers();
   print("Timer Init complete");
 
-  //Set Mode/Address from Address Pins
-  dmx512_init((dmxmode_t)get_mode_from_pins(),get_addr_from_pins());
-  print("DMX512 Config complete");
-
   //Init Defaults
   init_settings();
+
   // If Button is not pressed Load Defaults
   if (0 == check_button())
   {
@@ -180,6 +197,7 @@ int main(void)
 	  save_settings();
 	  print("Defaults restored");
   }
+
   //Set Defaults
   apply_settings();
   print("Settings complete");
@@ -224,7 +242,6 @@ int main(void)
 	  print("DMX Mode 1 Active");
   }
 
-
   print("Shell Active");
 
   //Shell is ready....
@@ -243,7 +260,7 @@ int main(void)
     /* USER CODE BEGIN 3 */
 
 	//Handle Test Shell or DMX Serial PRocess
-	//TODO Abstract shell so it can work on USB UART...
+	//TODO Abstract shell so it can work on USB UART if USB is enabled
 	if (UART_mode_SERIAL == (uint8_t)UART_MODE_SHELL)
 	{
 		shell_process();

@@ -11,14 +11,13 @@
 #include <stdint.h>
 
 typedef enum{
-	DMX_MODE_NONE,
-	DMX_MODE1,
-	DMX_MODE2
+	DMX_MODE1 = 0,
+	DMX_MODE2 = 1
 }dmxmode_t;
 
 
 
-void dmx512_init(dmxmode_t mode,uint32_t addr);
+void dmx512_init(uint8_t mode,uint32_t addr);
 void set_addr(uint32_t addr);
 uint32_t get_addr(void);
 void set_reg_length(uint32_t len);

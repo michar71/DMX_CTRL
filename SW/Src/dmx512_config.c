@@ -44,12 +44,12 @@ const char* regnames[] ={
 static uint8_t* reg_data;
 static uint32_t reg_addr = 0;
 static uint32_t reg_len = 0;
-static uint8_t dmx_mode = DMX_MODE_NONE;
+static uint8_t dmx_mode = DMX_MODE1;
 
-void dmx512_init(dmxmode_t mode,uint32_t addr)
+void dmx512_init(uint8_t mode,uint32_t addr)
 {
 	set_addr(addr);
-	dmx_mode = mode;
+	dmx_mode = mode & 0x01;
 	switch (mode)
 	{
 		default:
@@ -94,8 +94,7 @@ void init_regs(void)
 	if (reg_data != NULL)
 		free(reg_data);
 
-	reg_data = malloc(reg_len);
-	memset(reg_data, 0, reg_len);
+	reg_data = calloc(reg_len, sizeof(uint8_t));
 }
 
 void set_reg(uint32_t reg, uint8_t val)

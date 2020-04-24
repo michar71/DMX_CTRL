@@ -10,6 +10,8 @@
 
 #include <stdint.h>
 
+#define USE_UART_IRQ
+
 void tracer_putchar(uint8_t ch);
 void tracer_puts(uint8_t *str,const uint16_t size);
 uint8_t tracer_getchar(void);

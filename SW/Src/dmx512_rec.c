@@ -16,12 +16,20 @@
 #include <sys/_stdint.h>
 #include <system_stm32f1xx.h>
 #include "dmx512_config.h"
+#include "ring_buffer.h"
+#include "serial_tracer.h"
 
 extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart3;
+extern rb_att_t rx_buff;
+
 static volatile uint8_t dmx_error = 1;
 static volatile uint8_t start_flag = 0;
 static enum packet_type packet_type;
 static uint8_t buffer;
+#ifdef USE_UART_IRQ
+static uint8_t buffer2;
+#endif
 static volatile uint16_t byte_count = 0;
 static volatile uint8_t led_status = GPIO_PIN_RESET;
 static volatile uint32_t start_addr = 0;
@@ -95,11 +103,17 @@ void USART1_IRQHandler(void)
 #else
 		start_flag = 1;
 #endif
-		HAL_UART_IRQHandler(&huart1);
-		return;
 	}
 	HAL_UART_IRQHandler(&huart1);
 }
+
+#ifdef USE_UART_IRQ
+/* UART3 Interrupt Service Routine */
+void USART3_IRQHandler(void)
+{
+	HAL_UART_IRQHandler(&huart3);
+}
+#endif
 
 //UART IRQ Triggered by incoming characters
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
@@ -162,6 +176,15 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		//Get more data
 		HAL_UART_Receive_IT(&huart1, &buffer, 1);
     }
+#ifdef USE_UART_IRQ
+	else if (huart->Instance == USART3)
+    {
+		ring_buffer_put(&rx_buff, &buffer2, 1);
+
+		//Get more data
+		HAL_UART_Receive_IT(&huart3, &buffer2, 1);
+    }
+#endif
 }
 
 
@@ -202,6 +225,11 @@ void dmx512_rec_init()
 	HAL_TIM_Base_Start(&htim1);
 #endif
 	dmx512_rec_enable(1);
+
+#ifdef USE_UART_IRQ
+	//Enable UART IRQ
+	HAL_UART_Receive_IT(&huart3, &buffer2, 1);
+#endif
 }
 
 
@@ -229,6 +257,7 @@ void dmx512_rec_enable(uint8_t on)
 		dmx512_setRx();
 		//Enable UART IRQ
     	HAL_UART_Receive_IT(&huart1, &buffer, 1);
+
 		//Enable Timer
 #ifdef USE_TIMER
 		TIM_ITConfig(dmx512_config.tim, TIM_IT_CC1, ENABLE);

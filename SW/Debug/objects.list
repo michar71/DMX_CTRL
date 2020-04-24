@@ -32,6 +32,7 @@
 "Src/light_update.o"
 "Src/main.o"
 "Src/pwm_control.o"
+"Src/ring_buffer.o"
 "Src/serial_dmx_parser.o"
 "Src/serial_tracer.o"
 "Src/settings.o"

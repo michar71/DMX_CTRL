@@ -32,7 +32,7 @@ Src/dmx512_rec.o: ../Src/dmx512_rec.c ../Inc/dmx512_rec.h ../Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h \
  ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h \
  ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h \
- ../Inc/dmx512_config.h
+ ../Inc/dmx512_config.h ../Inc/ring_buffer.h ../Inc/serial_tracer.h
 
 ../Inc/dmx512_rec.h:
 
@@ -105,3 +105,7 @@ Src/dmx512_rec.o: ../Src/dmx512_rec.c ../Inc/dmx512_rec.h ../Inc/main.h \
 ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h:
 
 ../Inc/dmx512_config.h:
+
+../Inc/ring_buffer.h:
+
+../Inc/serial_tracer.h:

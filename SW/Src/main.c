@@ -32,6 +32,7 @@
 #include "triggers.h"
 #include "testmode.h"
 #include "fx_manager.h"
+#include "fx_list.h"
 #include "WS2812B/WS2812B.h"
 #include "serial_dmx_parser.h"
 #include "ring_buffer.h"
@@ -165,7 +166,7 @@ int main(void)
  dmx512_init(get_mode_from_pins(),get_addr_from_pins()*2);  //Address x2 so we can spread out the 8 Jumpers over 512 Addresses
  print("DMX512 Config complete");
 
- if (get_mode_from_pins() & 0x02)
+ if ((get_mode_from_pins() & 0x02) != 0)
  {
 	 USB_Active = 1;
 	 MX_USB_DEVICE_Init();
@@ -206,16 +207,10 @@ int main(void)
   dmx512_rec_init();
   print("DMX512 Init complete");
 
-  init_update_lights();
-  print("PWM Update Init complete");
-
-  init_trigger();
-  print("Trigger Init complete");
-
-
   if (DMX_MODE2 == get_mode())
   {
 	  print("FX Installation Start");
+	  init_fx_list();
 	  install_fx();
 	  print("FX Installation Finished");
 
@@ -223,24 +218,35 @@ int main(void)
      {
 	   print("WS2812B CH1 Init complete");
 	   WS2812B_clear(CH1);
-	   print("DMX Mode 2 Active");
+	   WS2812B_show(CH1);
      }
 	 else
+	 {
 	   print("WS2812B CH1 Init FAILED");
+	 }
 
      if (WS2812B_init(CH2,settings.strip1_length))
      {
 	   print("WS2812B CH2 Init complete");
 	   WS2812B_clear(CH2);
-	   print("DMX Mode 2 Active");
+	   WS2812B_show(CH2);
      }
 	 else
+	 {
 	   print("WS2812B CH2 Init FAILED");
+	 }
+     print("DMX Mode 2 Active");
   }
   else
   {
 	  print("DMX Mode 1 Active");
   }
+
+  init_update_lights();
+  print("PWM Update Init complete");
+
+  init_trigger();
+  print("Trigger Init complete");
 
   print("Shell Active");
 

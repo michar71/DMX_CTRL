@@ -49,8 +49,9 @@ static uint8_t dmx_mode = DMX_MODE1;
 void dmx512_init(uint8_t mode,uint32_t addr)
 {
 	set_addr(addr);
-	dmx_mode = mode & 0x01;
-	switch (mode)
+	if ((mode & 0x01) != 0)
+		dmx_mode = DMX_MODE2;
+	switch (dmx_mode)
 	{
 		default:
 		case DMX_MODE1:

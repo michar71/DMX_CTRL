@@ -10,7 +10,7 @@ extern DMA_HandleTypeDef hdma_spi2_tx;
 uint8_t WS2812B_init(t_stripchannel ch,uint16_t number_of_leds)
 {
 	//init vars
-	stripchannel[ch].brightness = 0;
+	stripchannel[ch].brightness = 255;
 	stripchannel[ch].pixels = NULL;
 	stripchannel[ch].doubleBuffer = NULL;
 	stripchannel[ch].time = 0;
@@ -25,9 +25,6 @@ uint8_t WS2812B_init(t_stripchannel ch,uint16_t number_of_leds)
 		stripchannel[ch].phspi = &hspi2;
 		stripchannel[ch].phdma_spi_tx = &hdma_spi2_tx;
 	}
-
-
-
 
   uint8_t buffer0[2] = { 0, 0 };
 
@@ -77,7 +74,6 @@ uint8_t WS2812B_init(t_stripchannel ch,uint16_t number_of_leds)
   //Create DMA Link
   __HAL_LINKDMA(stripchannel[ch].phspi,hdmatx,*stripchannel[ch].phdma_spi_tx);
 
-
    //initialize MOSI pin to LOW.  Without this, first time transmit for first LED might be wrong.
    HAL_SPI_Transmit(stripchannel[ch].phspi, buffer0, 1, 100 );
 
@@ -89,6 +85,7 @@ uint8_t WS2812B_init(t_stripchannel ch,uint16_t number_of_leds)
 void WS2812B_show(t_stripchannel ch)
 {
   uint32_t loopcnt = 0;
+  static uint8_t errorcnt = 0;
 
   //SPI.dmaSendAsync(pixels,numBytes);// Start the DMA transfer of the current pixel buffer to the LEDs and return immediately.
 
@@ -108,7 +105,8 @@ void WS2812B_show(t_stripchannel ch)
   //(440ns per bit) * 8 bits * 3 colors * number of pixels...
 
   //Send Data via DMA
-  HAL_SPI_Transmit_DMA(stripchannel[ch].phspi, stripchannel[ch].pixels, stripchannel[ch].numBytes );
+  if (HAL_OK != HAL_SPI_Transmit_DMA(stripchannel[ch].phspi, stripchannel[ch].pixels, stripchannel[ch].numBytes))
+	  errorcnt++;
   stripchannel[ch].time = HAL_GetTick() + 6;  //we need to wait at least XXX systicks for the colors to latch in after the last transfer.
   	  	  	  	  	  	  	 //The added 6 ms here are purely experimental...
 

@@ -62,7 +62,8 @@ typedef struct{
 	fx_run_t fx_run_pointer;
 }s_fx_param;
 
-
+//Init List
+void init_fx_list(void);
 
 //Register an effect. Returns effect number
 uint8_t register_fx(const s_fx_param* pfx_param, uint8_t fx_num);

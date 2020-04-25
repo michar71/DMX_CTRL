@@ -81,13 +81,12 @@ uint8_t WS2812B_init(t_stripchannel ch,uint16_t number_of_leds)
 }
 
 
+
 // Sends the current buffer to the leds
 void WS2812B_show(t_stripchannel ch)
 {
   uint32_t loopcnt = 0;
   static uint8_t errorcnt = 0;
-
-  //SPI.dmaSendAsync(pixels,numBytes);// Start the DMA transfer of the current pixel buffer to the LEDs and return immediately.
 
   //Wait for last transfer to finish
   while(__HAL_SPI_GET_FLAG(stripchannel[ch].phspi, SPI_FLAG_BSY ))
@@ -299,32 +298,11 @@ void WS2812B_rainbow(t_stripchannel ch,uint8_t start, uint8_t count, uint8_t sta
 //Running light pattern
 void WS2812B_test(t_stripchannel ch)
 {
-	static uint16_t cnt = 0;
-	static uint16_t delay = 0;
-
-	if (delay != 100)
-	{
-		delay ++;
-		return;
-	}
-	delay = 0;
-
-	//Clear All
-	WS2812B_clear(ch);
-
-	WS2812B_setPixelColor(ch,0, 255, 0, 0);
-	WS2812B_setPixelColor(ch,1, 0, 255, 0);
-	WS2812B_setPixelColor(ch,2, 0, 0, 255);
-	WS2812B_setPixelColor(ch,3, 255, 0, 255);
-	WS2812B_setPixelColor(ch,4, 0, 255, 255);
-	WS2812B_setPixelColor(ch,5, 255, 255, 0);
-	WS2812B_setPixelColor(ch,6, 255, 255, 255);
-	//Set Pixel
-	//WS2812B_setPixelColor(cnt, 255, 0, 0);
+	static uint16_t startval = 0;
+	WS2812B_rainbow(ch,0, WS2812B_numPixels(ch),startval,10);
 
 	//Increase Counter
-	cnt++;
-	if (cnt == WS2812B_numPixels(ch))
-		cnt = 0;
-
+	startval++;
+	if (startval == 255)
+		startval = 0;
 }

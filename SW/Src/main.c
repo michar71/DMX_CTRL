@@ -172,6 +172,10 @@ int main(void)
 	 MX_USB_DEVICE_Init();
 	 print("USB Enabled");
  }
+ else
+ {
+	 print("USB Disabled  ");
+ }
 
  if(ring_buffer_init(&rx_buff, RX_BUFF_SIZE) != RB_OK)
 	 print("Ring Buffer Init FAILED");
@@ -283,6 +287,14 @@ int main(void)
 		//Restore settings
 		if (testmode == 0)
 			update_pwm_lights(1);
+
+		if (DMX_MODE2 == get_mode())
+		{
+			WS2812B_test(CH1);
+			WS2812B_show(CH1);
+			WS2812B_test(CH2);
+			WS2812B_show(CH2);
+		}
 	}
 	else
 	{
@@ -304,7 +316,9 @@ int main(void)
 			//Or
 			//2) from inside the FX only when it is needed?
 			//Going with option 1 for the moment. as the timing is more predictable...
+			WS2812B_test(CH1);
 			WS2812B_show(CH1);
+			WS2812B_test(CH2);
 			WS2812B_show(CH2);
 		}
 
@@ -704,9 +718,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(RS485_DIR_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure peripheral I/O remapping */
-  //__HAL_AFIO_REMAP_SPI1_ENABLE();
-  //__HAL_AFIO_REMAP_SPI2_ENABLE();
-
+  __HAL_AFIO_REMAP_SPI1_ENABLE();
 }
 
 /* USER CODE BEGIN 4 */

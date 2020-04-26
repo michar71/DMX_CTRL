@@ -287,7 +287,7 @@ void WS2812B_rainbow(t_stripchannel ch,uint8_t start, uint8_t count, uint8_t sta
   int16_t j;
 
 	j =startval;
-	for(i=start; i<=(start+count); i++)
+	for(i=start; i<(start+count); i++)
 	{
 		WS2812B_setPixelColorDirect(ch,i, WS2812B_colorWheel((j) & 255));
 		j = j + stepsize;

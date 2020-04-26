@@ -55,6 +55,7 @@ uint16_t scale_value( uint8_t val,int16_t offset, int16_t gain, int16_t gamma)
 //We only update parameters that have changed otherwise we might have waveform-artifacts...
 void update_pwm_lights(uint8_t force)
 {
+
 	//Check if global brightness has changed and scale value
 	if ((reg_shadow[MAX_BRIGHTNESS])!= get_reg(MAX_BRIGHTNESS) || force)
 	{
@@ -124,14 +125,23 @@ void update_pwm_lights(uint8_t force)
 		configPWM(PWM_CH3,CH_WHITE,scale_value(get_reg(CH3_WHITE),0,100,220));  //TBD, no settings?
 		reg_shadow[CH3_WHITE] = get_reg(CH3_WHITE);
 	}
+
+}
+
+void update_fx(void)
+{
+	uint8_t val = 0;
+
 	//Deal with LED Strip Registers/Effects
 	if (DMX_MODE2 == get_mode())
 	{
+		val = get_reg(FX_SELECT)/settings.fx_multiplier;
 		//Activate FX if valid FX is selected or restore settings...
-		if ((reg_shadow[FX_SELECT])!= (get_reg(FX_SELECT)/settings.fx_multiplier) || force)
+		if (reg_shadow[FX_SELECT]!= val)
 		{
-			set_reg(FX_SELECT,start_fx(get_reg(FX_SELECT)/settings.fx_multiplier));
-			reg_shadow[FX_SELECT] = get_reg(FX_SELECT)/settings.fx_multiplier;
+			val = start_fx(val);
+			set_reg(FX_SELECT,val);
+			reg_shadow[FX_SELECT] = val;
 		}
 	}
 }

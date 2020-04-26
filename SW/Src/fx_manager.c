@@ -29,21 +29,24 @@ void install_fx(void)
 //Called to start a new effect. Return the effect that was actually enabled
 uint8_t start_fx(uint8_t id)
 {
+
 	//Check if FX is installed (We assume at future calls to the routine that the pointer is valid...
-	if (NULL != pfx_list[current_fx]->fx_run_pointer)
+	if ((NULL != pfx_list[id]->fx_run_pointer) || (id == 0))
 	{
 		//Call the last FX once with the END State
 		if (current_fx_state != FX_DONE)
 		{
-			pfx_list[current_fx]->fx_run_pointer(FX_END,pfx_list[current_fx]->duration,0);
+			if (NULL != pfx_list[current_fx]->fx_run_pointer)
+				pfx_list[current_fx]->fx_run_pointer(FX_END,pfx_list[current_fx]->duration,0);
+			print("Completed FX ID:%d\t FX: %s ",current_fx,pfx_list[current_fx]->fxname);
 			current_fx_state = FX_DONE;
 		}
 		//ID is valid, setup parameters
 		fx_frame_count = 0;
-
-		//Store current_fx
 		last_fx = current_fx;
 		current_fx = id;
+		if (id == 0)
+			return current_fx;
 
 		//Call run routine once with INIT state
 		pfx_list[current_fx]->fx_run_pointer(FX_INIT,0,pfx_list[current_fx]->duration);

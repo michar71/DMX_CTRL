@@ -25,12 +25,12 @@ void init_settings(void)
 
 	//Set deviations from 0...
 	settings.max_brightness = 255;
-	settings.strip1_speed = 10;
-	settings.strip1_size = 10;
-	settings.strip1_complexity = 10;
-	settings.strip2_speed = 10;
-	settings.strip2_size = 10;
-	settings.strip2_complexity = 10;
+	settings.strip1_speed = 5;
+	settings.strip1_size = 5;
+	settings.strip1_complexity = 0;
+	settings.strip2_speed = 5;
+	settings.strip2_size = 5;
+	settings.strip2_complexity = 0;
 
 
 	settings.strip1_length = 100;
@@ -46,7 +46,7 @@ void init_settings(void)
 	settings.gain_blue = 100;    //Gain * 100
 	settings.gamma_blue = 220;   //Gamma * 100
 
-	settings.fx_multiplier = 4;
+	settings.fx_multiplier = 1;
 	settings.UART_Mode_UART = (uint8_t)UART_MODE_SHELL;
 	settings.UART_Mode_USB = (uint8_t)UART_MODE_SHELL;
 }

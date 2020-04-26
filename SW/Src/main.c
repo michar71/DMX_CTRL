@@ -194,8 +194,11 @@ int main(void)
 
   //Init Defaults
   init_settings();
+  print("Default Settings Initalized");
 
   // If Button is not pressed Load Defaults
+  print("Loading Settings...");
+
   if (0 == check_button())
   {
 	  load_settings();
@@ -284,14 +287,25 @@ int main(void)
 		testmode = process_testmode();
 		//Restore settings
 		if (testmode == 0)
-			update_pwm_lights(1);
-
-		if (DMX_MODE2 == get_mode())
 		{
-			WS2812B_test(CH1);
-			WS2812B_show(CH1);
-			WS2812B_test(CH2);
-			WS2812B_show(CH2);
+			update_pwm_lights(1);
+			if (DMX_MODE2 == get_mode())
+			{
+				WS2812B_clear(CH1);
+				WS2812B_show(CH1);
+				WS2812B_clear(CH2);
+				WS2812B_show(CH2);
+			}
+		}
+		else
+		{
+			if (DMX_MODE2 == get_mode())
+			{
+				WS2812B_test(CH1);
+				WS2812B_show(CH1);
+				WS2812B_test(CH2);
+				WS2812B_show(CH2);
+			}
 		}
 	}
 	else
@@ -320,6 +334,7 @@ int main(void)
 
 		//  Set PWM Lights
 		update_pwm_lights(0);
+		update_fx();
 	}
 
 	//  Reset Watchdog

@@ -21,7 +21,10 @@
 
 extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart3;
-extern rb_att_t rx_buff;
+rb_att_t rx_buff_dmx;
+rb_att_t rx_buff_shell;
+extern uint8_t UART_mode_SERIAL;
+
 
 static volatile uint8_t dmx_error = 1;
 static volatile uint8_t start_flag = 0;
@@ -179,14 +182,16 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 #ifdef USE_UART_IRQ
 	else if (huart->Instance == USART3)
     {
-		ring_buffer_put(&rx_buff, &buffer2, 1);
+		if (UART_mode_SERIAL)
+			ring_buffer_put(&rx_buff_dmx, &buffer2, 1);
+		else
+			ring_buffer_put(&rx_buff_shell, &buffer2, 1);
 
 		//Get more data
 		HAL_UART_Receive_IT(&huart3, &buffer2, 1);
     }
 #endif
 }
-
 
 
 /*

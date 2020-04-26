@@ -81,7 +81,8 @@ uint8_t USB_Active = 0;
 
 //UART Ringbuffer
 #define RX_BUFF_SIZE 128
-rb_att_t rx_buff;
+rb_att_t rx_buff_dmx;
+rb_att_t rx_buff_shell;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -177,10 +178,15 @@ int main(void)
 	 print("USB Disabled  ");
  }
 
- if(ring_buffer_init(&rx_buff, RX_BUFF_SIZE) != RB_OK)
-	 print("Ring Buffer Init FAILED");
+ if(ring_buffer_init(&rx_buff_shell, RX_BUFF_SIZE) != RB_OK)
+	 print("Shell Ring Buffer Init FAILED");
  else
-	 print("Ring Buffer Init Complete");
+	 print("Shell Ring Buffer Init Complete");
+
+ if(ring_buffer_init(&rx_buff_dmx, RX_BUFF_SIZE) != RB_OK)
+	 print("Serial DMX Ring Buffer Init FAILED");
+ else
+	 print("Serial DMX Ring Buffer Init Complete");
 
   //Init/Setup PWM for Lights
   init_timers();
@@ -269,17 +275,9 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	//Handle Test Shell or DMX Serial Process
-	//TODO Abstract shell so it can work on USB UART if USB is enabled
-	if (UART_mode_SERIAL == (uint8_t)UART_MODE_SHELL)
-	{
-		shell_process();
-	}
-	else
-	{
-		dmx_serial_process();
-	}
-
+	//Handle Test Shell and DMX Serial Process
+	shell_process();
+	dmx_serial_process();
 
 	if (testmode)
 	{
@@ -316,9 +314,7 @@ int main(void)
 			//Or
 			//2) from inside the FX only when it is needed?
 			//Going with option 1 for the moment. as the timing is more predictable...
-			WS2812B_test(CH1);
 			WS2812B_show(CH1);
-			WS2812B_test(CH2);
 			WS2812B_show(CH2);
 		}
 

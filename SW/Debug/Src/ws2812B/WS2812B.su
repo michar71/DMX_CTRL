@@ -10,4 +10,4 @@ WS2812B.c:10:9:WS2812B_init	40	static
 WS2812B.c:251:6:WS2812B_setStripColor	40	static
 WS2812B.c:261:10:WS2812B_colorWheel	0	static
 WS2812B.c:284:6:WS2812B_rainbow	24	static
-WS2812B.c:299:6:WS2812B_test	24	static
+WS2812B.c:302:6:WS2812B_test	24	static

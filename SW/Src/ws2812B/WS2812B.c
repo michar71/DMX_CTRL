@@ -283,7 +283,8 @@ uint32_t WS2812B_colorWheel(uint8_t WheelPos)
 //show rainbow colorsa starting at pixel start for count pixels with a given startvalue with a defined stepsize
 void WS2812B_rainbow(t_stripchannel ch,uint8_t start, uint8_t count, uint8_t startval,  uint8_t stepsize)
 {
-  uint16_t i, j;
+  uint16_t i;
+  int16_t j;
 
 	j =startval;
 	for(i=start; i<=(start+count); i++)
@@ -292,6 +293,8 @@ void WS2812B_rainbow(t_stripchannel ch,uint8_t start, uint8_t count, uint8_t sta
 		j = j + stepsize;
 		if (j>255)
 			j = j - 255;
+		else if (j<0)
+			j= j + 255;
 	}
 }
 

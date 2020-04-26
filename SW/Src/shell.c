@@ -10,7 +10,8 @@
 /* external variables */
 extern const shell_cmd_t shell_cmd_list[];
 extern const int SHELL_CMD_NUM;
-//extern uart_device_t * shell_uart;
+extern uint8_t UART_mode_SERIAL;
+extern uint8_t UART_mode_USB;
 
 /* local variables */
 static char cmd_buf[SHELL_CMD_BUF_LEN];
@@ -245,6 +246,10 @@ void shell_process(void)
 	char byte;
 	const char prompt[] = "DBG>";
 	
+	//Both Ports are set to Serial DMX
+	if (UART_mode_SERIAL && UART_mode_USB)
+		return;
+
 	while (1 == uart_receive_byte((uint8_t*)&byte))
 	{
         vt100_key_t key = vt100_process_byte(byte);

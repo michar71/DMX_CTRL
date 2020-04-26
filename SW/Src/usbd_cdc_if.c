@@ -23,7 +23,9 @@
 #include "usbd_cdc_if.h"
 #include "ring_buffer.h"
 
-extern rb_att_t rx_buff;
+rb_att_t rx_buff_dmx;
+rb_att_t rx_buff_shell;
+extern uint8_t UART_mode_USB;
 
 /* USER CODE BEGIN INCLUDE */
 
@@ -269,7 +271,10 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   //Loopback Test
   //CDC_Transmit_FS(Buf, *Len); // ADD THIS LINE to echo back all incoming data
   //Send Data to ring buffer
-  ring_buffer_put(&rx_buff, Buf, *Len);
+  if (UART_mode_USB)
+	  ring_buffer_put(&rx_buff_dmx, Buf, *Len);
+  else
+	  ring_buffer_put(&rx_buff_shell, Buf, *Len);
 
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);

@@ -12,6 +12,7 @@
 #include "fx_pwm_running_light.h"
 #include "fx_pwm_pulsing_light.h"
 #include "fx_strip_running_light.h"
+#include "fx_strip_rainbow.h"
 
 void fx_install(void)
 {
@@ -21,6 +22,7 @@ void fx_install(void)
     fx_pwm_pulsing_light(0);
     fx_pwm_pulsing_pulse_light(0);
     fx_strip_running_light(0);
+    fx_strip_rainbow(0);
 }
 
 #endif /* FX_INSTALL_H_ */

@@ -19,7 +19,7 @@ typedef enum{
 }triggermode_e;
 
 typedef enum{
-	UART_MODE_SHELL,
+	UART_MODE_SHELL = 0,
 	UART_MODE_DMX
 }uartmode_t;
 

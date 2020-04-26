@@ -14,6 +14,8 @@
 extern rb_att_t rx_buff;
 extern int UART_mode_SERIAL;
 extern int UART_mode_USB;
+rb_att_t rx_buff_dmx;
+rb_att_t rx_buff_shell;
 
 /*
  Serial DMX Protocol
@@ -50,7 +52,11 @@ void dmx_serial_process(void)
 	uint8_t data;
 	uint32_t regsize =  get_reg_length();
 
-	while ((RB_OK == ring_buffer_get(&rx_buff, &data, 1)) && (reg_count<regsize) && (syncstart == 1))
+	//Both Ports are set to Shell
+	if ((UART_mode_SERIAL==0) && (UART_mode_USB==0))
+		return;
+
+	while ((RB_OK == ring_buffer_get(&rx_buff_dmx, &data, 1)) && (reg_count<regsize) && (syncstart == 1))
 	{
 		if ((data == ESC_CHAR) && (escaped == 0))
 		{
@@ -97,7 +103,7 @@ void dmx_serial_process(void)
 	//If we have exceeded the number of registers or haven't synced yet just pull a byte
 	if ((reg_count>=regsize) || (syncstart == 0))
 	{
-		if (RB_OK == ring_buffer_get(&rx_buff, &data, 1))
+		if (RB_OK == ring_buffer_get(&rx_buff_dmx, &data, 1))
 		{
 			//If it happens to be the escape byte we go into escape mode
 			if ((data == ESC_CHAR) && (escaped == 0))

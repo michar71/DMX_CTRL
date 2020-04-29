@@ -9,3 +9,4 @@ fx_api.c:77:9:get_DMX_variable	0	static
 fx_api.c:83:6:set_DMX_variable	0	static
 fx_api.c:90:9:get_tigger_val	0	static
 fx_api.c:95:10:millisec	0	static
+fx_api.c:101:9:scale256	0	static

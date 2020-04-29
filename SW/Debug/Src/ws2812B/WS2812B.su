@@ -4,10 +4,11 @@ WS2812B.c:152:6:WS2812B_setPixelColorDirect	24	static
 WS2812B.c:173:10:WS2812B_Color	0	static
 WS2812B.c:179:10:WS2812B_numPixels	0	static
 WS2812B.c:196:6:WS2812B_setBrightness	16	static
-WS2812B.c:230:9:WS2812B_getBrightness	0	static
-WS2812B.c:236:6:WS2812B_clear	16	static
+WS2812B.c:231:6:WS2812B_fadeAll	12	static
+WS2812B.c:245:9:WS2812B_getBrightness	0	static
+WS2812B.c:251:6:WS2812B_clear	16	static
 WS2812B.c:10:9:WS2812B_init	40	static
-WS2812B.c:251:6:WS2812B_setStripColor	40	static
-WS2812B.c:261:10:WS2812B_colorWheel	0	static
-WS2812B.c:284:6:WS2812B_rainbow	24	static
-WS2812B.c:302:6:WS2812B_test	24	static
+WS2812B.c:266:6:WS2812B_setStripColor	40	static
+WS2812B.c:276:10:WS2812B_colorWheel	0	static
+WS2812B.c:299:6:WS2812B_rainbow	24	static
+WS2812B.c:317:6:WS2812B_test	24	static

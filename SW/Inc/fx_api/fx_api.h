@@ -13,6 +13,11 @@
 #include "dmx512_config.h"
 #include "WS2812B/WS2812B.h"
 
+typedef struct{
+	uint8_t r;
+	uint8_t g;
+	uint8_t b;
+}t_rgb;
 
 typedef enum{
 	DMX_MAX_BRIGHTNESS = 0,
@@ -102,8 +107,17 @@ void set_DMX_variable(t_dmx_var var, uint8_t val);
 //System Specific Functions
 //--------------------------
 
+//Get the Analog value of a trigger input
 uint8_t get_tigger_val(uint8_t ch);
+
+//Get the time since start in milliseconds
 uint32_t millisec(void);
+
+//Helper functions
+//----------------
+
+//Scales an input value (0..255) by a scale factor (0..255)
+uint8_t scale256(uint8_t val, uint8_t scale);
 
 
 #endif /* FX_API_H_ */

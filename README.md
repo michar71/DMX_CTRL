@@ -15,6 +15,7 @@ The follwing is an outline of the current usage case for an art car and why a sp
 - "Internal Lights" -> Lantern with red LED's that are supposed to flicker and occasionally fail
 - "Mood Lighting" -> White LED Strips that can be controlled in brightness
 - "Centralized Control Panel" -> Touchscreen control to trigger and sequence effects (Either Cheap Windows Tablet or Raspberry Pi)
+
 These are all usage cases that are not "Simple" DMX RGB-Light cases but also do not warrant complex solutions like FadeCandy that need a lot of programming, USB wiring and complex control computers.
 While these effects could be achived with a handful of Arduinos it makes central control more compleicated as there is no common control bus easily available and the processing power of Arduinos is limited. 
 
@@ -32,8 +33,10 @@ While these effects could be achived with a handful of Arduinos it makes central
 -	Total Cost per Board ~$16 (Most of that (8$) are MOSFETs so it depends on how many LED channels are needed)
 -	Board size 10x5 cm
 
-![Front](/DOC/front.jpeg)
-![Back](/DOC/back.jpeg)
+![Front PCB](/DOC/downImg.png)
+![Back PCB](/DOC/downImg_back.png)
+![Front Assembled](/DOC/front.jpeg)
+![Back Assembled](/DOC/back.jpeg)
 
 ## Current Status
 - DMX512 Control of PWM Channels -> Working
@@ -44,24 +47,22 @@ While these effects could be achived with a handful of Arduinos it makes central
 - Test Mode (Press button after power up, cycles through all LED channels) -> Working
 - Triggers -> Working
 - Plugin Manager -> Working
+- Example Plugins -> Working
+- WS2812 Support -> Working
+- Serial Control (Wifi/Serial/USB) -> Working
+- Serial DMX Protocol -> Working
 
-- WS2812 Support -> Pending
-- Serial Control (Wifi/Serial/USB) -> Pending
-
-## Next Steps
-- Plugin Mananger to simplify FX Plugin Development
-- Fix ADC IRQ for Trigger
-- Get at least one WS2812 Channel via DMA-Driven SPI Working
-- Add support for Serial/USB/Wifi DMX
+- Master Mode -> Pending
+- ESP-01 (ESP8266) Example -> Pending
 
 ## BOM Cost
 The BOM cost for the simplest implementation is 
-- $0.50 for the board
+- $2.00 for the board
 - $2.00 for the Bluepill STM32F103 Board
-- $0.50 for the RS485 Module
+- $0.70 for the RS485 Module
 - $4.00 for Misc (Resistors, pin headers, switch)
 - $0.80 per Mosfet for controllable Channels
-So somewhere between $7 to $15.
+So somewhere between $9 to $17.
 
 ## Development Enironment
 The software is developed with ST Microelectronics STM32CubeIDE 1.3.0
@@ -80,6 +81,13 @@ These can be used with a special driver for the ST-Link (Because they show up wi
 [FX Plugin Manual](FX_API.md)
 
 ## Notes
+
+### DMX Registers
+Depending on mode selection the module will present itself with either 11 or 26 DMX Registers.
+In Mode 1 only the first 11 registers are available and provide simple PwM control.
+
+In Mode 2 additional 15 registers are present for FX control. (WS2812B supporty will only be present in that mode...)
+Except for the FX_SELECT register these don't do anything by default but have to be used in plugins. and functionality will vary.  
 
 ### Jumper Options
 
@@ -126,9 +134,6 @@ Jumper 2
 Disabled = No USB Support (Saves a lot of memory)
 Enabled  = Eanbles Serial Port via USB
 
-### DMX Control Registers
-For reference refer to the DMX_CTRL.xlsx spreadsheet.
-The numbers of registers depends on the Mode (With/Without WS2812 Control)
 
 ### DMX Control Wires (A/B)
 With my controller the follwing pinout works (Looking at a male connector):
@@ -158,10 +163,10 @@ The analog value (0...3.3V) is directly mapped onto one of the control registers
 (For example an external inpout can be linked to the brightness of a channel or set the input parameter for an effect)
 
 #### Threshold
-A Specific value can be written to a specific control register wen crossing a threshold from low to high or from high to low.
-(For example a specific effect can be tiurned on/off via a switch)
+A Specific value can be written to a specific control register wen crossing a threshold from low to high or from high to low. (For example a specific effect can be turned on/off via a switch)
 
 ### Wifi/USB/Serial DMX Control
+TBD
 
 ### Master Control
 TBD
@@ -170,10 +175,37 @@ TBD
 The idea is to solder on wires and then use a zip-tie through the holes and hot-glue to secure the wires.
 Past projects had big problems with wires breaking off or shortening out... Maybe this will work.....
 
+## Acknowledgements
+Example Code to use WS2812B on STM32 with DMA
+https://michaeltien8901.github.io/stm32/2018/07/19/Using-STM32-SPI-For-LED-STRIP.html
+
+DMX512 Example
+https://github.com/carl3721/stm32-dmx512
+
 ## References
 - DMX Pinout
+https://interactive-online.com/resources/faq/dmx-512-connector-pinouts
+
 - Fadecandy Webpage
+https://github.com/scanlime/fadecandy
+
 - Ultra-Cheap DMX Lights
+(Just search for DMX512 RGB LED on ebay...)
+
+## Part References
+Bluepill Boards
+https://stm32-base.org/boards/STM32F103C8T6-Blue-Pill.html
+
+RS422 Converter
+https://alexnld.com/product/2pcs-5v-max485-ttl-to-rs485-converter-module-board-for-arduino/?utm_source=bing&utm_medium=cpc&utm_campaign=Product%20Ads(BSC)&utm_term=4578022847022738&utm_content=Ad%20group%20%231
+
+(These can obviouslty be soruced way cheaper on ebay/alibaba/banggood... These links are just for reference...)
+
+## Board Design
+- Board designed with KiKad
+- For various (Legacy) reasons it will need the KiCad 4.0 Symbol/Footprint Library installed...
+- Board size is 100mm x 50mm. In theory these could be paneled for JCLPCB.com but there is no cost advantage if you
+  include V-Grooves. You could just produce PCB's with two boards next to each other and cut them yourself but I haven't tried that....
 
 ## Known Issues (REV 1.0)
 ### Schematic:

@@ -226,6 +226,21 @@ void WS2812B_setBrightness(t_stripchannel ch,uint8_t b)
   }
 }
 
+
+//Fades all Pixels by a given scale value.
+void WS2812B_fadeAll(t_stripchannel ch,uint8_t scale)
+{
+	uint8_t c;
+	uint8_t *ptr = stripchannel[ch].pixels;
+
+	for(uint16_t i=0; i<stripchannel[ch].numBytes; i++)
+	{
+	  c = *ptr;
+	  *ptr++ = (c * scale) >> 8;
+	}
+}
+
+
 //Return the brightness value
 uint8_t WS2812B_getBrightness(t_stripchannel ch)
 {
@@ -240,10 +255,10 @@ void WS2812B_clear(t_stripchannel ch)
 
 	for(int i=0;i< (stripchannel[ch].numLEDs *3);i++)
 	{
-    tPtr = (uint8_t *)encoderLookup;
-    *bptr++ = *tPtr++;
-    *bptr++ = *tPtr++;
-    *bptr++ = *tPtr++;
+		tPtr = (uint8_t *)encoderLookup;
+		*bptr++ = *tPtr++;
+		*bptr++ = *tPtr++;
+		*bptr++ = *tPtr++;
 	}
 }
 

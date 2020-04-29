@@ -96,3 +96,9 @@ uint32_t millisec(void)
 {
 	return HAL_GetTick();
 }
+
+
+uint8_t scale256(uint8_t val, uint8_t scale)
+{
+	return (val * scale)>>8;
+}

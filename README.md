@@ -13,9 +13,10 @@ The follwing is an outline of the current usage case for an art car and why a sp
 - "Hoover Field" -> WS2812 Light Strips around the base that display a moving pattern syncronized with the speed of the car.
 - "Engines" -> Simple RGB Strips that are playing a preprpogrammed startup/shutdown seuqence and a animation while moving
 - "Internal Lights" -> Lantern with red LED's that are supposed to flicker and occasionally fail
-- Mood Lighting" -> White LED Strips that can be controlled in brightness
-
+- "Mood Lighting" -> White LED Strips that can be controlled in brightness
+- "Centralized Control Panel" -> Touchscreen control to trigger and sequence effects (Either Cheap Windows Tablet or Raspberry Pi)
 These are all usage cases that are not "Simple" DMX RGB-Light cases but also do not warrant complex solutions like FadeCandy that need a lot of programming, USB wiring and complex control computers.
+While these effects could be achived with a handful of Arduinos it makes central control more compleicated as there is no common control bus easily available and the processing power of Arduinos is limited. 
 
 ## Feature List
 -	Can act as DMX Master or Slave
@@ -24,8 +25,8 @@ These are all usage cases that are not "Simple" DMX RGB-Light cases but also do 
 -	Configurable via USB/Serial Terminal
 -	Up to 2 Analog Inputs (Can be used to control effects or act as Triggers)
 -	8 Address Lines (Optional LCD via i2C and Encoder via GPIOs instead)
--	2 Mode Jumpers to hard-select options (Simple/Extended Mode and Master/Slave Select)
--	Button to go into Setup or Test Mode
+-	2 Mode Jumpers to hard-select options (Simple Mode (PWM Only) / Extended Mode (PWM+Strips+FX) and USB Enable/Disable)
+-	Button to restore settings on startup or Test Mode
 -	External UART or option to connect ESP8266 WiFi Board
 -	USB to use as a Computer -> Master Bridge
 -	Total Cost per Board ~$16 (Most of that (8$) are MOSFETs so it depends on how many LED channels are needed)
@@ -178,11 +179,12 @@ Past projects had big problems with wires breaking off or shortening out... Mayb
 ### Schematic:
 - RX/TX Swapped on Serial Connector (TBD if they are right or wrong on ESP-01 connector...)
 - GND not connected on RS485 Module
+- Add Button for ESP8266 Button to trigger events on startup
 
 ### Layout:
-- Make RS485 module base 2.54 mm longer (Or not.. apprently they come in two sizes)
+- Make RS485 module base 2.54 mm longer (Or not.. apprently they come in two sizes.. Maybe add both sizes by adding another line of holes)
 - Add silkscreen for Pin 1 to connectors
-- Move RS232 Connector so it can be used in parallel with ESP-01 for Debug
+- Move RS232 Connector so it can be used in parallel with ESP-01 for Debug (Move further in so angled connector can be used....)
 - Bluepill collides with mounting hole in corner
 - Remove solder mask from high-current paths for tinning
 - Battery collides with power connector
@@ -190,3 +192,14 @@ Past projects had big problems with wires breaking off or shortening out... Mayb
 - Make holes for TO220 Larger so they fit flush
 - RS485 module is rotated 180 Deg
 - Create more room for programming connector on bluepill board by moving 5V Regulator
+- Move Compyright Notice on Bottom to allow for Tinning
+- For WS2812B Cable Connector, less extrame angle, 0.6mm smaller holes, Shink total size
+
+## Known Issues (REV 2.0)
+### Schematic:
+
+### Layout:
+- Bluepill collides with mounting hole in corner
+- Panelize Board
+
+

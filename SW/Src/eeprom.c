@@ -212,7 +212,7 @@ bool EE_Reads(uint16_t VirtualAddress,uint16_t HowMuchToRead,uint32_t* Data)
 {
 	if((VirtualAddress+HowMuchToRead) >	(_EEPROM_FLASH_PAGE_SIZE/4))
 		return false;
-	for(uint16_t	i=VirtualAddress ; i<HowMuchToRead+VirtualAddress ; i++)
+	for(uint16_t i=VirtualAddress ; i<HowMuchToRead+VirtualAddress ; i++)
 	{
 		*Data =  (*(__IO uint32_t*)((i*4)+_EEPROM_FLASH_PAGE_ADDRESS));
 		Data++;

@@ -20,6 +20,7 @@ t_fx_result fx_strip_cylon_run(t_fx_state state,uint32_t framecount,const uint32
 {
 	static uint32_t last_ms;
 	static uint16_t pos = 0;
+	static t_rgb_buf buf;
 	double res;
 	uint16_t poscalc;
 
@@ -27,6 +28,8 @@ t_fx_result fx_strip_cylon_run(t_fx_state state,uint32_t framecount,const uint32
 	{
 		case FX_INIT:
 			last_ms = millisec();
+			if (0 ==create_rgb_buffer(&buf, WS2812B_numPixels(CH1)))
+				return FX_ERROR;
 
 			return FX_OK;
 		case FX_RUN:
@@ -36,29 +39,30 @@ t_fx_result fx_strip_cylon_run(t_fx_state state,uint32_t framecount,const uint32
 			last_ms = millisec();
 
 			//Dim all pixels
-			WS2812B_fadeAll(CH1,get_DMX_variable(DMX_STRIP1_SIZE));
-			WS2812B_fadeAll(CH2,get_DMX_variable(DMX_STRIP1_SIZE));
+			fade_rgb_buf(&buf,get_DMX_variable(DMX_STRIP1_SIZE));
 
 			//Calculate position
 			res = sin (pos*PI/180);
-			pos++;
+			pos = pos + get_DMX_variable(DMX_STRIP1_COMPLEXITY);
 			if (pos>360)
-				pos = 0;
+				pos = pos - 360;
 
 			//res is between -1 and 1 so we need to scale things...
 			res = res * (double)WS2812B_numPixels(CH1)/2;
 			poscalc = (int16_t)res + (WS2812B_numPixels(CH1)/2);
 
-
 			//Set Pixel
-			WS2812B_setPixelColor(CH1,poscalc,get_DMX_variable(DMX_STRIP1_V1),get_DMX_variable(DMX_STRIP1_V2),get_DMX_variable(DMX_STRIP1_V3));
-			WS2812B_setPixelColor(CH2,poscalc,get_DMX_variable(DMX_STRIP1_V1),get_DMX_variable(DMX_STRIP1_V2),get_DMX_variable(DMX_STRIP1_V3));
+			set_buffer_pixel(&buf,poscalc,get_DMX_variable(DMX_STRIP1_V1),get_DMX_variable(DMX_STRIP1_V2),get_DMX_variable(DMX_STRIP1_V3));
+
+			//Transfer buffer to actual pixels
+			set_pixels_from_buf(CH1,&buf);
 
 			return FX_RUNNING;
 		case FX_END:
 			//Clear all Pixel
 			WS2812B_clear(CH1);
 			WS2812B_clear(CH2);
+			destroy_rgb_buffer(&buf);
 			return FX_COMPLETED;
 		case FX_DONE:
 			break;

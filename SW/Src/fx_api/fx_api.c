@@ -8,6 +8,9 @@
 #include "pwm_control.h"
 #include <stm32f1xx.h>
 #include "triggers.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 uint32_t delay_count = 0;
 const t_dmx_var DMX_CH_REG[CH_MAX][DMX_STRIP_MAX] = {{DMX_STRIP1_PATTERN,DMX_STRIP1_SPEED,DMX_STRIP1_SIZE,DMX_STRIP1_COMPLEXITY,DMX_STRIP1_V1,DMX_STRIP1_V2,DMX_STRIP1_V3},
@@ -66,12 +69,6 @@ void set_pwm_brightness(uint8_t val)
 	set_reg(MAX_BRIGHTNESS, val);
 }
 
-//Set Overall STRIP Brightness
-void set_strip_brightness(uint8_t val)
-{
-	WS2812B_setBrightness(CH1,val);
-	WS2812B_setBrightness(CH2,val);
-}
 
 //Get a DMX Variable
 uint8_t get_DMX_variable(t_dmx_var var)
@@ -100,5 +97,58 @@ uint32_t millisec(void)
 
 uint8_t scale256(uint8_t val, uint8_t scale)
 {
-	return (val * scale)>>8;
+	return (uint8_t)(((uint16_t)val * (uint16_t)scale)>>8);
+}
+
+uint8_t create_rgb_buffer(t_rgb_buf* pbuf, uint16_t size)
+{
+	pbuf->size = 0;
+	pbuf->rgb_pixels = calloc(size, sizeof(t_rgb));
+	if (NULL != pbuf->rgb_pixels)
+	{
+		pbuf->size = size;
+		return 1;
+	}
+	return 0;
+}
+
+void destroy_rgb_buffer(t_rgb_buf* pbuf)
+{
+	free(pbuf->rgb_pixels);
+}
+
+void set_buffer_pixel(t_rgb_buf* pbuf,uint16_t pos, uint8_t r, uint8_t g, uint8_t b)
+{
+	t_rgb *pix = pbuf->rgb_pixels;
+	pix[pos].r = r;
+	pix[pos].g = g;
+	pix[pos].b = b;
+}
+
+void set_pixels_from_buf(t_stripchannel ch, t_rgb_buf* pbuf)
+{
+	uint16_t cnt;
+	uint16_t maxcnt = WS2812B_numPixels(ch);
+	t_rgb *pix = pbuf->rgb_pixels;
+
+	if (maxcnt>pbuf->size)
+		maxcnt = pbuf->size;
+
+	for (cnt = 0;cnt<maxcnt;cnt++)
+	{
+		WS2812B_setPixelColor(ch,cnt,pix[cnt].r,pix[cnt].g,pix[cnt].b);
+	}
+}
+
+void fade_rgb_buf(t_rgb_buf* pbuf,uint8_t scale)
+{
+	uint16_t i;
+	t_rgb *pix = pbuf->rgb_pixels;
+
+	for (i = 0; i<pbuf->size;i++)
+	{
+		pix[i].r = scale256(pix[i].r, scale);
+		pix[i].g = scale256(pix[i].g, scale);
+		pix[i].b = scale256(pix[i].b, scale);
+	}
 }

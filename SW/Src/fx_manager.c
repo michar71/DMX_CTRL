@@ -38,7 +38,7 @@ uint8_t start_fx(uint8_t id)
 		{
 			if (NULL != pfx_list[current_fx]->fx_run_pointer)
 				pfx_list[current_fx]->fx_run_pointer(FX_END,pfx_list[current_fx]->duration,0);
-			print("Completed FX ID:%d\t FX: %s ",current_fx,pfx_list[current_fx]->fxname);
+			print("Completed FX ID:%d FX: %s ",current_fx,pfx_list[current_fx]->fxname);
 			current_fx_state = FX_DONE;
 		}
 		//ID is valid, setup parameters
@@ -49,9 +49,16 @@ uint8_t start_fx(uint8_t id)
 			return current_fx;
 
 		//Call run routine once with INIT state
-		pfx_list[current_fx]->fx_run_pointer(FX_INIT,0,pfx_list[current_fx]->duration);
-		current_fx_state = FX_INIT;
-		print("Started FX ID:%d\t FX: %s ",current_fx,pfx_list[current_fx]->fxname);
+		if (FX_OK == pfx_list[current_fx]->fx_run_pointer(FX_INIT,0,pfx_list[current_fx]->duration))
+		{
+			current_fx_state = FX_INIT;
+			print("Started FX ID:%d FX: %s ",current_fx,pfx_list[current_fx]->fxname);
+		}
+		else
+		{
+			print("FX ID:%d FX: %s failed to start",current_fx,pfx_list[current_fx]->fxname);
+			current_fx = last_fx;
+		}
 	}
 	//return new ID
 	return current_fx;
@@ -61,7 +68,7 @@ uint8_t start_fx(uint8_t id)
 void fx_done(void)
 {
 	pfx_list[current_fx]->fx_run_pointer(FX_END,pfx_list[current_fx]->duration,0);
-	print("Completed FX ID:%d\t FX: %s ",current_fx,pfx_list[current_fx]->fxname);
+	print("Completed FX ID:%d FX: %s ",current_fx,pfx_list[current_fx]->fxname);
 	current_fx_state = FX_DONE;
 	if (pfx_list[current_fx]->next_fx != 0)
 	{

@@ -11,7 +11,6 @@ typedef struct{
 	uint32_t time;
 	uint16_t numLEDs;       // Number of RGB LEDs in strip
 	uint16_t numBytes;      // Size of 'pixels' buffer
-	uint8_t brightness;
 	uint8_t *pixels;        // Holds the current LED color values, which the external API calls interact with 9 bytes per pixel + start + end empty bytes
 	uint8_t *doubleBuffer;	// Holds the start of the double buffer (1 buffer for async DMA transfer and one for the API interaction.)
 	SPI_HandleTypeDef* phspi;
@@ -37,10 +36,7 @@ uint8_t WS2812B_init(t_stripchannel ch,uint16_t number_of_leds);
 void WS2812B_show(t_stripchannel ch);
 void WS2812B_setPixelColor(t_stripchannel ch,uint16_t n, uint8_t r, uint8_t g, uint8_t b);
 void WS2812B_setPixelColorDirect(t_stripchannel ch,uint16_t n, uint32_t c);
-void WS2812B_setBrightness(t_stripchannel ch,uint8_t brightness);
 void WS2812B_clear(t_stripchannel ch);
-void WS2812B_fadeAll(t_stripchannel ch,uint8_t scale);
-uint8_t WS2812B_getBrightness(t_stripchannel ch);
 uint16_t WS2812B_numPixels(t_stripchannel ch);
 uint32_t WS2812B_Color(uint8_t r, uint8_t g, uint8_t b);
 void WS2812B_setStripColor(t_stripchannel ch,uint8_t r, uint8_t g, uint8_t b);

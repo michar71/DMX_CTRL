@@ -25,16 +25,9 @@ void init_settings(void)
 
 	//Set deviations from 0...
 	settings.max_brightness = 255;
-	settings.strip1_speed = 5;
-	settings.strip1_size = 5;
-	settings.strip1_complexity = 0;
-	settings.strip2_speed = 5;
-	settings.strip2_size = 5;
-	settings.strip2_complexity = 0;
 
-
-	settings.strip1_length = 100;
-	settings.strip2_length = 100;
+	settings.strip1_length = 9;
+	settings.strip2_length = 9;
 
 	settings.offset_red = -100;
 	settings.gain_red = 100;    //Gain * 100
@@ -91,16 +84,19 @@ void apply_settings(void)
 
 void load_settings(void)
 {
-	EE_Reads(0,sizeof(settings_s),(uint32_t*)&settings);
+	if (!EE_Reads(0,sizeof(settings_s),(uint32_t*)&settings))
+		print("EEPROM Read Failed");
 }
 
 void save_settings(void)
 {
-	EE_Writes(0,256,(uint32_t*)&settings);
+	if (!EE_Writes(0,sizeof(settings_s),(uint32_t*)&settings))
+		print("EEPROM Write Failed");
 }
 
 void print_settings(void)
 {
+	print("");
 	print("Defaults");
 	print("-------");
 	print("MAX_BRIGHTN: %d",settings.max_brightness);
@@ -131,7 +127,7 @@ void print_settings(void)
 	print("STRIP2_V1: %d",settings.strip2_v1);
 	print("STRIP2_V2: %d",settings.strip2_v2);
 	print("STRIP2_V3: %d",settings.strip2_v3);
-
+	print("");
 	print("Settings");
 	print("-------");
 	//FX Multiplier
@@ -142,7 +138,7 @@ void print_settings(void)
 
 	print("UART Mode Serial: %d",settings.UART_Mode_UART);
 	print("UART Mode USB: %d",settings.UART_Mode_USB);
-
+	print("");
 	//Triggers
 	print("Triggers");
 	print("--------");
@@ -161,7 +157,7 @@ void print_settings(void)
 	print("Trigger A1 Reg Hi->Low: %d",settings.trigger_reg_hilo_A1);
 	print("Trigger A1 Val Hi-Low: %d",settings.trigger_val_hilo_A1);
 	print("Trigger A1 Level: %d",settings.trigger_level_A1);
-
+	print("");
     //Calibration
 	print("Calibration");
 	print("-----------");

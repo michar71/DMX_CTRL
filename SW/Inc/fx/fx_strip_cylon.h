@@ -10,15 +10,17 @@
 
 //FX Description
 //--------------
-//Moving dot following a sine-pattern
+//Moving dot following a sine-pattern.
 //Uses real millisec timebase as an example
-//Both strips show the same pattern
+//Uses full RGB buffer as an example for fading
+//Only works on CH1
 
 
 //Variables Used
 //--------------
 //STRIP1_SPEED		Overall Speed
 //STRIP1_SIZE 		Afterglow length
+//STRIP1_COMPLEXITY Stepsize
 //STRIP1_V1    		RED
 //STRIP1_V2    		GREEN
 //STRIP1_V3    		BLUE

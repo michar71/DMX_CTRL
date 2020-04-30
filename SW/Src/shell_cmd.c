@@ -53,7 +53,7 @@ const shell_cmd_t shell_cmd_list[] = {
 	{"settriggerctrl",   "settriggerctrl  [trigger 0|1] [Reg HiLo (0..25)] [Val HiLo (0..255)] [Reg LoHi (0..25)] [Val LoHi (0..255)]\n\r",shell_cmd_settriggerctrl},
 	{"storedefaultregs",   "storedefaultregs\n\r",shell_cmd_storedefaultregs},
 	{"dumpadc",   "dumpadc\n\r",shell_cmd_dumpadc},
-	{"setstriplength",   "setstriplength [ch (0..2)] [length (0..1024)]\n\r",shell_cmd_setstriplength},
+	{"setstriplength",   "setstriplength [ch (0|1)] [length (0..1024)]\n\r",shell_cmd_setstriplength},
 	{"setuartmode",   "setuartmode [0 = Serial, 1 = USB] [0 = Shell, 1 = Serial DMX]\n\r",shell_cmd_setuartmode},
 	{"switchuartmode",   "switchuartmode [0 = Serial, 1 = USB]\n\r",shell_cmd_switchuartmode},
 };

@@ -188,20 +188,26 @@ int main(void)
  else
 	 print("Serial DMX Ring Buffer Init Complete");
 
+ //Setup UART1 (RS485)/DMX512 Receiver
+ dmx512_rec_init();
+ print("DMX512 Init complete");
+
   //Init/Setup PWM for Lights
   init_timers();
   print("Timer Init complete");
 
   //Init Defaults
   init_settings();
-  print("Default Settings Initalized");
+  print("Default Settings Initialized");
 
   // If Button is not pressed Load Defaults
   print("Loading Settings...");
 
+
   if (0 == check_button())
   {
 	  load_settings();
+
 	  UART_mode_SERIAL = settings.UART_Mode_UART;
 	  UART_mode_USB = settings.UART_Mode_USB;
 	  print("Setting loaded");
@@ -216,9 +222,6 @@ int main(void)
   apply_settings();
   print("Settings complete");
 
-  //Setup UART1 (RS485)/DMX512 Receiver
-  dmx512_rec_init();
-  print("DMX512 Init complete");
 
   if (DMX_MODE2 == get_mode())
   {

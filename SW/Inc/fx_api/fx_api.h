@@ -19,6 +19,12 @@ typedef struct{
 	uint8_t b;
 }t_rgb;
 
+typedef struct{
+    t_rgb *rgb_pixels;
+    uint16_t size;
+}t_rgb_buf;
+
+
 typedef enum{
 	DMX_MAX_BRIGHTNESS = 0,
 	DMX_CH1_RED,
@@ -93,7 +99,6 @@ void set_pwm_timer_channel(uint8_t ch, uint8_t r, uint8_t g, uint8_t b);
 
 //Set Overall Brightness
 void set_pwm_brightness(uint8_t val);
-void set_strip_brightness(uint8_t val);
 
 //DMX Specific Functions
 //----------------------
@@ -118,6 +123,15 @@ uint32_t millisec(void);
 
 //Scales an input value (0..255) by a scale factor (0..255)
 uint8_t scale256(uint8_t val, uint8_t scale);
+
+//RGB Buffer Functions
+//--------------------
+
+uint8_t create_rgb_buffer(t_rgb_buf* pbuf, uint16_t size);
+void destroy_rgb_buffer(t_rgb_buf* pbuf);
+void set_pixels_from_buf(t_stripchannel ch, t_rgb_buf* pbuf);
+void set_buffer_pixel(t_rgb_buf* pbuf,uint16_t pos, uint8_t r, uint8_t g, uint8_t b);
+void fade_rgb_buf(t_rgb_buf* pbuf,uint8_t scale);
 
 
 #endif /* FX_API_H_ */

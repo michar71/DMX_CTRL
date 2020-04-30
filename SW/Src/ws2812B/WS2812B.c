@@ -10,7 +10,6 @@ extern DMA_HandleTypeDef hdma_spi2_tx;
 uint8_t WS2812B_init(t_stripchannel ch,uint16_t number_of_leds)
 {
 	//init vars
-	stripchannel[ch].brightness = 255;
 	stripchannel[ch].pixels = NULL;
 	stripchannel[ch].doubleBuffer = NULL;
 	stripchannel[ch].time = 0;
@@ -151,21 +150,7 @@ void WS2812B_setPixelColor(t_stripchannel ch,uint16_t n, uint8_t r, uint8_t g, u
 
 void WS2812B_setPixelColorDirect(t_stripchannel ch,uint16_t n, uint32_t c)
 {
-  uint8_t r,g,b;
-
-  if(stripchannel[ch].brightness)
-  {
-	r = ((int)((uint8_t)(c >> 16)) * (int)stripchannel[ch].brightness) >> 8;
-	g = ((int)((uint8_t)(c >>  8)) * (int)stripchannel[ch].brightness) >> 8;
-	b = ((int)((uint8_t)c) * (int)stripchannel[ch].brightness) >> 8;
-  }
-  else
-  {
-	r = (uint8_t)(c >> 16),
-	g = (uint8_t)(c >>  8),
-	b = (uint8_t)c;
-  }
-  WS2812B_setPixelColor(ch,n,r,g,b);
+  WS2812B_setPixelColor(ch,n,(uint8_t)(c >> 16),(uint8_t)(c >>  8),(uint8_t)c);
 }
 
 // Convert separate R,G,B into packed 32-bit RGB color.
@@ -181,71 +166,7 @@ uint16_t WS2812B_numPixels(t_stripchannel ch)
   return stripchannel[ch].numLEDs;
 }
 
-// Adjust output brightness; 0=darkest (off), 255=brightest.  This does
-// NOT immediately affect what's currently displayed on the LEDs.  The
-// next call to show() will refresh the LEDs at this level.  However,
-// this process is potentially "lossy," especially when increasing
-// brightness.  The tight timing in the WS2811/WS2812 code means there
-// aren't enough free cycles to perform this scaling on the fly as data
-// is issued.  So we make a pass through the existing color data in RAM
-// and scale it (subsequent graphics commands also work at this
-// brightness level).  If there's a significant step up in brightness,
-// the limited number of steps (quantization) in the old data will be
-// quite visible in the re-scaled version.  For a non-destructive
-// change, you'll need to re-render the full strip data.  C'est la vie.
-void WS2812B_setBrightness(t_stripchannel ch,uint8_t b)
-{
-  // Stored brightness value is different than what's passed.
-  // This simplifies the actual scaling math later, allowing a fast
-  // 8x8-bit multiply and taking the MSB.  'brightness' is a uint8_t,
-  // adding 1 here may (intentionally) roll over...so 0 = max brightness
-  // (color values are interpreted literally; no scaling), 1 = min
-  // brightness (off), 255 = just below max brightness.
-  uint8_t newBrightness = b + 1;
-  uint8_t c;
-  uint8_t *ptr = stripchannel[ch].pixels;
-  uint8_t oldBrightness = stripchannel[ch].brightness - 1; // De-wrap old brightness value
-  uint16_t scale;
 
-  if(newBrightness != stripchannel[ch].brightness) // Compare against prior value
-  {
-    // Brightness has changed -- re-scale existing data in RAM
-    if(oldBrightness == 0)
-      scale = 0; // Avoid /0
-    else if(b == 255)
-      scale = 65535 / oldBrightness;
-    else
-      scale = (((uint16_t)newBrightness << 8) - 1) / oldBrightness;
-
-    for(uint16_t i=0; i<stripchannel[ch].numBytes; i++)
-	  {
-      c = *ptr;
-      *ptr++ = (c * scale) >> 8;
-    }
-    stripchannel[ch].brightness = newBrightness;
-  }
-}
-
-
-//Fades all Pixels by a given scale value.
-void WS2812B_fadeAll(t_stripchannel ch,uint8_t scale)
-{
-	uint8_t c;
-	uint8_t *ptr = stripchannel[ch].pixels;
-
-	for(uint16_t i=0; i<stripchannel[ch].numBytes; i++)
-	{
-	  c = *ptr;
-	  *ptr++ = (c * scale) >> 8;
-	}
-}
-
-
-//Return the brightness value
-uint8_t WS2812B_getBrightness(t_stripchannel ch)
-{
-  return stripchannel[ch].brightness - 1;
-}
 
 //Sets the encoded pixel data to turn all the LEDs off.
 void WS2812B_clear(t_stripchannel ch)

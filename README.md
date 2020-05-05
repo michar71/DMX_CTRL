@@ -132,7 +132,7 @@ In DMX Mode 2 additionally the following Registers will be available:
 
 Jumper 2
 Disabled = No USB Support (Saves a lot of memory)
-Enabled  = Eanbles Serial Port via USB
+Enabled  = Enables Serial Port via USB
 
 
 ### DMX Control Wires (A/B)
@@ -165,8 +165,13 @@ The analog value (0...3.3V) is directly mapped onto one of the control registers
 #### Threshold
 A Specific value can be written to a specific control register wen crossing a threshold from low to high or from high to low. (For example a specific effect can be turned on/off via a switch)
 
+### USB Port
+The USB port (If enabled via Mode Jumper) will act as a UART from the PC side. (With Win10 no speicla driver is nessassary) There are no controls for baudrate or data format which means that the data speed is not limited.
+The behavior of the USB UART can be controlled from the configuration (Either Serial Shell or Serial DMX)
+
 ### Wifi/USB/Serial DMX Control
-TBD
+[TBD, Protocol Implemented, need sample App..]
+[TBD, need ESP2866 Sample Code and Sample App]
 
 ### Master Control
 TBD

@@ -87,6 +87,10 @@ void WS2812B_show(t_stripchannel ch)
   uint32_t loopcnt = 0;
   static uint8_t errorcnt = 0;
 
+  //If Strip is set to 0 pixels we ignore it...
+  if (stripchannel[ch].numLEDs == 0)
+	  return;
+
   //Wait for last transfer to finish
   while(__HAL_SPI_GET_FLAG(stripchannel[ch].phspi, SPI_FLAG_BSY ))
   {

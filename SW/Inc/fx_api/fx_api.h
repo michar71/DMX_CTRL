@@ -123,6 +123,8 @@ uint32_t millisec(void);
 
 //Scales an input value (0..255) by a scale factor (0..255)
 uint8_t scale256(uint8_t val, uint8_t scale);
+//Pseudo-random number generator
+uint32_t simple_rnd();
 
 //RGB Buffer Functions
 //--------------------

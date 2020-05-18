@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+uint64_t x = 0, w = 0, s = 0xb5ad4eceda1ce2a9;
 uint32_t delay_count = 0;
 const t_dmx_var DMX_CH_REG[CH_MAX][DMX_STRIP_MAX] = {{DMX_STRIP1_PATTERN,DMX_STRIP1_SPEED,DMX_STRIP1_SIZE,DMX_STRIP1_COMPLEXITY,DMX_STRIP1_V1,DMX_STRIP1_V2,DMX_STRIP1_V3},
 													 {DMX_STRIP2_PATTERN,DMX_STRIP2_SPEED,DMX_STRIP2_SIZE,DMX_STRIP2_COMPLEXITY,DMX_STRIP2_V1,DMX_STRIP2_V2,DMX_STRIP2_V3}};
@@ -151,4 +152,16 @@ void fade_rgb_buf(t_rgb_buf* pbuf,uint8_t scale)
 		pix[i].g = scale256(pix[i].g, scale);
 		pix[i].b = scale256(pix[i].b, scale);
 	}
+}
+
+
+//Very simple pseudo-random number generator.
+//Returns a number 0x00000000..0xFFFFFFFF
+//This is a pseudo-random sequence and will always start the same....
+
+uint32_t simple_rnd()
+{
+   x *= x;
+   x += (w += s);
+   return x = (x>>32) | (x<<32);
 }

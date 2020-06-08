@@ -9,13 +9,13 @@
 #define LIGHT_UPDATE_H_
 
 #include <stdint.h>
-
+#include "gammactrl.h"
 
 //Create/Init shadow registers
 void init_update_lights(void);
 
 //Scale Input via Max Brightness value to PWM value
-uint16_t scale_value( uint8_t val,int16_t offset, int16_t gain, int16_t gamma);
+uint16_t scale_value( uint8_t val,int16_t offset, int16_t gain, t_gammactrl gamma_ch);
 
 //Check what has changed and update Lights
 //We only update parameters that have changed otherwise we might have waveform-artifacts...

@@ -36,6 +36,7 @@
 #include "WS2812B/WS2812B.h"
 #include "serial_dmx_parser.h"
 #include "ring_buffer.h"
+#include "gammactrl.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -220,6 +221,8 @@ int main(void)
 
   //Set Defaults
   apply_settings();
+  //Set Default Gamma Table
+  recalcGamma();
   print("Settings complete");
 
 

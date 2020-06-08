@@ -8,6 +8,7 @@
 #include "pwm_control.h"
 #include "settings.h"
 #include "triggers.h"
+#include "gammactrl.h"
 
 
 extern int UART_mode_SERIAL;
@@ -46,7 +47,7 @@ const shell_cmd_t shell_cmd_list[] = {
 	{"savesettings",   "savesettings\n\r",shell_cmd_savesettings},
 	{"setgain",   "setgain [ch (0..2)] [gain (-32766...32766)]\n\r",shell_cmd_setgain},
 	{"setoffset",   "setoffset [ch (0..2)] [offset (-32766...32766)]\n\r",shell_cmd_setoffset},
-	{"setgamma",   "setgamma [ch (0..2)] [gamma (-32766...32766)]\n\r",shell_cmd_setgamma},
+	{"setgamma",   "setgamma [ch (0=R, 1=G, 2=B,3=STRIP)] [gamma (-32766...32766)]\n\r",shell_cmd_setgamma},
 	{"setreg",   "setreg [reg] [val]\n\r",shell_cmd_setreg},
 	{"setfxmultiplier",   "setfxmultiplier  [val (1,2,4)]\n\r",shell_cmd_setfxmultiplier},
 	{"settriggerconfig",   "settriggerconfig  [trigger 0|1] [mode(0=None, 1=mapping, 2=switch)] [register (0..25] [level (0..255)]\n\r",shell_cmd_settriggerconfig},
@@ -227,7 +228,12 @@ static int shell_cmd_setgamma(int argc, char ** argv)
 		case 2:
 			settings.gamma_blue = atoi(argv[2]);
 			break;
+		case 3:
+			settings.gamma_strip = atoi(argv[2]);
+			break;
 		}
+		if (false == recalcGamma())
+			print("Gamma Table Creation Failed");
 	}
 	else
 	{

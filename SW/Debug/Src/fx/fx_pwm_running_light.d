@@ -32,7 +32,7 @@ Src/fx/fx_pwm_running_light.o: ../Src/fx/fx_pwm_running_light.c \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h \
- ../Inc/fx/fx_pwm_running_light.h
+ ../Inc/gammactrl.h ../Inc/fx/fx_pwm_running_light.h
 
 ../Inc/fx_api/fx_api.h:
 
@@ -103,5 +103,7 @@ Src/fx/fx_pwm_running_light.o: ../Src/fx/fx_pwm_running_light.c \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h:
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h:
+
+../Inc/gammactrl.h:
 
 ../Inc/fx/fx_pwm_running_light.h:

@@ -12,6 +12,7 @@
 #include "fx_list.h"
 #include "dmx512_config.h"
 #include "WS2812B/WS2812B.h"
+#include "gammactrl.h"
 
 typedef struct{
 	uint8_t r;

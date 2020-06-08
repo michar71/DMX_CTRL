@@ -35,9 +35,9 @@ Src/main.o: ../Src/main.c ../Inc/main.h \
  ../Inc/usbd_conf.h ../Inc/main.h ../Inc/dmx512_rec.h \
  ../Inc/dmx512_config.h ../Inc/serial_tracer.h ../Inc/shell.h \
  ../Inc/gpio_control.h ../Inc/pwm_control.h ../Inc/light_update.h \
- ../Inc/settings.h ../Inc/triggers.h ../Inc/testmode.h \
+ ../Inc/gammactrl.h ../Inc/settings.h ../Inc/triggers.h ../Inc/testmode.h \
  ../Inc/fx_manager.h ../Inc/fx_list.h ../Inc/WS2812B/WS2812B.h \
- ../Inc/serial_dmx_parser.h ../Inc/ring_buffer.h
+ ../Inc/serial_dmx_parser.h ../Inc/ring_buffer.h ../Inc/gammactrl.h
 
 ../Inc/main.h:
 
@@ -125,6 +125,8 @@ Src/main.o: ../Src/main.c ../Inc/main.h \
 
 ../Inc/light_update.h:
 
+../Inc/gammactrl.h:
+
 ../Inc/settings.h:
 
 ../Inc/triggers.h:
@@ -140,3 +142,5 @@ Src/main.o: ../Src/main.c ../Inc/main.h \
 ../Inc/serial_dmx_parser.h:
 
 ../Inc/ring_buffer.h:
+
+../Inc/gammactrl.h:

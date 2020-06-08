@@ -103,7 +103,7 @@ typedef struct{
     //- LUT 8bit to 16bit GREEN
     //- LUT 8bit to 16bit BLUE
     //- Offset/Gain/Gamma for all PWM Color Channels
-	//These values are applied beffgore the PWM is applied os they refer to the
+	//These values are applied before the PWM is applied so they refer to the
 	//maximum range of the PwM settings (Currently 0..MAX_PWM = 1076...
 	int16_t offset_red;  //Absolute Offset
 	int16_t gain_red;    //Gain * 100
@@ -114,6 +114,7 @@ typedef struct{
 	int16_t offset_blue;  //Absolute Offset
 	int16_t gain_blue;    //Gain * 100
 	int16_t gamma_blue;   //Gamma * 100
+	int16_t gamma_strip;   //Gamma * 100
 
 
 	//Master Mode

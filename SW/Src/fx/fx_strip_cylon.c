@@ -23,6 +23,9 @@ t_fx_result fx_strip_cylon_run(t_fx_state state,uint32_t framecount,const uint32
 	static t_rgb_buf buf;
 	double res;
 	uint16_t poscalc;
+	uint8_t corr_r;
+	uint8_t corr_g;
+	uint8_t corr_b;
 
 	switch(state)
 	{
@@ -51,8 +54,11 @@ t_fx_result fx_strip_cylon_run(t_fx_state state,uint32_t framecount,const uint32
 			res = res * (double)WS2812B_numPixels(CH1)/2;
 			poscalc = (int16_t)res + (WS2812B_numPixels(CH1)/2);
 
-			//Set Pixel
-			set_buffer_pixel(&buf,poscalc,get_DMX_variable(DMX_STRIP1_V1),get_DMX_variable(DMX_STRIP1_V2),get_DMX_variable(DMX_STRIP1_V3));
+			//Set Pixel wirg Gamma Correction
+			corr_r = getGamma(GAMMA_STRIP,get_DMX_variable(DMX_STRIP1_V1));
+			corr_g = getGamma(GAMMA_STRIP,get_DMX_variable(DMX_STRIP1_V2));
+			corr_b = getGamma(GAMMA_STRIP,get_DMX_variable(DMX_STRIP1_V3));
+			set_buffer_pixel(&buf,poscalc,corr_r,corr_g,corr_b);
 
 			//Transfer buffer to actual pixels
 			set_pixels_from_buf(CH1,&buf);

@@ -28,6 +28,7 @@
 "Src/eeprom.o"
 "Src/fx_list.o"
 "Src/fx_manager.o"
+"Src/gammactrl.o"
 "Src/gpio_control.o"
 "Src/light_update.o"
 "Src/main.o"

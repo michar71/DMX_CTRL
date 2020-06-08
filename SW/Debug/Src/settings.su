@@ -1,5 +1,5 @@
 settings.c:21:6:init_settings	8	static
-settings.c:47:6:apply_settings	8	static
-settings.c:85:6:load_settings	8	static
-settings.c:91:6:save_settings	8	static
-settings.c:97:6:print_settings	16	static
+settings.c:49:6:apply_settings	8	static
+settings.c:87:6:load_settings	8	static
+settings.c:93:6:save_settings	8	static
+settings.c:99:6:print_settings	16	static

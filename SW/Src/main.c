@@ -200,15 +200,13 @@ int main(void)
   //Init/Setup PWM for Lights
   init_timers();
   print("Timer Init complete");
-
+      
   //Init Defaults
   init_settings();
   print("Default Settings Initialized");
 
   // If Button is not pressed Load Defaults
   print("Loading Settings...");
-
-
   if (0 == check_button())
   {
 	  load_settings();
@@ -219,16 +217,16 @@ int main(void)
   }
   else
   {
+	  //Set Default Gamma Table
+	  recalcGamma();
 	  save_settings();
 	  print("Defaults restored");
   }
 
   //Set Defaults
   apply_settings();
-  //Set Default Gamma Table
-  recalcGamma();
-  print("Settings complete");
 
+  print("Settings complete");
 
   if (DMX_MODE2 == get_mode())
   {

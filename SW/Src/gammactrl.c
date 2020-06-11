@@ -31,7 +31,7 @@ bool recalcGamma(void)
 {
 	uint8_t ii;
 	uint8_t jj;
-	int16_t gamma;
+	int16_t gamma = 220;
 	int16_t index;
 	uint64_t pdata;
 	uint32_t waddr;

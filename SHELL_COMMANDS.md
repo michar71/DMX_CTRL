@@ -49,15 +49,18 @@ Sets a gain multiplier for either the Red, Green or Blue channels for the PWM ou
 Value is input / 100 so 100 = 1.0
 (Used to calibrate the maximum output for a color channel)
 
-### setgamma [ch (0..2)] [gamma (-32766...32766)]
-Currently not implemented.
-(Will add a Gamma LUT for the PWM Outputs for more linear color response)
+### setgamma [ch (0..3)] [gamma (-32766...32766)]
+Sets the gamma either for R,G,B or the strip. 
+The gamma tables are stored in FLASH and recreated every time the command is executed.
+Gamma is the value/100 so 220 = Gamma of 2.2 (Which is also the default value.)
+For the strips gamma is not automatically applied and needs to be handled in the plugin code!
 
 ### setreg [reg] [val]
 Set a DMX Register to a specific value
 
 ### storedefaultregs
-Store the current settings of the DMX registers as defaults. These will be loaded and used evben if no DMX input signal is present.
+Store the current settings of the DMX registers as defaults. These will be loaded and used even if no DMX input signal is present.
+This does not store the values to FLASH but copies them to the settings. They will only be permanent AFTER issuing a 'savesettings' command.
 
 ### settriggerconfig  [trigger 0|1] [mode(0=None, 1=mapping, 2=switch)] [register (0..25] [level (0..255)]
 Configure a trigger to a specific mode and define the DMX register that will be controlled by that trigger.

@@ -806,7 +806,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x249 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.o
  .debug_macro   0x0000000000000000       0x83 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.o
  .debug_line    0x0000000000000000      0x819 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.o
- .debug_str     0x0000000000000000    0x73808 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.o
+ .debug_str     0x0000000000000000    0x737ff Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.o
  .comment       0x0000000000000000       0x7c Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.o
  .debug_frame   0x0000000000000000       0xc0 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.o
  .ARM.attributes
@@ -1203,7 +1203,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x249 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.o
  .debug_macro   0x0000000000000000       0x83 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.o
  .debug_line    0x0000000000000000      0x70d Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.o
- .debug_str     0x0000000000000000    0x73689 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.o
+ .debug_str     0x0000000000000000    0x73680 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.o
  .comment       0x0000000000000000       0x7c Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.o
  .debug_frame   0x0000000000000000       0x40 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.o
  .ARM.attributes
@@ -1305,7 +1305,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x249 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_iwdg.o
  .debug_macro   0x0000000000000000       0x83 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_iwdg.o
  .debug_line    0x0000000000000000      0x70c Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_iwdg.o
- .debug_str     0x0000000000000000    0x736d0 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_iwdg.o
+ .debug_str     0x0000000000000000    0x736c7 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_iwdg.o
  .comment       0x0000000000000000       0x7c Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_iwdg.o
  .debug_frame   0x0000000000000000       0x3c Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_iwdg.o
  .ARM.attributes
@@ -1657,7 +1657,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x249 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.o
  .debug_macro   0x0000000000000000       0x83 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.o
  .debug_line    0x0000000000000000      0x85f Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.o
- .debug_str     0x0000000000000000    0x73bab Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.o
+ .debug_str     0x0000000000000000    0x73ba2 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.o
  .comment       0x0000000000000000       0x7c Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.o
  .debug_frame   0x0000000000000000      0x140 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.o
  .ARM.attributes
@@ -2466,7 +2466,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x249 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.o
  .debug_macro   0x0000000000000000       0x83 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.o
  .debug_line    0x0000000000000000      0xb58 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.o
- .debug_str     0x0000000000000000    0x7407b Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.o
+ .debug_str     0x0000000000000000    0x74072 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.o
  .comment       0x0000000000000000       0x7c Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.o
  .debug_frame   0x0000000000000000      0x360 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.o
  .ARM.attributes
@@ -8881,127 +8881,126 @@ LOAD c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .rodata.start_fx.str1.1
                 0x000000000800ac94       0x54 Src/fx_manager.o
  .rodata.main.str1.1
-                0x000000000800ace8      0x24b Src/main.o
-                                        0x25c (size before relaxing)
+                0x000000000800ace8      0x249 Src/main.o
+                                        0x25a (size before relaxing)
  .rodata.PWM_Timer_Init.str1.1
-                0x000000000800af33       0x5f Src/pwm_control.o
- *fill*         0x000000000800af92        0x2 
+                0x000000000800af31       0x5f Src/pwm_control.o
  .rodata.channelinfo
-                0x000000000800af94       0x30 Src/pwm_control.o
-                0x000000000800af94                channelinfo
+                0x000000000800af90       0x30 Src/pwm_control.o
+                0x000000000800af90                channelinfo
  .rodata.load_settings.str1.1
-                0x000000000800afc4       0x13 Src/settings.o
+                0x000000000800afc0       0x13 Src/settings.o
  .rodata.print_settings.str1.1
-                0x000000000800afd7      0x3d6 Src/settings.o
+                0x000000000800afd3      0x3d6 Src/settings.o
                                         0x3f4 (size before relaxing)
  .rodata.save_settings.str1.1
-                0x000000000800b3ad       0x14 Src/settings.o
+                0x000000000800b3a9       0x14 Src/settings.o
  .rodata.print.str1.1
-                0x000000000800b3c1        0x3 Src/shell.o
+                0x000000000800b3bd        0x3 Src/shell.o
  .rodata.shell_process.str1.1
-                0x000000000800b3c4        0xd Src/shell.o
+                0x000000000800b3c0        0xd Src/shell.o
                                          0x15 (size before relaxing)
- *fill*         0x000000000800b3d1        0x3 
+ *fill*         0x000000000800b3cd        0x3 
  .rodata.SHELL_CMD_NUM
-                0x000000000800b3d4        0x4 Src/shell_cmd.o
-                0x000000000800b3d4                SHELL_CMD_NUM
+                0x000000000800b3d0        0x4 Src/shell_cmd.o
+                0x000000000800b3d0                SHELL_CMD_NUM
  .rodata.shell_cmd_dumpregs.str1.1
-                0x000000000800b3d8       0x5e Src/shell_cmd.o
+                0x000000000800b3d4       0x5e Src/shell_cmd.o
  .rodata.shell_cmd_getaddr.str1.1
-                0x000000000800b436       0x13 Src/shell_cmd.o
+                0x000000000800b432       0x13 Src/shell_cmd.o
  .rodata.shell_cmd_getmode.str1.1
-                0x000000000800b449       0x22 Src/shell_cmd.o
- *fill*         0x000000000800b46b        0x1 
+                0x000000000800b445       0x22 Src/shell_cmd.o
+ *fill*         0x000000000800b467        0x1 
  .rodata.shell_cmd_list
-                0x000000000800b46c       0xf0 Src/shell_cmd.o
-                0x000000000800b46c                shell_cmd_list
+                0x000000000800b468       0xf0 Src/shell_cmd.o
+                0x000000000800b468                shell_cmd_list
  .rodata.shell_cmd_setfxmultiplier.str1.1
-                0x000000000800b55c       0x13 Src/shell_cmd.o
+                0x000000000800b558       0x13 Src/shell_cmd.o
  .rodata.shell_cmd_setgamma.str1.1
-                0x000000000800b56f       0x1c Src/shell_cmd.o
+                0x000000000800b56b       0x1c Src/shell_cmd.o
  .rodata.shell_cmd_test.str1.1
-                0x000000000800b58b       0x12 Src/shell_cmd.o
+                0x000000000800b587       0x12 Src/shell_cmd.o
  .rodata.str1.1
-                0x000000000800b59d      0x3d9 Src/shell_cmd.o
+                0x000000000800b599      0x3d9 Src/shell_cmd.o
  .rodata.AHBPrescTable
-                0x000000000800b976       0x10 Src/system_stm32f1xx.o
-                0x000000000800b976                AHBPrescTable
+                0x000000000800b972       0x10 Src/system_stm32f1xx.o
+                0x000000000800b972                AHBPrescTable
  .rodata.APBPrescTable
-                0x000000000800b986        0x8 Src/system_stm32f1xx.o
-                0x000000000800b986                APBPrescTable
+                0x000000000800b982        0x8 Src/system_stm32f1xx.o
+                0x000000000800b982                APBPrescTable
  .rodata.print_adc_data.str1.1
-                0x000000000800b98e       0x33 Src/triggers.o
+                0x000000000800b98a       0x33 Src/triggers.o
                                          0x3c (size before relaxing)
  .rodata.CSWTCH.3
-                0x000000000800b9c1        0x4 Src/usbd_conf.o
+                0x000000000800b9bd        0x4 Src/usbd_conf.o
  .rodata.USBD_FS_ConfigStrDescriptor.str1.1
-                0x000000000800b9c5        0xb Src/usbd_desc.o
+                0x000000000800b9c1        0xb Src/usbd_desc.o
  .rodata.USBD_FS_InterfaceStrDescriptor.str1.1
-                0x000000000800b9d0        0xe Src/usbd_desc.o
+                0x000000000800b9cc        0xe Src/usbd_desc.o
  .rodata.USBD_FS_ManufacturerStrDescriptor.str1.1
-                0x000000000800b9de       0x13 Src/usbd_desc.o
+                0x000000000800b9da       0x13 Src/usbd_desc.o
  .rodata.USBD_FS_ProductStrDescriptor.str1.1
-                0x000000000800b9f1        0xe Src/usbd_desc.o
+                0x000000000800b9ed        0xe Src/usbd_desc.o
  .rodata.key_backspace_seq
-                0x000000000800b9ff        0x1 Src/vt100.o
+                0x000000000800b9fb        0x1 Src/vt100.o
  .rodata.key_clear_entire_line
-                0x000000000800ba00        0x4 Src/vt100.o
+                0x000000000800b9fc        0x4 Src/vt100.o
  .rodata.key_clear_eol
-                0x000000000800ba04        0x3 Src/vt100.o
+                0x000000000800ba00        0x3 Src/vt100.o
  .rodata.key_clear_screen
-                0x000000000800ba07        0x4 Src/vt100.o
+                0x000000000800ba03        0x4 Src/vt100.o
  .rodata.key_cursor_down_seq
-                0x000000000800ba0b        0x3 Src/vt100.o
+                0x000000000800ba07        0x3 Src/vt100.o
  .rodata.key_cursor_left_seq
-                0x000000000800ba0e        0x3 Src/vt100.o
+                0x000000000800ba0a        0x3 Src/vt100.o
  .rodata.key_cursor_right_seq
-                0x000000000800ba11        0x3 Src/vt100.o
+                0x000000000800ba0d        0x3 Src/vt100.o
  .rodata.key_cursor_up_seq
-                0x000000000800ba14        0x3 Src/vt100.o
+                0x000000000800ba10        0x3 Src/vt100.o
  .rodata.key_delete_seq
-                0x000000000800ba17        0x1 Src/vt100.o
+                0x000000000800ba13        0x1 Src/vt100.o
  .rodata.key_move_cursor_home
-                0x000000000800ba18        0x3 Src/vt100.o
+                0x000000000800ba14        0x3 Src/vt100.o
  .rodata.key_move_cursor_left
-                0x000000000800ba1b        0x4 Src/vt100.o
+                0x000000000800ba17        0x4 Src/vt100.o
  .rodata.key_tab_seq
-                0x000000000800ba1f        0x1 Src/vt100.o
+                0x000000000800ba1b        0x1 Src/vt100.o
  .rodata.vt100_keycodes
-                0x000000000800ba20       0xb4 Src/vt100.o
+                0x000000000800ba1c       0xb4 Src/vt100.o
  .rodata.param1
-                0x000000000800bad4       0x14 Src/fx/fx_pwm_pulsing_light.o
+                0x000000000800bad0       0x14 Src/fx/fx_pwm_pulsing_light.o
  .rodata.param2
-                0x000000000800bae8       0x14 Src/fx/fx_pwm_pulsing_light.o
+                0x000000000800bae4       0x14 Src/fx/fx_pwm_pulsing_light.o
  .rodata.param1
-                0x000000000800bafc       0x14 Src/fx/fx_pwm_running_light.o
+                0x000000000800baf8       0x14 Src/fx/fx_pwm_running_light.o
  .rodata.param2
-                0x000000000800bb10       0x14 Src/fx/fx_pwm_running_light.o
- .rodata.param  0x000000000800bb24       0x14 Src/fx/fx_strip_cylon.o
- .rodata.param  0x000000000800bb38       0x14 Src/fx/fx_strip_rainbow.o
- .rodata.param  0x000000000800bb4c       0x14 Src/fx/fx_strip_running_light.o
+                0x000000000800bb0c       0x14 Src/fx/fx_pwm_running_light.o
+ .rodata.param  0x000000000800bb20       0x14 Src/fx/fx_strip_cylon.o
+ .rodata.param  0x000000000800bb34       0x14 Src/fx/fx_strip_rainbow.o
+ .rodata.param  0x000000000800bb48       0x14 Src/fx/fx_strip_running_light.o
  .rodata.DMX_CH_REG
-                0x000000000800bb60        0xe Src/fx_api/fx_api.o
-                0x000000000800bb60                DMX_CH_REG
+                0x000000000800bb5c        0xe Src/fx_api/fx_api.o
+                0x000000000800bb5c                DMX_CH_REG
  .rodata.encoderLookup
-                0x000000000800bb6e      0x300 Src/ws2812B/WS2812B.o
+                0x000000000800bb6a      0x300 Src/ws2812B/WS2812B.o
  .rodata._setlocale_r.str1.1
-                0x000000000800be6e        0x8 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libc_nano.a(lib_a-locale.o)
+                0x000000000800be6a        0x8 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libc_nano.a(lib_a-locale.o)
                                           0x9 (size before relaxing)
  .rodata.str1.1
-                0x000000000800be76        0x8 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libc_nano.a(lib_a-locale.o)
+                0x000000000800be72        0x8 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libc_nano.a(lib_a-locale.o)
                                           0x2 (size before relaxing)
  .rodata._svfprintf_r.str1.1
-                0x000000000800be76       0x11 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x000000000800be72       0x11 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libc_nano.a(lib_a-nano-svfprintf.o)
  .rodata._printf_i.str1.1
-                0x000000000800be87       0x22 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x000000000800be83       0x22 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libc_nano.a(lib_a-nano-vfprintf_i.o)
  .rodata._ctype_
-                0x000000000800bea9      0x101 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libc_nano.a(lib_a-ctype_.o)
-                0x000000000800bea9                _ctype_
+                0x000000000800bea5      0x101 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libc_nano.a(lib_a-ctype_.o)
+                0x000000000800bea5                _ctype_
  .rodata.pow.str1.1
-                0x000000000800bfaa        0x4 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libm.a(lib_a-w_pow.o)
+                0x000000000800bfa6        0x4 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libm.a(lib_a-w_pow.o)
  .rodata.__ieee754_pow.str1.1
-                0x000000000800bfae        0x1 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libm.a(lib_a-e_pow.o)
- *fill*         0x000000000800bfae        0x2 
+                0x000000000800bfaa        0x1 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libm.a(lib_a-e_pow.o)
+ *fill*         0x000000000800bfaa        0x6 
  .rodata.bp     0x000000000800bfb0       0x10 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libm.a(lib_a-e_pow.o)
  .rodata.dp_h   0x000000000800bfc0       0x10 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libm.a(lib_a-e_pow.o)
  .rodata.dp_l   0x000000000800bfd0       0x10 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libm.a(lib_a-e_pow.o)
@@ -10108,117 +10107,117 @@ OUTPUT(DMX_CTRL.elf elf32-littlearm)
  .debug_line    0x000000000001fb66      0xab4 Src/ws2812B/WS2812B.o
  .debug_line    0x000000000002061a       0x7d startup/startup_stm32f103xb.o
 
-.debug_str      0x0000000000000000    0x82586
- .debug_str     0x0000000000000000    0x739ca Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
-                                      0x73d18 (size before relaxing)
- .debug_str     0x00000000000739ca      0x67a Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.o
-                                      0x73d41 (size before relaxing)
- .debug_str     0x0000000000074044      0x2d8 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.o
-                                      0x73cf9 (size before relaxing)
- .debug_str     0x000000000007431c      0x2e1 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.o
-                                      0x73ce1 (size before relaxing)
- .debug_str     0x00000000000745fd      0x220 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.o
-                                      0x73a2f (size before relaxing)
- .debug_str     0x000000000007481d      0x29b Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.o
-                                      0x7394f (size before relaxing)
- .debug_str     0x0000000000074ab8      0x353 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.o
-                                      0x73afd (size before relaxing)
- .debug_str     0x0000000000074e0b      0x393 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o
-                                      0x73a0c (size before relaxing)
- .debug_str     0x000000000007519e      0x7d1 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.o
-                                      0x73e87 (size before relaxing)
- .debug_str     0x000000000007596f      0x170 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd_ex.o
-                                      0x73acf (size before relaxing)
- .debug_str     0x0000000000075adf      0x373 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o
-                                      0x73a6c (size before relaxing)
- .debug_str     0x0000000000075e52      0x110 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.o
-                                      0x737f3 (size before relaxing)
- .debug_str     0x0000000000075f62      0x6f4 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.o
-                                      0x73f6f (size before relaxing)
- .debug_str     0x0000000000076656      0xfe8 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.o
-                                      0x74863 (size before relaxing)
- .debug_str     0x000000000007763e      0x67c Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.o
-                                      0x73fab (size before relaxing)
- .debug_str     0x0000000000077cba      0x191 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_usb.o
-                                      0x73b39 (size before relaxing)
- .debug_str     0x0000000000077e4b     0x59a4 Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.o
-                                      0x79452 (size before relaxing)
- .debug_str     0x000000000007d7ef      0x294 Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.o
-                                      0x78db9 (size before relaxing)
- .debug_str     0x000000000007da83      0x120 Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.o
-                                      0x78cd3 (size before relaxing)
- .debug_str     0x000000000007dba3       0x51 Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.o
-                                      0x78c00 (size before relaxing)
- .debug_str     0x000000000007dbf4      0x2bd Src/dmx512_config.o
-                                       0x843b (size before relaxing)
- .debug_str     0x000000000007deb1      0x1de Src/dmx512_rec.o
-                                      0x77303 (size before relaxing)
- .debug_str     0x000000000007e08f      0x1e6 Src/eeprom.o
-                                      0x73885 (size before relaxing)
- .debug_str     0x000000000007e275      0x244 Src/fx_list.o
-                                       0x8356 (size before relaxing)
- .debug_str     0x000000000007e4b9      0x1a5 Src/fx_manager.o
-                                       0x846d (size before relaxing)
- .debug_str     0x000000000007e65e      0xc3d Src/gammactrl.o
+.debug_str      0x0000000000000000    0x8254b
+ .debug_str     0x0000000000000000    0x739c1 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
+                                      0x73d0f (size before relaxing)
+ .debug_str     0x00000000000739c1      0x67a Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.o
+                                      0x73d38 (size before relaxing)
+ .debug_str     0x000000000007403b      0x2d8 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.o
+                                      0x73cf0 (size before relaxing)
+ .debug_str     0x0000000000074313      0x2e1 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.o
+                                      0x73cd8 (size before relaxing)
+ .debug_str     0x00000000000745f4      0x220 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.o
+                                      0x73a26 (size before relaxing)
+ .debug_str     0x0000000000074814      0x29b Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.o
+                                      0x73946 (size before relaxing)
+ .debug_str     0x0000000000074aaf      0x353 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.o
+                                      0x73af4 (size before relaxing)
+ .debug_str     0x0000000000074e02      0x393 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o
+                                      0x73a03 (size before relaxing)
+ .debug_str     0x0000000000075195      0x7d1 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.o
+                                      0x73e7e (size before relaxing)
+ .debug_str     0x0000000000075966      0x170 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd_ex.o
+                                      0x73ac6 (size before relaxing)
+ .debug_str     0x0000000000075ad6      0x373 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o
+                                      0x73a63 (size before relaxing)
+ .debug_str     0x0000000000075e49      0x110 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.o
+                                      0x737ea (size before relaxing)
+ .debug_str     0x0000000000075f59      0x6f4 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.o
+                                      0x73f66 (size before relaxing)
+ .debug_str     0x000000000007664d      0xfe8 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.o
+                                      0x7485a (size before relaxing)
+ .debug_str     0x0000000000077635      0x67c Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.o
+                                      0x73fa2 (size before relaxing)
+ .debug_str     0x0000000000077cb1      0x191 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_usb.o
+                                      0x73b30 (size before relaxing)
+ .debug_str     0x0000000000077e42     0x59a4 Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.o
+                                      0x79449 (size before relaxing)
+ .debug_str     0x000000000007d7e6      0x294 Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.o
+                                      0x78db0 (size before relaxing)
+ .debug_str     0x000000000007da7a      0x120 Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.o
+                                      0x78cca (size before relaxing)
+ .debug_str     0x000000000007db9a       0x51 Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.o
+                                      0x78bf7 (size before relaxing)
+ .debug_str     0x000000000007dbeb      0x2bd Src/dmx512_config.o
+                                       0x8432 (size before relaxing)
+ .debug_str     0x000000000007dea8      0x1de Src/dmx512_rec.o
+                                      0x772fa (size before relaxing)
+ .debug_str     0x000000000007e086      0x1e6 Src/eeprom.o
+                                      0x7387c (size before relaxing)
+ .debug_str     0x000000000007e26c      0x244 Src/fx_list.o
+                                       0x834d (size before relaxing)
+ .debug_str     0x000000000007e4b0      0x1a5 Src/fx_manager.o
+                                       0x8464 (size before relaxing)
+ .debug_str     0x000000000007e655      0xc0b Src/gammactrl.o
                                       0x772fe (size before relaxing)
- .debug_str     0x000000000007f29b       0x5a Src/gpio_control.o
-                                      0x73bdc (size before relaxing)
- .debug_str     0x000000000007f2f5       0xed Src/light_update.o
+ .debug_str     0x000000000007f260       0x5a Src/gpio_control.o
+                                      0x73bd3 (size before relaxing)
+ .debug_str     0x000000000007f2ba       0xed Src/light_update.o
                                        0x8873 (size before relaxing)
- .debug_str     0x000000000007f3e2      0x300 Src/main.o
+ .debug_str     0x000000000007f3a7      0x300 Src/main.o
                                       0x79fd2 (size before relaxing)
- .debug_str     0x000000000007f6e2       0xaa Src/pwm_control.o
-                                      0x77ed1 (size before relaxing)
- .debug_str     0x000000000007f78c       0xc0 Src/ring_buffer.o
-                                       0x7145 (size before relaxing)
- .debug_str     0x000000000007f84c       0x73 Src/serial_dmx_parser.o
-                                      0x7821a (size before relaxing)
- .debug_str     0x000000000007f8bf       0x7b Src/serial_tracer.o
-                                      0x792ec (size before relaxing)
- .debug_str     0x000000000007f93a       0x4d Src/settings.o
-                                      0x78040 (size before relaxing)
- .debug_str     0x000000000007f987      0x36e Src/shell.o
-                                       0x860e (size before relaxing)
- .debug_str     0x000000000007fcf5      0x9f1 Src/shell_cmd.o
+ .debug_str     0x000000000007f6a7       0xaa Src/pwm_control.o
+                                      0x77ec8 (size before relaxing)
+ .debug_str     0x000000000007f751       0xc0 Src/ring_buffer.o
+                                       0x713c (size before relaxing)
+ .debug_str     0x000000000007f811       0x73 Src/serial_dmx_parser.o
+                                      0x78211 (size before relaxing)
+ .debug_str     0x000000000007f884       0x7b Src/serial_tracer.o
+                                      0x792e3 (size before relaxing)
+ .debug_str     0x000000000007f8ff       0x4d Src/settings.o
+                                      0x78037 (size before relaxing)
+ .debug_str     0x000000000007f94c      0x36e Src/shell.o
+                                       0x8605 (size before relaxing)
+ .debug_str     0x000000000007fcba      0x9f1 Src/shell_cmd.o
                                        0x934c (size before relaxing)
- .debug_str     0x00000000000806e6       0x1b Src/stm32f1xx_hal_msp.o
-                                      0x7414d (size before relaxing)
- .debug_str     0x0000000000080701       0xf6 Src/stm32f1xx_it.o
-                                      0x7414f (size before relaxing)
- .debug_str     0x00000000000807f7     0x111e Src/syscalls.o
-                                       0x88c5 (size before relaxing)
- .debug_str     0x0000000000081915       0x69 Src/system_stm32f1xx.o
-                                      0x736bd (size before relaxing)
- .debug_str     0x000000000008197e       0x58 Src/testmode.o
-                                       0x3d0e (size before relaxing)
- .debug_str     0x00000000000819d6       0xa4 Src/triggers.o
-                                      0x784a7 (size before relaxing)
- .debug_str     0x0000000000081a7a       0xa4 Src/usb_device.o
-                                      0x78f43 (size before relaxing)
- .debug_str     0x0000000000081b1e       0x95 Src/usbd_cdc_if.o
-                                      0x79070 (size before relaxing)
- .debug_str     0x0000000000081bb3       0x5a Src/usbd_conf.o
-                                      0x799e5 (size before relaxing)
- .debug_str     0x0000000000081c0d      0x245 Src/usbd_desc.o
-                                      0x78b29 (size before relaxing)
- .debug_str     0x0000000000081e52      0x11d Src/vt100.o
-                                       0x71bb (size before relaxing)
- .debug_str     0x0000000000081f6f      0x2ab Src/fx/fx_pwm_pulsing_light.o
-                                      0x7837c (size before relaxing)
- .debug_str     0x000000000008221a       0x4c Src/fx/fx_pwm_running_light.o
-                                      0x7839a (size before relaxing)
- .debug_str     0x0000000000082266       0xee Src/fx/fx_strip_cylon.o
-                                      0x78cf4 (size before relaxing)
- .debug_str     0x0000000000082354       0x60 Src/fx/fx_strip_rainbow.o
-                                      0x78378 (size before relaxing)
- .debug_str     0x00000000000823b4       0x63 Src/fx/fx_strip_running_light.o
-                                      0x783a5 (size before relaxing)
- .debug_str     0x0000000000082417       0x87 Src/fx_api/fx_api.o
-                                      0x783ac (size before relaxing)
- .debug_str     0x000000000008249e       0xb9 Src/ws2812B/WS2812B.o
-                                      0x77f0a (size before relaxing)
- .debug_str     0x0000000000082557       0x2f startup/startup_stm32f103xb.o
-                                         0x6a (size before relaxing)
+ .debug_str     0x00000000000806ab       0x1b Src/stm32f1xx_hal_msp.o
+                                      0x74144 (size before relaxing)
+ .debug_str     0x00000000000806c6       0xf6 Src/stm32f1xx_it.o
+                                      0x74146 (size before relaxing)
+ .debug_str     0x00000000000807bc     0x111e Src/syscalls.o
+                                       0x88bc (size before relaxing)
+ .debug_str     0x00000000000818da       0x69 Src/system_stm32f1xx.o
+                                      0x736b4 (size before relaxing)
+ .debug_str     0x0000000000081943       0x58 Src/testmode.o
+                                       0x3d05 (size before relaxing)
+ .debug_str     0x000000000008199b       0xa4 Src/triggers.o
+                                      0x7849e (size before relaxing)
+ .debug_str     0x0000000000081a3f       0xa4 Src/usb_device.o
+                                      0x78f3a (size before relaxing)
+ .debug_str     0x0000000000081ae3       0x95 Src/usbd_cdc_if.o
+                                      0x79067 (size before relaxing)
+ .debug_str     0x0000000000081b78       0x5a Src/usbd_conf.o
+                                      0x799dc (size before relaxing)
+ .debug_str     0x0000000000081bd2      0x245 Src/usbd_desc.o
+                                      0x78b20 (size before relaxing)
+ .debug_str     0x0000000000081e17      0x11d Src/vt100.o
+                                       0x71b2 (size before relaxing)
+ .debug_str     0x0000000000081f34      0x2ab Src/fx/fx_pwm_pulsing_light.o
+                                      0x78373 (size before relaxing)
+ .debug_str     0x00000000000821df       0x4c Src/fx/fx_pwm_running_light.o
+                                      0x78391 (size before relaxing)
+ .debug_str     0x000000000008222b       0xee Src/fx/fx_strip_cylon.o
+                                      0x78ceb (size before relaxing)
+ .debug_str     0x0000000000082319       0x60 Src/fx/fx_strip_rainbow.o
+                                      0x7836f (size before relaxing)
+ .debug_str     0x0000000000082379       0x63 Src/fx/fx_strip_running_light.o
+                                      0x7839c (size before relaxing)
+ .debug_str     0x00000000000823dc       0x87 Src/fx_api/fx_api.o
+                                      0x783a3 (size before relaxing)
+ .debug_str     0x0000000000082463       0xb9 Src/ws2812B/WS2812B.o
+                                      0x77f01 (size before relaxing)
+ .debug_str     0x000000000008251c       0x2f startup/startup_stm32f103xb.o
+                                         0x61 (size before relaxing)
 
 .comment        0x0000000000000000       0x7b
  .comment       0x0000000000000000       0x7b Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o

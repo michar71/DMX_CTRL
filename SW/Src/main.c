@@ -180,7 +180,7 @@ int main(void)
  }
  else
  {
-	 print("USB Disabled  ");
+	 print("USB Disabled");
  }
 
  if(ring_buffer_init(&rx_buff_shell, RX_BUFF_SIZE) != RB_OK)

@@ -421,7 +421,7 @@ static int shell_cmd_setuartmode(int argc, char ** argv)
 }
 
 
-//Set UART Mode
+//Switch UART Mode
 static int shell_cmd_switchuartmode(int argc, char ** argv)
 {
 	if (argc == 2)
@@ -445,28 +445,3 @@ static int shell_cmd_switchuartmode(int argc, char ** argv)
 	return 1;
 }
 
-//getaddr
-//getmode
-//setaddr
-//setmode
-//dumpregs
-//dumpconfig
-//saveconfig
-//menuconfig
-//setgain [ch] [val]
-//setoffset [ch] [val]
-//setstriplen [id] [length]
-//setstripfx [id] [mode]
-//setstripspeed [id] [speed]
-//setstripsize [id] [size]
-//setstripcompl [id] [compl]
-//setstripv1 [id] [v1]
-//setstripv2 [id] [v2]
-//setstripv3 [id] [v3]
-//setstrip on|off
-//setbrightness [max]
-//settestmode on|off
-//setpwmfreq [val]
-//setpwm [id] [ch] [duty]
-//setpwmrgb [id] [r] [g] [b]
-//startmode (off|default|reset)

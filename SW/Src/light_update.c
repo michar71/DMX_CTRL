@@ -35,7 +35,7 @@ void init_update_lights(void)
 uint16_t scale_value( uint8_t val,int16_t offset, int16_t gain, t_gammactrl gamma_ch)
 {
 	int32_t res = 0;
-	int8_t gamma = 0;
+	uint8_t gamma = 0;
 	//1) Scale input between 0 and max
 	res = ((uint32_t)val * (uint32_t) MAX_PWM)/(uint32_t)255;
 	res = (res * (uint32_t)brightness_scale) / (uint32_t) MAX_PWM;

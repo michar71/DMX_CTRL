@@ -150,6 +150,10 @@ int main(void)
 
 
   /* USER CODE BEGIN 2 */
+  //Wait some time otherwise some boards screw up at startup and don't read back the config pins correctly...
+  for (uint32_t w = 0;w<5000;w++)
+      print_no_newline(" ");
+
   //Dump Startup info
   print("");
   print("-------------");

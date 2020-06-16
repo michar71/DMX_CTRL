@@ -37,7 +37,8 @@ Src/serial_tracer.o: ../Src/serial_tracer.c ../Inc/serial_tracer.h \
  ../Inc/usbd_conf.h ../Inc/main.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h \
+ ../Inc/main.h
 
 ../Inc/serial_tracer.h:
 
@@ -122,3 +123,5 @@ Src/serial_tracer.o: ../Src/serial_tracer.c ../Inc/serial_tracer.h \
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
 
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h:
+
+../Inc/main.h:

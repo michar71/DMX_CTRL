@@ -30,14 +30,12 @@ Src/main.o: ../Src/main.c ../Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h \
- ../Inc/usb_device.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
- ../Inc/usbd_conf.h ../Inc/main.h ../Inc/dmx512_rec.h \
- ../Inc/dmx512_config.h ../Inc/serial_tracer.h ../Inc/shell.h \
- ../Inc/gpio_control.h ../Inc/pwm_control.h ../Inc/light_update.h \
- ../Inc/gammactrl.h ../Inc/settings.h ../Inc/triggers.h ../Inc/testmode.h \
- ../Inc/fx_manager.h ../Inc/fx_list.h ../Inc/WS2812B/WS2812B.h \
- ../Inc/serial_dmx_parser.h ../Inc/ring_buffer.h ../Inc/gammactrl.h
+ ../Inc/dmx512_rec.h ../Inc/dmx512_config.h ../Inc/serial_tracer.h \
+ ../Inc/shell.h ../Inc/gpio_control.h ../Inc/pwm_control.h \
+ ../Inc/light_update.h ../Inc/gammactrl.h ../Inc/settings.h \
+ ../Inc/triggers.h ../Inc/testmode.h ../Inc/fx_manager.h ../Inc/fx_list.h \
+ ../Inc/WS2812B/WS2812B.h ../Inc/serial_dmx_parser.h ../Inc/ring_buffer.h \
+ ../Inc/gammactrl.h
 
 ../Inc/main.h:
 
@@ -102,14 +100,6 @@ Src/main.o: ../Src/main.c ../Inc/main.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h:
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h:
-
-../Inc/usb_device.h:
-
-../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
-
-../Inc/usbd_conf.h:
-
-../Inc/main.h:
 
 ../Inc/dmx512_rec.h:
 

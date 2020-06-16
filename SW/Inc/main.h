@@ -48,6 +48,15 @@ extern "C" {
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
 
+//Feature Defines
+//---------------
+
+
+//Enable USB Support. There are numerous issues with USB support (specifcally that it was working at some point but now it is not...
+//No idea why, could be a framework issue. At the moment this is a global define to remove it completely...)
+//#define SUPPORT_USB
+
+
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/

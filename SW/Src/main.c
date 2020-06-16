@@ -20,7 +20,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#ifdef SUPPORT_USB
 #include "usb_device.h"
+#endif
 #include "dmx512_rec.h"
 #include "dmx512_config.h"
 #include "serial_tracer.h"
@@ -172,6 +174,8 @@ int main(void)
  dmx512_init(get_mode_from_pins(),get_addr_from_pins()*2);  //Address x2 so we can spread out the 8 Jumpers over 512 Addresses
  print("DMX512 Config complete");
 
+
+#ifdef SUPPORT_USB
  if ((get_mode_from_pins() & 0x02) != 0)
  {
 	 USB_Active = 1;
@@ -182,6 +186,7 @@ int main(void)
  {
 	 print("USB Disabled");
  }
+#endif
 
  if(ring_buffer_init(&rx_buff_shell, RX_BUFF_SIZE) != RB_OK)
 	 print("Shell Ring Buffer Init FAILED");

@@ -1,3 +1,0 @@
-fx_pwm_running_light.c:23:13:fx_pwm_running_light_run	24	static
-fx_pwm_running_light.c:11:6:fx_pwm_running_light	0	static
-fx_pwm_running_light.c:17:6:fx_pwm_running_pulse_light	0	static

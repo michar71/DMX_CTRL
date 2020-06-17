@@ -80,6 +80,9 @@ set _CPUTAPID 0x2ba01477
 There might be compatibility issues with these fake chips (Rumors has it that USB won't really work...) Basic firmware functionality is defenitly working (Mine seem to have the full 128kB FLASH).
 USB does not seem to work on my clones but I need to further test that....
 
+Here is another description how to fix it in STM32CubeIDE for openOCD debugging:
+https://community.st.com/s/question/0D50X0000BTd7Zi/how-to-deal-wirh-could-not-verify-st-device-
+
 
 ## Serial Shell
 [List of Serial Shell Commands](SHELL_COMMANDS.md)
@@ -174,9 +177,10 @@ A Specific value can be written to a specific control register wen crossing a th
 
 ### USB Port
 Note: USB seems to be tricky. It was working at some point with an original STM32F103. Then it stopped working, even going back to the old code seems to not help. Not sure if it's a hardware issue or a compiler/HAL Framework issue (There where updates in-between...)
+There is also a known issue that on most bluepill boards R10 is a 10kOhm resistor and it should be 1.45kOhm Fixed that on my board but it doesn't seem to makew a difference.
 For the moment there is a global define in main.h to disable USB support (Which also saves 16% of RAM...)
 
-In Theory...:
+So, in Theory...:
 The USB port (If enabled via Mode Jumper) will act as a UART from the PC side. (With Win10 no special driver is nessassary) There are no controls for baudrate or data format which means that the data speed is not limited.
 The behavior of the USB UART can be controlled from the configuration (Either Serial Shell or Serial DMX)
 

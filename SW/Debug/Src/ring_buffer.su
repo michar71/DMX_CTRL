@@ -1,9 +1,0 @@
-ring_buffer.c:71:13:ring_buffer_init	16	static
-ring_buffer.c:151:13:ring_buffer_get	24	static
-ring_buffer.c:198:13:ring_buffer_full	0	static
-ring_buffer.c:224:13:ring_buffer_empty	0	static
-ring_buffer.c:247:10:ring_buffer_free_elements	0	static
-ring_buffer.c:102:13:ring_buffer_put	24	static
-ring_buffer.c:263:10:ring_buffer_size	0	static
-ring_buffer.c:278:6:ring_buffer_flush	0	static
-ring_buffer.c:291:13:ring_buffer_get_status	0	static

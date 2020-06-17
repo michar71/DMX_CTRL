@@ -44,8 +44,8 @@ USB_TEST.bin \
 all: USB_TEST.elf secondary-outputs
 
 # Tool invocations
-USB_TEST.elf: $(OBJS) $(USER_OBJS) C:\Users\Michael.Hartmann\Documents\GitHub\DMX_CTRL\USB_TEST\STM32F103C8TX_FLASH.ld
-	arm-none-eabi-gcc -o "USB_TEST.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Michael.Hartmann\Documents\GitHub\DMX_CTRL\USB_TEST\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="USB_TEST.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+USB_TEST.elf: $(OBJS) $(USER_OBJS) C:\Users\Micha\Documents\GitHub\DMX_CTRL\USB_TEST\STM32F103C8TX_FLASH.ld
+	arm-none-eabi-gcc -o "USB_TEST.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Micha\Documents\GitHub\DMX_CTRL\USB_TEST\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="USB_TEST.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -1,4 +1,0 @@
-light_update.c:35:10:scale_value	32	static
-light_update.c:69:6:update_pwm_lights	16	static
-light_update.c:19:6:init_update_lights	8	static
-light_update.c:144:6:update_fx	16	static

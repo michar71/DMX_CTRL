@@ -1,8 +1,0 @@
-shell.c:100:13:cmd_buf_reset	0	static
-shell.c:193:13:send_vt100_key	8	static
-shell.c:131:13:load_command_from_command_history	8	static
-shell.c:30:5:uart_receive_byte	8	static
-shell.c:45:5:uart_send	8	static
-shell.c:52:6:print	16	static
-shell.c:70:6:print_no_newline	16	static
-shell.c:244:6:shell_process	96	static

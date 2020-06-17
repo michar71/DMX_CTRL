@@ -1,3 +1,0 @@
-gammactrl.c:16:9:calc_gamma_val	16	static
-gammactrl.c:30:6:recalcGamma	48	static
-gammactrl.c:90:9:getGamma	16	static

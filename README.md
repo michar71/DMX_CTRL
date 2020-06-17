@@ -121,21 +121,21 @@ In DMX Mode 1 only the following Registers will be available:
 #define CH3_WHITE			10
 
 In DMX Mode 2 additionally the following Registers will be available:
-#define FX_SELECT			11
+#define FX_SELECT		    	11
 #define	STRIP1_PATTERN		12
-#define STRIP1_SPEED		13
-#define STRIP1_SIZE			14
+#define STRIP1_SPEED		  13
+#define STRIP1_SIZE			  14
 #define STRIP1_COMPLEXITY	15
-#define STRIP1_V1			16
-#define STRIP1_V2			17
-#define STRIP1_V3			18
+#define STRIP1_V1			    16
+#define STRIP1_V2			    17
+#define STRIP1_V3			    18
 #define	STRIP2_PATTERN		19
-#define STRIP2_SPEED		20
-#define STRIP2_SIZE			21
+#define STRIP2_SPEED		  20
+#define STRIP2_SIZE			  21
 #define STRIP2_COMPLEXITY	22
-#define STRIP2_V1			23
-#define STRIP2_V2			24
-#define STRIP2_V3			25
+#define STRIP2_V1			    23
+#define STRIP2_V2			    24
+#define STRIP2_V3			    25
 
 Jumper 2
 Disabled = No USB Support (Saves a lot of memory)
@@ -173,7 +173,11 @@ The analog value (0...3.3V) is directly mapped onto one of the control registers
 A Specific value can be written to a specific control register wen crossing a threshold from low to high or from high to low. (For example a specific effect can be turned on/off via a switch)
 
 ### USB Port
-The USB port (If enabled via Mode Jumper) will act as a UART from the PC side. (With Win10 no speicla driver is nessassary) There are no controls for baudrate or data format which means that the data speed is not limited.
+Note: USB seems to be tricky. It was working at some point with an original STM32F103. Then it stopped working, even going back to the old code seems to not help. Not sure if it's a hardware issue or a compiler/HAL Framework issue (There where updates in-between...)
+For the moment there is a global define in main.h to disable USB support (Which also saves 16% of RAM...)
+
+In Theory...:
+The USB port (If enabled via Mode Jumper) will act as a UART from the PC side. (With Win10 no special driver is nessassary) There are no controls for baudrate or data format which means that the data speed is not limited.
 The behavior of the USB UART can be controlled from the configuration (Either Serial Shell or Serial DMX)
 
 ### Wifi/USB/Serial DMX Control
@@ -245,5 +249,7 @@ https://alexnld.com/product/2pcs-5v-max485-ttl-to-rs485-converter-module-board-f
 ### Layout:
 - Bluepill collides with mounting hole in corner
 - Panelize Board
+- Mounting holes for RS485 Transceiver should have been 2.54mm smaller, not bigger?
+- Holes for TO220 should have been even bigger
 
 

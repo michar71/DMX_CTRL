@@ -1,0 +1,13 @@
+shell.c:84:13:cmd_buf_add_char	0	static
+shell.c:92:13:cmd_buf_remove_char	0	static
+shell.c:120:13:save_command_to_command_history	16	static
+shell.c:106:12:parse_shell_cmd	16	static
+shell.c:100:13:cmd_buf_reset	8	static
+shell.c:131:13:load_command_from_command_history	8	static
+shell.c:30:5:uart_receive_byte	8	static
+shell.c:45:5:uart_send	8	static
+shell.c:193:13:send_vt100_key	8	static
+shell.c:52:6:print	24	static
+shell.c:202:13:process_shell_cmd	56	static
+shell.c:70:6:print_no_newline	16	static
+shell.c:244:6:shell_process	16	static

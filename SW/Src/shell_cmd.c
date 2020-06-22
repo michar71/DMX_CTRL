@@ -13,6 +13,7 @@
 
 extern int UART_mode_SERIAL;
 extern int UART_mode_USB;
+extern uint32_t frame_ms;
 
 static int shell_cmd_test(int argc, char ** argv);
 static int shell_cmd_getaddr(int argc, char ** argv);
@@ -34,6 +35,8 @@ static int shell_cmd_settriggerctrl(int argc, char ** argv);
 static int shell_cmd_setstriplength(int argc, char ** argv);
 static int shell_cmd_setuartmode(int argc, char ** argv);
 static int shell_cmd_switchuartmode(int argc, char ** argv);
+static int shell_cmd_currentfps(int argc, char ** argv);
+static int shell_cmd_settargetfps(int argc, char ** argv);
 
 /* to be consumed in shell.c only */
 const shell_cmd_t shell_cmd_list[] = {
@@ -57,6 +60,8 @@ const shell_cmd_t shell_cmd_list[] = {
 	{"setstriplength",   "setstriplength [ch (0|1)] [length (0..1024)]\n\r",shell_cmd_setstriplength},
 	{"setuartmode",   "setuartmode [0 = Serial, 1 = USB] [0 = Shell, 1 = Serial DMX]\n\r",shell_cmd_setuartmode},
 	{"switchuartmode",   "switchuartmode [0 = Serial, 1 = USB]\n\r",shell_cmd_switchuartmode},
+	{"currentfps",   "currentfps\n\r",shell_cmd_currentfps},
+	{"targetfps",   "targetfps [Target Frame Duration in Millisec]\n\r",shell_cmd_settargetfps},
 };
 
 const int SHELL_CMD_NUM = sizeof(shell_cmd_list)/sizeof(shell_cmd_t);
@@ -437,6 +442,24 @@ static int shell_cmd_switchuartmode(int argc, char ** argv)
 		default:
 			break;
 		}
+	}
+	else
+	{
+		return 0;
+	}
+	return 1;
+}
+
+static int shell_cmd_currentfps(int argc, char ** argv)
+{
+	print("Current FPS: %.2f",(float)1/(float)frame_ms);
+}
+
+static int shell_cmd_settargetfps(int argc, char ** argv)
+{
+	if (argc == 2)
+	{
+		settings.frame_ms_target =  atoi(argv[1]);
 	}
 	else
 	{

@@ -48,6 +48,14 @@ extern "C" {
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
 
+// System Defines
+//---------------
+#define PROG_NAME "DMX_CTRL"
+#define VERSION_MAJOR 1
+#define VERSION_MINOR 1
+
+
+
 //Feature Defines
 //---------------
 

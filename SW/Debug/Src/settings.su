@@ -1,0 +1,6 @@
+settings.c:23:10:makeVersion	0	static
+settings.c:28:6:init_settings	16	static
+settings.c:64:6:apply_settings	8	static
+settings.c:102:6:load_settings	16	static
+settings.c:128:6:save_settings	8	static
+settings.c:134:6:print_settings	16	static

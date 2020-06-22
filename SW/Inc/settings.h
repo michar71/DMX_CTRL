@@ -9,6 +9,7 @@
 #define SETTINGS_H_
 
 #include <stdint.h>
+#include <stdbool.h>
 
 
 typedef enum{
@@ -23,10 +24,14 @@ typedef enum{
 	UART_MODE_DMX
 }uartmode_t;
 
+
 typedef struct{
 	//----------------
 	//Defaults
 	//----------------
+	//Preamble
+	uint8_t configID[4];   //Config ID has to be DSOS
+	uint16_t configFWversion;
 
 	//Leds
 	uint16_t max_brightness;
@@ -62,6 +67,7 @@ typedef struct{
 	//----------------
 	//Settings
 	//----------------
+	uint32_t frame_ms_target;  //Target frame length in ms. We'll wait at leaast this long for a frame. Set to 0 for max frametate
 
 	uint8_t fx_multiplier;  //Multiplier applied to fx_select register
 							//Some controllers make it really hard to select
@@ -126,7 +132,7 @@ settings_s settings;
 
 void init_settings(void);
 void apply_settings(void);
-void load_settings(void);
+bool load_settings(void);
 void save_settings(void);
 void print_settings(void);
 

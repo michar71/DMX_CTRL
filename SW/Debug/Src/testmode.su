@@ -1,0 +1,2 @@
+testmode.c:28:6:lights_off	8	static
+testmode.c:34:9:process_testmode	16	static

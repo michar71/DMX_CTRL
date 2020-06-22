@@ -1,0 +1,4 @@
+vt100.c:34:13:is_printable	0	static
+vt100.c:39:20:find_key	16	static
+vt100.c:53:13:vt100_process_byte	16	static
+vt100.c:90:19:vt100_get_keycode	0	static

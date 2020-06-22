@@ -1,0 +1,2 @@
+fx_list.c:17:6:init_fx_list	0	static
+fx_list.c:24:9:register_fx	16	static

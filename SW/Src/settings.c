@@ -12,19 +12,34 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "shell.h"
+#include "main.h"
 
 
 #define PAGE_SETTING_START 123
 #define PAGE_SETTING_COUNT 4
 
 
+
+uint16_t makeVersion(void)
+{
+	return ((uint16_t)VERSION_MAJOR<<8) + (uint16_t)VERSION_MINOR;
+}
+
 void init_settings(void)
 {
 	//Set everything to 0....
 	memset(&settings,0,sizeof(settings_s));
 
+	settings.configID[0] = 'D';
+	settings.configID[1] = 'M';
+	settings.configID[2] = 'X';
+	settings.configID[3] = 'C';
+	settings.configFWversion = makeVersion();
+
 	//Set deviations from 0...
 	settings.max_brightness = 255;
+
+	settings.frame_ms_target = 0;
 
 	settings.strip1_length = 9;
 	settings.strip2_length = 9;
@@ -84,10 +99,30 @@ void apply_settings(void)
 	}
 }
 
-void load_settings(void)
+bool load_settings(void)
 {
 	if (!EE_Reads(0,sizeof(settings_s),(uint32_t*)&settings))
+	{
 		print("EEPROM Read Failed");
+		return false;
+	}
+
+	if ((settings.configID[0] != 'D') || (settings.configID[1] != 'M') || (settings.configID[2] != 'X') || (settings.configID[3] != 'C'))
+	{
+		print("No Config ID\n");
+		//Create defaults
+		return false;
+	}
+	else
+	{
+		//Check FW version
+		if (settings.configFWversion != makeVersion())
+		{
+			print("Wrong Firmware Version\n");
+			return false;
+		}
+	}
+	return true;
 }
 
 void save_settings(void)

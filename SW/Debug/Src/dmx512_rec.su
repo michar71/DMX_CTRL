@@ -1,0 +1,7 @@
+dmx512_rec.c:97:6:USART1_IRQHandler	16	static
+dmx512_rec.c:115:6:USART3_IRQHandler	8	static
+dmx512_rec.c:122:6:HAL_UART_RxCpltCallback	16	static
+dmx512_rec.c:242:6:dmx512_setRx	8	static
+dmx512_rec.c:248:6:dmx512_setTx	8	static
+dmx512_rec.c:254:6:dmx512_rec_enable	8	static
+dmx512_rec.c:201:6:dmx512_rec_init	8	static

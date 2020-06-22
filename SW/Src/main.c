@@ -82,6 +82,8 @@ uint8_t UART_mode_SERIAL = 0;
 uint8_t UART_mode_USB = 0;
 uint8_t USB_Active = 0;
 
+uint32_t frame_ms;
+
 //UART Ringbuffer
 #define RX_BUFF_SIZE 128
 rb_att_t rx_buff_dmx;
@@ -116,6 +118,8 @@ static void MX_DMA_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+  uint32_t last_frame_ms;
+  uint32_t current_frame_ms;
   /* USER CODE END 1 */
   
 
@@ -159,7 +163,7 @@ int main(void)
   //Dump Startup info
   print("");
   print("-------------");
-  print("DMX CTRL V1.0");
+  print("%s V%d.%d",PROG_NAME,VERSION_MAJOR,VERSION_MINOR);
   print("-------------");
   print("");
 
@@ -186,6 +190,8 @@ int main(void)
  {
 	 print("USB Disabled");
  }
+#else
+ print("USB Hard Disabled");
 #endif
 
  if(ring_buffer_init(&rx_buff_shell, RX_BUFF_SIZE) != RB_OK)
@@ -214,7 +220,14 @@ int main(void)
   print("Loading Settings...");
   if (0 == check_button())
   {
-	  load_settings();
+	  if (false == load_settings())
+	  {
+		  //Set Default Gamma Table
+		  init_settings();
+		  recalcGamma();
+		  save_settings();
+		  print("Defaults created");
+	  }
 
 	  UART_mode_SERIAL = settings.UART_Mode_UART;
 	  UART_mode_USB = settings.UART_Mode_USB;
@@ -279,6 +292,9 @@ int main(void)
   //Shell is ready....
   print_no_newline("DBG>");
 
+  //Getr first frame time
+  last_frame_ms = HAL_GetTick();
+
   //Turn LED off at completion of init
   HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
   /* USER CODE END 2 */
@@ -294,6 +310,23 @@ int main(void)
 	//Handle Test Shell and DMX Serial Process
 	shell_process();
 	dmx_serial_process();
+
+	//Try to produce a constant framerate...
+	current_frame_ms = HAL_GetTick();
+	if (settings.frame_ms_target > 0)
+	{
+		//Loop until time for frame has elapsed...
+		while ((current_frame_ms - last_frame_ms) < settings.frame_ms_target)
+		{
+			shell_process();
+			dmx_serial_process();
+			current_frame_ms = HAL_GetTick();
+		}
+	}
+
+	//Calulate framerate
+	frame_ms = current_frame_ms - last_frame_ms;
+	last_frame_ms = current_frame_ms;
 
 	if (testmode)
 	{

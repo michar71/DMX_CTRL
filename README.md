@@ -52,9 +52,6 @@ While these effects could be achived with a handful of Arduinos it makes central
 - Serial Control (Wifi/Serial/USB) -> Working
 - Serial DMX Protocol -> Working
 
-- Master Mode -> Pending
-- ESP-01 (ESP8266) Example -> Pending
-
 ## BOM Cost
 The BOM cost for the simplest implementation is 
 - $2.00 for the board
@@ -255,5 +252,14 @@ https://alexnld.com/product/2pcs-5v-max485-ttl-to-rs485-converter-module-board-f
 - Panelize Board
 - Mounting holes for RS485 Transceiver should have been 2.54mm smaller, not bigger?
 - Holes for TO220 should have been even bigger
+
+
+## TODO
+- Master Mode
+- ESP-01 (ESP8266) Code/Example
+- Serial DMX Protocol Example (In Processing....)
+- RTC Support
+- USB... Why did it work and now it doesn't...?
+- Overclocked Version
 
 

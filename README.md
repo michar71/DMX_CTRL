@@ -74,12 +74,13 @@ set _CPUTAPID 0x1ba01477
 to:
 set _CPUTAPID 0x2ba01477
 
-There might be compatibility issues with these fake chips (Rumors has it that USB won't really work...) Basic firmware functionality is defenitly working (Mine seem to have the full 128kB FLASH).
+There might be compatibility issues with these fake chips (Rumors has it that USB won't really work...) Basic firmware functionality is defenitly working (Mine seem to have the full 128kB FLASH.).
 USB does not seem to work on my clones but I need to further test that....
 
 Here is another description how to fix it in STM32CubeIDE for openOCD debugging:
 https://community.st.com/s/question/0D50X0000BTd7Zi/how-to-deal-wirh-could-not-verify-st-device-
 
+Update: Not all make fake chips have 128 kB, some only have 64 kB. At that point the FW can not write the configruation to page 127... Change the EEPROM page in eeprom.h from 127 to 63 and modifiy the .id file to reflect the smaller FLASH size. (Less effects will obviously fit in there....)
 
 ## Serial Shell
 [List of Serial Shell Commands](SHELL_COMMANDS.md)
@@ -188,6 +189,9 @@ The behavior of the USB UART can be controlled from the configuration (Either Se
 ### Master Control
 TBD
 
+### WS2812B
+The LED strips seem to be very sensitive regarding the voltage on the data line. R11/R12 in theory protect the first LED from dying on transient overcurrent on startup but some LED strips won't work. In that case just bridge R11/R12....
+
 ### What's that strange connector footprint for the WS2812 connection?
 The idea is to solder on wires and then use a zip-tie through the holes and hot-glue to secure the wires.
 Past projects had big problems with wires breaking off or shortening out... Maybe this will work.....
@@ -252,6 +256,7 @@ https://alexnld.com/product/2pcs-5v-max485-ttl-to-rs485-converter-module-board-f
 - Panelize Board
 - Mounting holes for RS485 Transceiver should have been 2.54mm smaller, not bigger?
 - Holes for TO220 should have been even bigger
+- No coating on 5V rail to WS2812B
 
 
 ## TODO

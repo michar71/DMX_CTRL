@@ -453,6 +453,7 @@ static int shell_cmd_switchuartmode(int argc, char ** argv)
 static int shell_cmd_currentfps(int argc, char ** argv)
 {
 	print("Current FPS: %.2f",(float)1/(float)frame_ms);
+	return 1;
 }
 
 static int shell_cmd_settargetfps(int argc, char ** argv)

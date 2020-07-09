@@ -53,7 +53,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-//#define ENABLE_WATCHDOG
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/

@@ -1,4 +1,4 @@
-shell_cmd.c:458:12:shell_cmd_settargetfps	8	static
+shell_cmd.c:459:12:shell_cmd_settargetfps	8	static
 shell_cmd.c:430:12:shell_cmd_switchuartmode	8	static
 shell_cmd.c:405:12:shell_cmd_setuartmode	16	static
 shell_cmd.c:381:12:shell_cmd_setstriplength	16	static

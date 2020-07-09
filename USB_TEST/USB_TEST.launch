@@ -19,9 +19,9 @@
 <stringAttribute key="com.st.stm32cube.ide.mcu.debug.openocd.DBG_INTERFACE" value="Swd"/>
 <stringAttribute key="com.st.stm32cube.ide.mcu.debug.openocd.DBG_INTERFACE_FREQUENCY" value="8000000.0"/>
 <stringAttribute key="com.st.stm32cube.ide.mcu.debug.openocd.DBG_LOW_POWER_MODE_ALLOWED" value="true"/>
-<stringAttribute key="com.st.stm32cube.ide.mcu.debug.openocd.DBG_RESET_MODE" value="connect_under_reset"/>
+<stringAttribute key="com.st.stm32cube.ide.mcu.debug.openocd.DBG_RESET_MODE" value="soft"/>
 <stringAttribute key="com.st.stm32cube.ide.mcu.debug.openocd.DBG_STOP_WATCHDOG_THEN_HALTED_ALLOWED" value="true"/>
-<booleanAttribute key="com.st.stm32cube.ide.mcu.debug.openocd.OPENOCD_GENERATOR_OPTION" value="false"/>
+<booleanAttribute key="com.st.stm32cube.ide.mcu.debug.openocd.OPENOCD_GENERATOR_OPTION" value="true"/>
 <stringAttribute key="com.st.stm32cube.ide.mcu.debug.openocd.OPENOCD_NAME" value="&quot;${stm32cubeide_openocd_path}\openocd.exe&quot;"/>
 <stringAttribute key="com.st.stm32cube.ide.mcu.debug.openocd.OPENOCD_OTHER_OPTIONS" value=""/>
 <stringAttribute key="com.st.stm32cube.ide.mcu.debug.openocd.OPENOCD_SCRIPT" value="${ProjDirPath}\USB_TEST.cfg"/>

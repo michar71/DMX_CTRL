@@ -203,6 +203,7 @@ static void process_shell_cmd(void)
 {
     char * argv[MAX_ARGUMENT_NUM + 1];
 	int argc = 0;
+    int i;
 	
 	if (0 != strlen(cmd_buf))
     {
@@ -226,7 +227,7 @@ static void process_shell_cmd(void)
     }
     else
     {
-        for(int i = 0; i < SHELL_CMD_NUM; ++i)
+        for(i = 0; i < SHELL_CMD_NUM; ++i)
         {
             if(0 == strncmp(argv[0], shell_cmd_list[i].cmd, SHELL_CMD_BUF_LEN))
             {
@@ -236,6 +237,8 @@ static void process_shell_cmd(void)
                 }
             }
         }
+        if (i == SHELL_CMD_NUM)
+         print("???");
     }
     
     cmd_buf_reset();

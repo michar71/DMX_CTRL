@@ -16,8 +16,9 @@ TIM_HandleTypeDef timerinfo[3]; //(CH1 = 0 = htim2,CH2 = 1 = htim3,CH3 = 2 = hti
 
 //Channels CH1,CH2,CH3 for RGBW...
 const uint32_t channelinfo[3][4] = {{TIM_CHANNEL_2,TIM_CHANNEL_3,TIM_CHANNEL_4,255},
-		                            {TIM_CHANNEL_1,TIM_CHANNEL_2,TIM_CHANNEL_3,TIM_CHANNEL_4},
-									{TIM_CHANNEL_1,TIM_CHANNEL_2,TIM_CHANNEL_3,255}};
+									{TIM_CHANNEL_1,TIM_CHANNEL_2,TIM_CHANNEL_3,TIM_CHANNEL_4},
+		                            {TIM_CHANNEL_1,TIM_CHANNEL_2,TIM_CHANNEL_3,255}};
+		
 
 
 
@@ -52,10 +53,10 @@ void PWM_Timer_Init(pwmtimerid_t ID)
 	  		timerinfo[ID].Instance = TIM2;
 		  break;
 	  	  case PWM_CH2:
-	  		timerinfo[ID].Instance = TIM3;
+	  		timerinfo[ID].Instance = TIM1;
 		  break;
 	  	  case PWM_CH3:
-	  		timerinfo[ID].Instance = TIM1;
+	  		timerinfo[ID].Instance = TIM3;
 		  break;
 	  }
 

@@ -10,4 +10,4 @@ shell.c:193:13:send_vt100_key	8	static
 shell.c:52:6:print	24	static
 shell.c:202:13:process_shell_cmd	56	static
 shell.c:70:6:print_no_newline	16	static
-shell.c:244:6:shell_process	16	static
+shell.c:247:6:shell_process	16	static

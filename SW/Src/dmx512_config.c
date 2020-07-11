@@ -95,7 +95,8 @@ void init_regs(void)
 	if (reg_data != NULL)
 		free(reg_data);
 
-	reg_data = calloc(reg_len, sizeof(uint8_t));
+	reg_data = malloc(reg_len * sizeof(uint8_t));
+	memset(reg_data, 0,reg_len);
 }
 
 void set_reg(uint32_t reg, uint8_t val)

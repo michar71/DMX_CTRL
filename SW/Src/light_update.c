@@ -22,7 +22,9 @@ void init_update_lights(void)
 	if (reg_shadow != NULL)
 		free(reg_shadow);
 
-	reg_shadow = calloc(get_reg_length()+1, sizeof(uint8_t));
+	reg_shadow = malloc(get_reg_length() * sizeof(uint8_t));
+	memset(reg_shadow, 0,get_reg_length());
+
 	reg_shadow[MAX_BRIGHTNESS] = 255;
 	update_pwm_lights(1);
 }

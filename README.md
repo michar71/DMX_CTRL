@@ -142,13 +142,12 @@ Jumper 2
 Disabled = No USB Support (Saves a lot of memory)
 Enabled  = Enables Serial Port via USB
 
-
 ### DMX Control Wires (A/B)
 With my controller the follwing pinout works (Looking at a male connector):
 Pin 1 = GND
 Pin 2 = A
 Pin 3 = B
-Soem controllers allow to swap A/B with a switch so your milage might vary....
+Some controllers allow to swap A/B with a switch so your milage might vary....
 
 ### DMX Termination
 DMX needs to be terminated at the end of the chain with a 160 Ohm Resistor.
@@ -174,13 +173,12 @@ The analog value (0...3.3V) is directly mapped onto one of the control registers
 A Specific value can be written to a specific control register wen crossing a threshold from low to high or from high to low. (For example a specific effect can be turned on/off via a switch)
 
 ### USB Port
-Note: USB seems to be tricky. It was working at some point with an original STM32F103. Then it stopped working, even going back to the old code seems to not help. Not sure if it's a hardware issue or a compiler/HAL Framework issue (There where updates in-between...)
-There is also a known issue that on most bluepill boards R10 is a 10kOhm resistor and it should be 1.45kOhm Fixed that on my board but it doesn't seem to makew a difference.
-For the moment there is a global define in main.h to disable USB support (Which also saves 16% of RAM...)
-
-So, in Theory...:
-The USB port (If enabled via Mode Jumper) will act as a UART from the PC side. (With Win10 no special driver is nessassary) There are no controls for baudrate or data format which means that the data speed is not limited.
-The behavior of the USB UART can be controlled from the configuration (Either Serial Shell or Serial DMX)
+USB Support can be complelty commented out in main.h as it saves a lot of RAM/Flash.
+If USB Support is compiled in Mode Jumper 1 controls if it is eanbled or not.
+USB has been confirmed working both witrh original STM32103F and STM clones but it is imperative to use good USB cables.
+Also be aware that some boards will need R10 on the bluepill boards swapped from 10kOhm to 1.5kOhm. 
+Both the Shell or the Serial DMX protocol can be run via USB.
+On Win10 no special driver is needed, the device will be recognizied as a Serial port. The serial port emulation via USB is not speed-controlled so in theory data can be written at full 12Mbit/sec Full USB speed....
 
 ### Wifi/USB/Serial DMX Control
 [TBD, Protocol Implemented, need sample App..]
@@ -220,13 +218,12 @@ https://stm32-base.org/boards/STM32F103C8T6-Blue-Pill.html
 RS422 Converter
 https://alexnld.com/product/2pcs-5v-max485-ttl-to-rs485-converter-module-board-for-arduino/?utm_source=bing&utm_medium=cpc&utm_campaign=Product%20Ads(BSC)&utm_term=4578022847022738&utm_content=Ad%20group%20%231
 
-(These can obviouslty be soruced way cheaper on ebay/alibaba/banggood... These links are just for reference...)
+(These can obviouslty be sourced way cheaper on ebay/alibaba/banggood... These links are just for reference...)
 
 ## Board Design
 - Board designed with KiKad
 - For various (Legacy) reasons it will need the KiCad 4.0 Symbol/Footprint Library installed...
-- Board size is 100mm x 50mm. In theory these could be paneled for JCLPCB.com but there is no cost advantage if you
-  include V-Grooves. You could just produce PCB's with two boards next to each other and cut them yourself but I haven't tried that....
+- Board size is 100mm x 50mm. In theory these could be paneled for JCLPCB.com but there is no cost advantage if you include V-Grooves. You could just produce PCB's with two boards next to each other and cut them yourself but I haven't tried that....
 
 ## Known Issues (REV 1.0)
 ### Schematic:
@@ -264,7 +261,23 @@ https://alexnld.com/product/2pcs-5v-max485-ttl-to-rs485-converter-module-board-f
 - ESP-01 (ESP8266) Code/Example
 - Serial DMX Protocol Example (In Processing....)
 - RTC Support
-- USB... Why did it work and now it doesn't...?
+- High Speed WS2812B USB Demo
 - Overclocked Version
+
+## Ideas
+### WS2812B USB Mode
+Run data as fast as possible via USB to 2 WS2812B strips.
+(512 LED * 30 us) + 60 us = 15.4 ms (64 FPS)
+512 Leds = (512 * 3) * 1.2 bytes = 1843 Bytes
+
+1843 Bytesa * 64 Frames = 117964 Bytes
+117964 Bytes * 2 = 235929 Bytes = 1887436 Bits
+12 MBits = 12000000 Bits
+12000000 Bits / 1887436 = 6.35
+So in theory we have 6.35x the bandwidth we need to update 2x 512 LED's 64 Times/sec....
+
+
+
+
 
 

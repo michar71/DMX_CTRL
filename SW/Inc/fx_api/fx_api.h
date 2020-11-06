@@ -124,6 +124,8 @@ uint32_t millisec(void);
 
 //Scales an input value (0..255) by a scale factor (0..255)
 uint8_t scale256(uint8_t val, uint8_t scale);
+//Scale a 16 bit number
+uint16_t scale_full(uint16_t in,uint16_t in_max, uint16_t in_min, uint16_t out_max, uint16_t out_min);
 //Pseudo-random number generator
 uint32_t simple_rnd();
 

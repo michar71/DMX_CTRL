@@ -52,6 +52,7 @@
 "Src/vt100.o"
 "Src/fx/fx_pwm_pulsing_light.o"
 "Src/fx/fx_pwm_running_light.o"
+"Src/fx/fx_pwm_strip_engine.o"
 "Src/fx/fx_strip_cylon.o"
 "Src/fx/fx_strip_rainbow.o"
 "Src/fx/fx_strip_running_light.o"

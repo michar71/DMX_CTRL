@@ -286,8 +286,7 @@ static int shell_cmd_setreg(int argc, char ** argv)
 
 static int shell_cmd_storedefaultregs(int argc, char ** argv)
 {
-	//Store the current register values to default settings
-	settings.max_brightness = get_reg(MAX_BRIGHTNESS);
+	//Store the current register values to default setting	settings.max_brightness = get_reg(MAX_BRIGHTNESS);
 	settings.pwm_ch1_r = get_reg(CH1_RED);
 	settings.pwm_ch1_g = get_reg(CH1_GREEN);
 	settings.pwm_ch1_b = get_reg(CH1_BLUE);

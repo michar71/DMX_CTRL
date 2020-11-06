@@ -104,6 +104,7 @@ int main(void)
   MX_IWDG_Init();
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
+  __HAL_RCC_USB_CLK_ENABLE();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
 

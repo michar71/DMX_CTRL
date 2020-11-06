@@ -46,13 +46,13 @@ t_fx_result fx_pwm_strip_engine_run(t_fx_state state,uint32_t framecount,const u
 			return FX_OK;
 		case FX_RUN:
 			//Toggle front light
-			if (lcount>500)
+			if (lcount>330)
 				set_pwm_light(9, 0);
 			else
 				set_pwm_light(9, 255);
 
 			lcount++;
-			if (lcount>520)
+			if (lcount>350)
 				lcount = 0;
 
 			//Add Delay

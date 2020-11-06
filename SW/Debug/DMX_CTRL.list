@@ -20685,10 +20685,10 @@ t_fx_result fx_pwm_strip_engine_run(t_fx_state state,uint32_t framecount,const u
 				return FX_ERROR;
  8008a76:	2003      	movs	r0, #3
  8008a78:	e14c      	b.n	8008d14 <fx_pwm_strip_engine_run+0x2e4>
-			if (lcount>500)
+			if (lcount>330)
  8008a7a:	4bad      	ldr	r3, [pc, #692]	; (8008d30 <fx_pwm_strip_engine_run+0x300>)
  8008a7c:	681b      	ldr	r3, [r3, #0]
- 8008a7e:	f5b3 7ffa 	cmp.w	r3, #500	; 0x1f4
+ 8008a7e:	f5b3 7fa5 	cmp.w	r3, #330	; 0x14a
  8008a82:	d915      	bls.n	8008ab0 <fx_pwm_strip_engine_run+0x80>
 				set_pwm_light(9, 0);
  8008a84:	2100      	movs	r1, #0
@@ -20699,8 +20699,8 @@ t_fx_result fx_pwm_strip_engine_run(t_fx_state state,uint32_t framecount,const u
  8008a8e:	6813      	ldr	r3, [r2, #0]
  8008a90:	3301      	adds	r3, #1
  8008a92:	6013      	str	r3, [r2, #0]
-			if (lcount>520)
- 8008a94:	f5b3 7f02 	cmp.w	r3, #520	; 0x208
+			if (lcount>350)
+ 8008a94:	f5b3 7faf 	cmp.w	r3, #350	; 0x15e
  8008a98:	d902      	bls.n	8008aa0 <fx_pwm_strip_engine_run+0x70>
 				lcount = 0;
  8008a9a:	4613      	mov	r3, r2

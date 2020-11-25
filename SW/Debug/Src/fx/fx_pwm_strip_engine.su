@@ -1,0 +1,2 @@
+fx_pwm_strip_engine.c:23:13:fx_pwm_strip_engine_run	40	static
+fx_pwm_strip_engine.c:15:6:fx_pwm_strip_engine	8	static

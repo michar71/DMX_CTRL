@@ -101,6 +101,11 @@ uint8_t scale256(uint8_t val, uint8_t scale)
 	return (uint8_t)(((uint16_t)val * (uint16_t)scale)>>8);
 }
 
+uint16_t scale_full(uint16_t in,uint16_t in_max, uint16_t in_min, uint16_t out_max, uint16_t out_min)
+{
+	return (uint16_t) (((uint32_t)(in-in_min)  * (uint32_t)(out_max - out_min))/ (uint32_t)(in_max - in_min) + (uint32_t)out_min);
+}
+
 uint8_t create_rgb_buffer(t_rgb_buf* pbuf, uint16_t size)
 {
 	pbuf->size = 0;
@@ -149,8 +154,14 @@ void fade_rgb_buf(t_rgb_buf* pbuf,uint8_t scale)
 	for (i = 0; i<pbuf->size;i++)
 	{
 		pix[i].r = scale256(pix[i].r, scale);
+		if (pix[i].r < 2)
+			pix[i].r = 0;
 		pix[i].g = scale256(pix[i].g, scale);
+		if (pix[i].g < 2)
+			pix[i].g = 0;
 		pix[i].b = scale256(pix[i].b, scale);
+		if (pix[i].b < 2)
+			pix[i].b = 0;
 	}
 }
 

@@ -9,9 +9,10 @@ fx_api.c:81:6:set_DMX_variable	8	static
 fx_api.c:88:9:get_tigger_val	8	static
 fx_api.c:93:10:millisec	8	static
 fx_api.c:99:9:scale256	0	static
-fx_api.c:104:9:create_rgb_buffer	16	static
-fx_api.c:116:6:destroy_rgb_buffer	8	static
-fx_api.c:121:6:set_buffer_pixel	4	static
-fx_api.c:129:6:set_pixels_from_buf	32	static
-fx_api.c:144:6:fade_rgb_buf	32	static
-fx_api.c:162:10:simple_rnd	20	static
+fx_api.c:104:10:scale_full	4	static
+fx_api.c:109:9:create_rgb_buffer	16	static
+fx_api.c:121:6:destroy_rgb_buffer	8	static
+fx_api.c:126:6:set_buffer_pixel	4	static
+fx_api.c:134:6:set_pixels_from_buf	32	static
+fx_api.c:149:6:fade_rgb_buf	32	static
+fx_api.c:173:10:simple_rnd	20	static

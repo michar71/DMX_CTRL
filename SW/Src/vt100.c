@@ -33,7 +33,7 @@ static const vt100_keycode_t vt100_keycodes[VT100_KEY_MAX] =
 
 static bool is_printable(uint8_t byte)
 {
-    return (byte >= 0x20 && byte <= 0x7E)? true:false;
+    return ((byte >= 0x20) && (byte <= 0x7E))? true:false;
 }
 
 static vt100_key_t find_key(uint8_t * buf, uint8_t len)
@@ -55,7 +55,7 @@ vt100_key_t vt100_process_byte(uint8_t byte)
     static uint8_t cbuf[8] = {0};
     static uint8_t cbuf_idx = 0;
     
-    if (0 == cbuf_idx && true == is_printable(byte))
+    if ((true == is_printable(byte)) && (0 == cbuf_idx))
     {
         return VT100_KEY_PRINTABLE;
     }

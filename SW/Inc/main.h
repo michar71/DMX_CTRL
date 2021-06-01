@@ -63,7 +63,7 @@ extern "C" {
 //Enable USB Support. There are numerous issues with USB support (specifcally that it was working at some point but now it is not...
 //No idea why, could be a framework issue. At the moment this is a global define to remove it completely...)
 //Also saves 16% of RAM...
-#define SUPPORT_USB
+//#define SUPPORT_USB
 //#define ENABLE_WATCHDOG
 
 /* USER CODE END EM */

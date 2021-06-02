@@ -133,7 +133,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		{
 			//On every incoming start packet we invert the LED to signal incoming data
 			msg_cnt++;
-			if (msg_cnt == 44)
+			if (msg_cnt == 44)  //invert it only once every 44 packets = 1 sec...
 			{
 				msg_cnt = 0;
 				led_status =!led_status;

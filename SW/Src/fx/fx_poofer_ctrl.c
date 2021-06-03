@@ -39,8 +39,11 @@ t_fx_result fx_pwm_poofer_run(t_fx_state state,uint32_t framecount,const uint32_
 	{
 		case FX_INIT:
 			last_ms = millisec();
+
+			//Stop DMX register updating PWM registers as it interferes
+			disable_DMX_light_Update(true);
 			//Mak Sure Poofer is off
-			set_pwm_light(0, 0);
+			set_pwm_direct(0,0,0);
 			return FX_OK;
 		case FX_RUN:
 			//Check if the poofer is activated
@@ -49,7 +52,7 @@ t_fx_result fx_pwm_poofer_run(t_fx_state state,uint32_t framecount,const uint32_
 			if (var == 0)
 			{
 				running = 0;
-				set_pwm_light(0, 0);
+				set_pwm_direct(0,0,0);
 				poofer_state = STATE_OFF;
 				return FX_RUNNING;
 			}
@@ -61,14 +64,14 @@ t_fx_result fx_pwm_poofer_run(t_fx_state state,uint32_t framecount,const uint32_
 			if (var == 0)
 			{
 				running = 1;
-				set_pwm_light(0, 255);
+				set_pwm_direct(0,0,65535);
 				return FX_RUNNING;
 			}
 			else if ((var == 1) || (var == 2))  //Short/Long
 			{
 				if (poofer_state == STATE_OFF)
 				{
-					set_pwm_light(0, 0);
+					set_pwm_direct(0,0,0);
 					if (running == 1)
 					{
 						return FX_RUNNING;
@@ -85,25 +88,25 @@ t_fx_result fx_pwm_poofer_run(t_fx_state state,uint32_t framecount,const uint32_
 					//Get Time in MS
 					last_ms = millisec();
 					//Tuirn on poofer
-					set_pwm_light(0, 255);
+					set_pwm_direct(0,0,65535);
 					//Set Next State
 					poofer_state = STATE_T1;
 				}
 				else if (poofer_state == STATE_T1)
 				{
+					set_pwm_direct(0,0,0);
 					if (millisec() >= (last_ms + (v1*10)))
 					{
-						//Turn off poofer
-						set_pwm_light(0, 0);
+						//Turn off poofer					
 						poofer_state = STATE_T2;
 					}
 				}
 				else if (poofer_state == STATE_T2)
 				{
+					set_pwm_direct(0,0,65535);
 					if (millisec() >= (last_ms + (v1*10) + (v2*10)))
 					{
-						//Turn off poofer
-						set_pwm_light(0, 255);
+						//Turn off poofer		
 						if (var == 1)
 							poofer_state = STATE_T3;
 						else
@@ -112,17 +115,17 @@ t_fx_result fx_pwm_poofer_run(t_fx_state state,uint32_t framecount,const uint32_
 				}
 				else if (poofer_state == STATE_T3)
 				{
+					set_pwm_direct(0,0,0);
 					if (millisec() >= (last_ms + (v1*10) + (v2*10) + (v3*10)))
 					{
-						//Turn off poofer
-						set_pwm_light(0, 0);
+						//Turn off poofer			
 						poofer_state = STATE_WAIT_RESET;
 					}
 				}
 				else if (poofer_state == STATE_WAIT_RESET)
 				{
 					//Turn off poofer
-					set_pwm_light(0, 0);
+					set_pwm_direct(0,0,0);
 				}
 			}
 
@@ -130,7 +133,9 @@ t_fx_result fx_pwm_poofer_run(t_fx_state state,uint32_t framecount,const uint32_
 		case FX_END:
 			running = 0;
 			poofer_state = STATE_OFF;
-			set_pwm_light(0, 0);
+			set_pwm_direct(0,0,0);
+			//enable DMX register updating PWM registers 
+			disable_DMX_light_Update(false);			
 			return FX_COMPLETED;
 		case FX_DONE:
 			break;

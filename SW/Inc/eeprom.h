@@ -8,6 +8,12 @@
 #define   _EEPROM_F1_MEDIUM_DESTINY
 //#define   _EEPROM_F1_HIGH_DESTINY
 
+#ifdef ASSUME_128KB
+    #define     _EEPROM_USE_FLASH_PAGE              127
+#else
+    #define     _EEPROM_USE_FLASH_PAGE              63
+#endif
+
 #ifdef  _EEPROM_F1_LOW_DESTINY
 #define		_EEPROM_FLASH_PAGE_SIZE								1024
 /* Base address of the Flash sectors */
@@ -40,7 +46,9 @@
 #endif
 #endif
 
-#define     _EEPROM_USE_FLASH_PAGE              63
+
+
+
 
 //Support individual Address write. This requires one Page of Ram for temporary storage...
 //#define INDIVIDUAL_ADDR_WRITE

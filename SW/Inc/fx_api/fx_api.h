@@ -95,11 +95,18 @@ uint8_t check_custom_frame_delay(uint32_t* count, uint32_t delay);
 //Set Light by index (0..9)
 void set_pwm_light(uint8_t index, uint8_t val);
 
+//Set PWM Direct
+void set_pwm_direct(uint8_t id, uint8_t ch, uint16_t val);
+
 //Set RGB lights by channel (0..2)
 void set_pwm_timer_channel(uint8_t ch, uint8_t r, uint8_t g, uint8_t b);
 
 //Set Overall Brightness
 void set_pwm_brightness(uint8_t val);
+
+//Disable PWM updates of color channels through DMX registers.
+//This should be used ofr effects that need to take control of the PWM values directly.
+void disable_DMX_light_Update(uint8_t val);
 
 //DMX Specific Functions
 //----------------------

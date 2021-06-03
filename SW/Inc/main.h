@@ -65,6 +65,7 @@ extern "C" {
 //Also saves 16% of RAM...
 //#define SUPPORT_USB
 //#define ENABLE_WATCHDOG
+//#define ASSUME_128KB
 
 /* USER CODE END EM */
 

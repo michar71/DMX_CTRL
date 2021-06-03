@@ -29,5 +29,6 @@ typedef enum{
 void init_timers(void);
 void PWM_Timer_Init(pwmtimerid_t ID);
 void configPWM(pwmtimerid_t ID,pwmchid_t channel, uint16_t duty);
+void setPWMdirect(uint8_t id, uint8_t ch, uint16_t val);
 
 #endif /* PWM_CONTROL_H_ */

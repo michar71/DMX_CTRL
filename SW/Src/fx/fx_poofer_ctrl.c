@@ -11,6 +11,7 @@
 #define STATE_T1 2
 #define STATE_T2 3
 #define STATE_T3 4
+#define STATE_WAIT_RESET 5
 
 
 static const s_fx_param param = {STRIP_FX,MODE_CONTINOUS,0,"POOFER",0,fx_pwm_poofer_run};
@@ -106,7 +107,7 @@ t_fx_result fx_pwm_poofer_run(t_fx_state state,uint32_t framecount,const uint32_
 						if (var == 1)
 							poofer_state = STATE_T3;
 						else
-							poofer_state = STATE_START;
+							poofer_state = STATE_WAIT_RESET;
 					}
 				}
 				else if (poofer_state == STATE_T3)
@@ -115,9 +116,13 @@ t_fx_result fx_pwm_poofer_run(t_fx_state state,uint32_t framecount,const uint32_
 					{
 						//Turn off poofer
 						set_pwm_light(0, 0);
-						poofer_state = STATE_OFF;
-						set_reg(15,0);
+						poofer_state = STATE_WAIT_RESET;
 					}
+				}
+				else if (poofer_state == STATE_WAIT_RESET)
+				{
+					//Turn off poofer
+					set_pwm_light(0, 0);
 				}
 			}
 

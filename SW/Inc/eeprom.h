@@ -40,7 +40,7 @@
 #endif
 #endif
 
-#define     _EEPROM_USE_FLASH_PAGE              127
+#define     _EEPROM_USE_FLASH_PAGE              63
 
 //Support individual Address write. This requires one Page of Ram for temporary storage...
 //#define INDIVIDUAL_ADDR_WRITE

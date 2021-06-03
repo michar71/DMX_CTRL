@@ -80,7 +80,8 @@ USB does not seem to work on my clones but I need to further test that....
 Here is another description how to fix it in STM32CubeIDE for openOCD debugging:
 https://community.st.com/s/question/0D50X0000BTd7Zi/how-to-deal-wirh-could-not-verify-st-device-
 
-Update: Not all make fake chips have 128 kB, some only have 64 kB. At that point the FW can not write the configruation to page 127... Change the EEPROM page in eeprom.h from 127 to 63 and modifiy the .id file to reflect the smaller FLASH size. (Less effects will obviously fit in there....)
+Update: Not all fake chips have 128 kB, some only have 64 kB. At that point the FW can not write the configruation to page 127... This will causee a Hardware Fault. Change the EEPROM page in eeprom.h from 127 to 63 and modifiy the .id file to reflect the smaller FLASH size. (Less effects will obviously fit in there....)
+I should probably figure out a way to detect flashsize automatically.....
 
 ## Serial Shell
 [List of Serial Shell Commands](SHELL_COMMANDS.md)

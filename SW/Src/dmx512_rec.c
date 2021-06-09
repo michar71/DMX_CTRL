@@ -59,6 +59,7 @@ static volatile uint8_t msg_cnt = 0;
 //Missing Features
 //Event at end of data
 //DMX512 Master Support
+//Timeout on Loss of Communication
 
 
 
@@ -144,6 +145,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 			dmx_error = 0;
 			byte_count = 0;
 			start_flag = 0;
+			last_packet_ms = HAL_GetTick();
 
 			/* first byte determines packet type */
 			switch (rx_byte)

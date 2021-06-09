@@ -67,6 +67,10 @@ extern "C" {
 //#define ENABLE_WATCHDOG
 //#define ASSUME_128KB
 
+//Comm Timeout in ms.. Set to 0 to disable
+#define COMM_TIMEOUT 5000
+
+
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/

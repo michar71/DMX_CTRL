@@ -27,20 +27,14 @@ void reset_frame_delay(void)
 //Returns true if "delay" frames have passed, else false
 uint8_t check_frame_delay(uint32_t delay)
 {
-	if (delay == delay_count)
-	{
-		delay_count = 0;
-		return 1;
-	}
-	delay_count++;
-	return 0;
+	return check_custom_frame_delay(&delay_count, delay);
 }
 
 
 //Custom Delay with on Variable
 uint8_t check_custom_frame_delay(uint32_t* count, uint32_t delay)
 {
-	if (delay == *count)
+	if (*count >= delay)
 	{
 		*count = 0;
 		return 1;

@@ -8,7 +8,7 @@
 
 
 float cnt = 0;
-uint32_t step = 0;
+uint8_t step = 0;
 static const s_fx_param param1 = {PWM_FX,MODE_CONTINOUS,0,"PSENG",0,fx_pwm_strip_engine_run};
 const uint32_t colval[6] = {0x00FF0000,0x0000FF00,0x000000FF,0x00FFFF00, 0x0000FFFF,0x00FF00FF};
 
@@ -93,20 +93,19 @@ t_fx_result fx_pwm_strip_engine_run(t_fx_state state,uint32_t framecount,const u
 			set_pwm_light(7, (uint8_t)(s3 * (float)(rbcol>>8&0xFF)));
 			set_pwm_light(8, (uint8_t)(s3 * (float)(rbcol&0xFF)));
 
-
-
 			step++;
-			if (step==256)
-				step = 0;
+
+			//Fade all pixels
+			fade_rgb_buf(&buf,200);
 
 			//Set random pixel to random color
 			loc = simple_rnd();
 			loc = scale_full(loc>>16,0xFFFF, 0, 8*14, 0);
 			colsel = simple_rnd();
 			colsel = scale_full(colsel>>16,0xFFFF, 0, 5, 0);
-
 			set_buffer_pixel(&buf,loc, colval[colsel]>>16 & 0xFF, colval[colsel]>>8 & 0xFF, colval[colsel] & 0xFF);
-			fade_rgb_buf(&buf,200);
+
+			//Copy buffer to pixels
 			set_pixels_from_buf(CH1,&buf);
 
 

@@ -22,7 +22,7 @@
 //STRIP1_PATTERN    0 = Forward, 1 = Reverse
 //STRIP1_V1         Hue
 //STRIP1_V2         Color Shift/Lag
-//STRIP1_V3         AMP_DIV
+//STRIP1_V3         AMP_D
 
 
 void fx_pwm_strip_engine(uint8_t fx_num);

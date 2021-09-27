@@ -8,6 +8,7 @@
 #include "pwm_control.h"
 #include <stm32f1xx.h>
 #include "triggers.h"
+#include"light_update.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -48,6 +49,12 @@ uint8_t check_custom_frame_delay(uint32_t* count, uint32_t delay)
 void set_pwm_light(uint8_t index, uint8_t val)
 {
 	set_reg(index+1, val);
+}
+
+//Set PWM Value direct
+void set_pwm_direct(uint8_t id, uint8_t ch, uint16_t val)
+{
+	setPWMdirect(id, ch, val);
 }
 
 //Set RGB lights by channel (0..2)
@@ -169,4 +176,9 @@ uint32_t simple_rnd()
    x *= x;
    x += (w += s);
    return x = (x>>32) | (x<<32);
+}
+
+void disable_DMX_light_Update(uint8_t val)
+{
+	disableDMXlightUpdate(val);
 }

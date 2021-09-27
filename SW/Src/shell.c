@@ -235,12 +235,13 @@ static void process_shell_cmd(void)
                 {
                     print(shell_cmd_list[i].desc);
                 }
+                goto exit;
             }
         }
         if (i == SHELL_CMD_NUM)
          print("???");
     }
-    
+    exit:
     cmd_buf_reset();
 }
 

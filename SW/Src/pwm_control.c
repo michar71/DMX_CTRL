@@ -132,3 +132,8 @@ void configPWM(pwmtimerid_t ID,pwmchid_t channel, uint16_t duty)
 	  }
 }
 
+
+void setPWMdirect(uint8_t id, uint8_t ch, uint16_t val)
+{
+	configPWM((pwmtimerid_t)id,(pwmchid_t)ch, (uint16_t)val);
+}

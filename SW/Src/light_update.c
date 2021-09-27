@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+uint8_t blockupdate = false;
 uint16_t brightness_scale = 0;
 static uint8_t* reg_shadow;
 //Create/Init shadow registers
@@ -70,6 +71,8 @@ uint16_t scale_value( uint8_t val,int16_t offset, int16_t gain, t_gammactrl gamm
 //We only update parameters that have changed otherwise we might have waveform-artifacts...
 void update_pwm_lights(uint8_t force)
 {
+	if (blockupdate)
+	  return;
 
 	//Check if global brightness has changed and scale value
 	if ((reg_shadow[MAX_BRIGHTNESS])!= get_reg(MAX_BRIGHTNESS) || force)
@@ -159,4 +162,10 @@ void update_fx(void)
 			reg_shadow[FX_SELECT] = val;
 		}
 	}
+}
+
+
+void disableDMXlightUpdate(uint8_t val)
+{
+	blockupdate = val;
 }

@@ -451,15 +451,18 @@ static int shell_cmd_switchuartmode(int argc, char ** argv)
 
 static int shell_cmd_currentfps(int argc, char ** argv)
 {
-	print("Current FPS: %.2f",(float)1/(float)frame_ms);
+	if (frame_ms != 0)
+	{
+		print("Current FPS: %d",(uint16_t)((float)1000/(float)frame_ms));
+	}
 	return 1;
 }
 
 static int shell_cmd_settargetfps(int argc, char ** argv)
 {
-	if (argc == 2)
+	if (argc == 1)
 	{
-		settings.frame_ms_target =  atoi(argv[1]);
+		settings.frame_ms_target =  1000/atoi(argv[1]);
 	}
 	else
 	{

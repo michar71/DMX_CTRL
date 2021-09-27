@@ -169,6 +169,7 @@ void print_settings(void)
 	print("-------");
 	//FX Multiplier
 	print("FX Multiplier: %d",settings.fx_multiplier);
+	print("Target FPS: %d",settings.frame_ms_target);
 	//Strips
 	print("Strip 1 Length: %d",settings.strip1_length);
 	print("Strip 2 Length: %d",settings.strip2_length);

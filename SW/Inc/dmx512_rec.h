@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 
-
+static volatile uint32_t last_packet_ms = 0;
 
 enum packet_type {
 	DATA_PACKET = 0,

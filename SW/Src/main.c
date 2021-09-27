@@ -87,6 +87,7 @@ uint32_t frame_ms;
 #define RX_BUFF_SIZE 128
 rb_att_t rx_buff_dmx;
 rb_att_t rx_buff_shell;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -291,7 +292,7 @@ int main(void)
   //Shell is ready....
   print_no_newline("DBG>");
 
-  //Getr first frame time
+  //Get first frame time
   last_frame_ms = HAL_GetTick();
 
   //Turn LED off at completion of init
@@ -326,6 +327,13 @@ int main(void)
 	//Calulate framerate
 	frame_ms = current_frame_ms - last_frame_ms;
 	last_frame_ms = current_frame_ms;
+
+  //Check for Comm Timeout
+  if ((COMM_TIMEOUT != 0) && (frame_ms > (last_packet_ms + COMM_TIMEOUT))) 
+  {
+    //Lets reset Registers to defaults....
+    apply_settings();
+  }
 
 	if (testmode)
 	{

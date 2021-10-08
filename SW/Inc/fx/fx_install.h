@@ -16,6 +16,7 @@
 #include "fx_strip_cylon.h"
 #include "fx_pwm_strip_engine.h"
 #include "fx_poofer_ctrl.h"
+#include "fx_incandescent_ctrl.h"
 
 void fx_install(void)
 {
@@ -29,6 +30,7 @@ void fx_install(void)
     fx_strip_cylon(0);
     fx_pwm_strip_engine(0);
     fx_pwm_poofer(0);
+    fx_pwm_incandescent(0);
 }
 
 #endif /* FX_INSTALL_H_ */

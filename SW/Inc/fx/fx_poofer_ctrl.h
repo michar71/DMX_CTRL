@@ -15,12 +15,7 @@
 
 //Variables Used
 //--------------
-//STRIP1_PATTERN    Poofer Mode: 0 = Manual, 1 = Small/Large, 2 = Pulsed
-//STRIP1_SPEED		Overall Speed
-//STRIP1_COMPLEXITY 0 = Off, 1 = On (For manual it just turns it on/off)
-//STRIP1_V1		    Pulse 1 Length
-//STRIP1_V2         Pulse Gap
-//STRIP1_V3         Pulse 2 Length
+//STRIP1_COMPLEXITY 0 = poffrer on, every other code = poofer of
 
 void fx_pwm_poofer(uint8_t fx_num);
 t_fx_result fx_pwm_poofer_run(t_fx_state state,uint32_t framecount,const uint32_t duration);

@@ -9,6 +9,7 @@
 #include "settings.h"
 #include "triggers.h"
 #include "gammactrl.h"
+#include <stm32f1xx.h>
 
 
 extern int UART_mode_SERIAL;
@@ -37,6 +38,7 @@ static int shell_cmd_setuartmode(int argc, char ** argv);
 static int shell_cmd_switchuartmode(int argc, char ** argv);
 static int shell_cmd_currentfps(int argc, char ** argv);
 static int shell_cmd_settargetfps(int argc, char ** argv);
+static int shell_cmd_timerinit(int argc, char ** argv);
 
 /* to be consumed in shell.c only */
 const shell_cmd_t shell_cmd_list[] = {
@@ -62,6 +64,7 @@ const shell_cmd_t shell_cmd_list[] = {
 	{"switchuartmode",   "switchuartmode [0 = Serial, 1 = USB]\n\r",shell_cmd_switchuartmode},
 	{"currentfps",   "currentfps\n\r",shell_cmd_currentfps},
 	{"targetfps",   "targetfps [Target Frame Duration in Millisec]\n\r",shell_cmd_settargetfps},
+	{"pwmtimerinit",   "pwmtimerinit [id (0..2)] [prediv] [pwmmax] [clockdiv]\n\r",shell_cmd_timerinit},
 };
 
 const int SHELL_CMD_NUM = sizeof(shell_cmd_list)/sizeof(shell_cmd_t);
@@ -471,3 +474,34 @@ static int shell_cmd_settargetfps(int argc, char ** argv)
 	return 1;
 }
 
+
+static int shell_cmd_timerinit(int argc, char ** argv)
+{
+
+	uint32_t div;
+
+
+
+	if (argc == 4)
+	{
+		switch (atoi(argv[4]))
+		{
+		case 4:
+			div = TIM_CLOCKDIVISION_DIV4;
+			break;
+		case 2:
+			div = TIM_CLOCKDIVISION_DIV2;
+			break;
+		default:
+			div = TIM_CLOCKDIVISION_DIV1;
+			break;
+		}
+		PWM_Timer_Init((pwmtimerid_t) atoi(argv[1]),atoi(argv[2]),atoi(argv[3]),div,1);
+
+	}
+	else
+	{
+		return 0;
+	}
+	return 1;
+}

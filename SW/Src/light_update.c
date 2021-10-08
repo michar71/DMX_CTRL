@@ -39,9 +39,10 @@ uint16_t scale_value( uint8_t val,int16_t offset, int16_t gain, t_gammactrl gamm
 {
 	int32_t res = 0;
 	uint8_t gamma = 0;
+	uint32_t maxpwm = getMaxPWM();
 	//1) Scale input between 0 and max
-	res = ((uint32_t)val * (uint32_t) MAX_PWM)/(uint32_t)255;
-	res = (res * (uint32_t)brightness_scale) / (uint32_t) MAX_PWM;
+	res = ((uint32_t)val * getMaxPWM())/(uint32_t)255;
+	res = (res * (uint32_t)brightness_scale) /maxpwm;
 
 	//Subtract offset
 	res = res - offset;
@@ -62,8 +63,8 @@ uint16_t scale_value( uint8_t val,int16_t offset, int16_t gain, t_gammactrl gamm
 	//Limit output to valid range
 	if (res<0)
 		res = 0;
-	if (res > MAX_PWM)
-		res = MAX_PWM;
+	if (res > maxpwm)
+		res = maxpwm;
 	return res;
 }
 
@@ -77,7 +78,7 @@ void update_pwm_lights(uint8_t force)
 	//Check if global brightness has changed and scale value
 	if ((reg_shadow[MAX_BRIGHTNESS])!= get_reg(MAX_BRIGHTNESS) || force)
 	{
-		brightness_scale = ((uint32_t)get_reg(MAX_BRIGHTNESS) * (uint32_t) MAX_PWM)/(uint32_t)255;
+		brightness_scale = ((uint32_t)get_reg(MAX_BRIGHTNESS) * getMaxPWM())/(uint32_t)255;
 		//After a brightness update we need to update all the over PWM outputs
 		force = 1;
 		reg_shadow[MAX_BRIGHTNESS] = get_reg(MAX_BRIGHTNESS);

@@ -1,4 +1,5 @@
-light_update.c:37:10:scale_value	24	static
-light_update.c:71:6:update_pwm_lights	16	static
-light_update.c:19:6:init_update_lights	16	static
-light_update.c:146:6:update_fx	8	static
+light_update.c:38:10:scale_value	32	static
+light_update.c:73:6:update_pwm_lights	16	static
+light_update.c:20:6:init_update_lights	16	static
+light_update.c:150:6:update_fx	8	static
+light_update.c:169:6:disableDMXlightUpdate	0	static

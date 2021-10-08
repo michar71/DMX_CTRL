@@ -54,7 +54,7 @@ uint8_t process_testmode(void)
 			cnt = STEP_CNT;
 			//Set PWM's
 			lights_off();
-			configPWM(states[state].id,states[state].ch, MAX_PWM);
+			configPWM(states[state].id,states[state].ch, getMaxPWM());
 			state++;
 			if (state == STATE_CNT)
 				state = 0;

@@ -19,9 +19,13 @@ const uint32_t channelinfo[3][4] = {{TIM_CHANNEL_2,TIM_CHANNEL_3,TIM_CHANNEL_4,2
 									{TIM_CHANNEL_1,TIM_CHANNEL_2,TIM_CHANNEL_3,255},
 		                            {TIM_CHANNEL_1,TIM_CHANNEL_2,TIM_CHANNEL_3,TIM_CHANNEL_4}};
 		
+//1076
 
-
-
+#define MAX_PWM 60000
+const uint32_t pwm = MAX_PWM;  //1067
+const uint32_t div = TIM_CLOCKDIVISION_DIV1;//TIM_CLOCKDIVISION_DIV1
+const uint32_t pre = 2;//1
+uint32_t maxPWM = MAX_PWM;
 
 void init_timers(void)
 {
@@ -31,12 +35,12 @@ void init_timers(void)
 	__HAL_RCC_TIM3_CLK_ENABLE();
 
 	//Init Timers as PWM
-	PWM_Timer_Init(PWM_CH1);
-	PWM_Timer_Init(PWM_CH2);
-	PWM_Timer_Init(PWM_CH3);
+	PWM_Timer_Init(PWM_CH1,pre,pwm,div,0);
+	PWM_Timer_Init(PWM_CH2,pre,pwm,div,0);
+	PWM_Timer_Init(PWM_CH3,pre,pwm,div,0);
 }
 
-void PWM_Timer_Init(pwmtimerid_t ID)
+void PWM_Timer_Init(pwmtimerid_t ID,uint32_t prescaler,uint32_t pwm_max, uint32_t clockdiv, uint32_t reinit)
 {
 
 	  TIM_MasterConfigTypeDef sMasterConfig;
@@ -46,6 +50,8 @@ void PWM_Timer_Init(pwmtimerid_t ID)
 	  memset(&sConfigOC, 0, sizeof(sConfigOC));
 	  memset(&sMasterConfig, 0, sizeof(sMasterConfig));
 	  memset(&sClockSourceConfig, 0, sizeof(sClockSourceConfig));
+
+	  maxPWM = pwm_max;
 
 	  switch(ID)
 	  {
@@ -60,10 +66,10 @@ void PWM_Timer_Init(pwmtimerid_t ID)
 		  break;
 	  }
 
-	  timerinfo[(uint8_t)ID].Init.Prescaler = 0;
+	  timerinfo[(uint8_t)ID].Init.Prescaler = prescaler;
 	  timerinfo[(uint8_t)ID].Init.CounterMode = TIM_COUNTERMODE_UP;
-	  timerinfo[(uint8_t)ID].Init.Period = 1066; //TBD....
-	  timerinfo[(uint8_t)ID].Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+	  timerinfo[(uint8_t)ID].Init.Period = maxPWM-1;
+	  timerinfo[(uint8_t)ID].Init.ClockDivision = clockdiv;
 	  timerinfo[(uint8_t)ID].Init.RepetitionCounter = 0;
 	  if (HAL_TIM_Base_Init(&timerinfo[(uint8_t)ID]) != HAL_OK)/* to use the Timer to generate a simple time base for TIM1 */
 	  {
@@ -83,10 +89,12 @@ void PWM_Timer_Init(pwmtimerid_t ID)
 		  print("Timer Init Error 3");
 	  }
 
+	  if (reinit != 0)
+		  return;
 
 	  sConfigOC.OCMode = TIM_OCMODE_PWM1;
 	  sConfigOC.OCIdleState = TIM_OCIDLESTATE_SET;
-	  sConfigOC.Pulse = MAX_PWM/2; /* 50% duty cycle is 538, set to 0 initially*///
+	  sConfigOC.Pulse = maxPWM/2; /* 50% duty cycle is 538, set to 0 initially*///
 	  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
 	  sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
 	  sConfigOC.OCFastMode = TIM_OCFAST_ENABLE;
@@ -136,4 +144,10 @@ void configPWM(pwmtimerid_t ID,pwmchid_t channel, uint16_t duty)
 void setPWMdirect(uint8_t id, uint8_t ch, uint16_t val)
 {
 	configPWM((pwmtimerid_t)id,(pwmchid_t)ch, (uint16_t)val);
+}
+
+
+uint32_t getMaxPWM(void)
+{
+	return maxPWM;
 }

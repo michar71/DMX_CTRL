@@ -1,0 +1,2 @@
+fx_incandescent_ctrl.c:19:13:fx_pwm_incandescent_run	16	static
+fx_incandescent_ctrl.c:12:6:fx_pwm_incandescent	8	static

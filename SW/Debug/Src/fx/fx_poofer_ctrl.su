@@ -1,0 +1,2 @@
+fx_poofer_ctrl.c:21:13:fx_pwm_poofer_run	8	static
+fx_poofer_ctrl.c:12:6:fx_pwm_poofer	8	static

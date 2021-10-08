@@ -1,3 +1,5 @@
-pwm_control.c:39:6:PWM_Timer_Init	80	static
-pwm_control.c:26:6:init_timers	24	static
-pwm_control.c:127:6:configPWM	0	static
+pwm_control.c:43:6:PWM_Timer_Init	80	static
+pwm_control.c:30:6:init_timers	32	static
+pwm_control.c:135:6:configPWM	0	static
+pwm_control.c:144:6:setPWMdirect	8	static
+pwm_control.c:150:10:getMaxPWM	0	static

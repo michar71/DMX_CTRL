@@ -7,7 +7,7 @@
 
 
 
-static const s_fx_param param = {STRIP_FX,MODE_CONTINOUS,0,"POOFER",0,fx_pwm_poofer_run};
+static const s_fx_param param = {PWM_FX,MODE_CONTINOUS,0,"POOFER",0,fx_pwm_poofer_run};
 
 void fx_pwm_poofer(uint8_t fx_num)
 {

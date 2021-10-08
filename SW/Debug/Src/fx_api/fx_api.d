@@ -31,7 +31,8 @@ Src/fx_api/fx_api.o: ../Src/fx_api/fx_api.c ../Inc/fx_api/fx_api.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h \
- ../Inc/gammactrl.h ../Inc/pwm_control.h ../Inc/triggers.h
+ ../Inc/gammactrl.h ../Inc/pwm_control.h ../Inc/triggers.h \
+ ../Inc/light_update.h ../Inc/gammactrl.h
 
 ../Inc/fx_api/fx_api.h:
 
@@ -108,3 +109,7 @@ Src/fx_api/fx_api.o: ../Src/fx_api/fx_api.c ../Inc/fx_api/fx_api.h \
 ../Inc/pwm_control.h:
 
 ../Inc/triggers.h:
+
+../Inc/light_update.h:
+
+../Inc/gammactrl.h:

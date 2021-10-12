@@ -29,14 +29,16 @@ t_fx_result fx_pwm_incandescent_run(t_fx_state state,uint32_t framecount,const u
 			disable_DMX_light_Update(true);
 			//Make Sure Poofer is off
 			set_pwm_direct(0,0,0);
+			set_DMX_variable(STRIP1_COMPLEXITY, 16);
+			set_DMX_variable(STRIP1_SPEED, 1);
 			return FX_OK;
 		case FX_RUN:
 			//Check if there is no pending event
 			if ((event_cnt == 0) && (dur_cnt == 0))
 			{
 				//generate duration
-				dur_cnt = simple_rnd();
-				dur_cnt = dur_cnt / (get_DMX_variable(STRIP1_COMPLEXITY)*255);
+				dur_cnt = simple_rnd()>>24;
+				dur_cnt = dur_cnt / (get_DMX_variable(STRIP1_COMPLEXITY)+1);
 				enabled = 1;
 
 				//generate next event count
@@ -47,8 +49,8 @@ t_fx_result fx_pwm_incandescent_run(t_fx_state state,uint32_t framecount,const u
 				dur_cnt--;
 				if (dur_cnt == 0)
 				{
-					event_cnt = simple_rnd();
-					event_cnt = event_cnt / get_DMX_variable(STRIP1_SPEED);
+					event_cnt = simple_rnd()>>20;
+					event_cnt = event_cnt / (get_DMX_variable(STRIP1_SPEED)+1);
 					enabled = 1;
 				}
 			}
